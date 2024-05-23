@@ -1,0 +1,101 @@
+/* Hero Section */
+.hero {
+  background-color: var(--secondary);
+  height: 620px;
+}
+
+.hero-content {
+  max-width: 700px;
+}
+
+.hero-content h1 {
+  font-size: 58px;
+}
+
+.hero-content p {
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.hero-content button {
+  background-color: var(--primary);
+  color: #fff;
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  width: 260px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* Layanan */
+
+
+/* Dokter */
+
+
+/* Tentang Kami */
+.tentang p {
+  font-size: 20px;
+}
+
+.box.box-tentang {
+  background-color: var(--secondary);
+}
+
+/* FAQs */
+
+
+/* Hubungi Kami */
+
+@media (min-width: 640px) {
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .hero-content p {
+        font-size: 1.125rem;
+    }
+
+    .hero-content button {
+        font-size: 1.125rem;
+    }
+
+    .hero-image img {
+      max-width: 300px;
+    }
+}
+
+@media (min-width: 768px) {
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-content p {
+        font-size: 1.25rem;
+    }
+
+    .hero-content button {
+        font-size: 1.25rem;
+    }
+
+    .hero-image img {
+      max-width: 450px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .hero-content h1 {
+        font-size: 3rem;
+    }
+
+    .hero-content p {
+        font-size: 1.5rem;
+    }
+
+    .hero-image img {
+      max-width: 550px;
+    }
+}

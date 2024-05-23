@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+:root {
+    --primary: #34A2DB;
+    --secondary: #EBFAFF;
+    --tertiary: #D9F0FE;
+    --other: #576D7A;
+}
