@@ -6,7 +6,7 @@ import Footer from "../components/Footer/Footer";
 function DasboardPasien() {
   return (
     <>
-      <div className="h-fit my-4 px-14 flex flex-row">
+      <div className="h-screen my-4 px-14 flex flex-row">
         <aside className=" w-1/5 mr-4  border-r-2 hidden lg:block">
           <Sidebar />
         </aside>
