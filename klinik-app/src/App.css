@@ -7,12 +7,14 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 :root {
-    --primary: #34A2DB;
-    --secondary: #EBFAFF;
-    --tertiary: #D9F0FE;
-    --other: #576D7A;
+  --primary: #34a2db;
+  --secondary: #ebfaff;
+  --tertiary: #d9f0fe;
+  --other: #576d7a;
+  --other1: #29546d;
+  --other2: #dadada;
 }
