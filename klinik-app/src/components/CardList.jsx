@@ -6,7 +6,7 @@ function CardList(props) {
 
   return (
     <>
-      <div className="w-40 lg:w-44 h-auto rounded-lg overflow-hidden">
+      <div className="w-32 lg:w-48 h-auto rounded-lg overflow-hidden">
         <img src={Profile1} className="rounded-lg w-full h-auto" />
 
         <p className="text-sm lg:text-lg py-3 ">Dr. Ahmad Priatama, Sp.A</p>
