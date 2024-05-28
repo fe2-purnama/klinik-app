@@ -1,13 +1,6 @@
 import React, { useState } from "react";
 import CardList from "../components/CardList";
 import ButtonGroup from "../components/ButtonGroup";
-import IcoAll from "../assets/dotmenu.png";
-import IcoAnak from "../assets/child.png";
-import IcoParu from "../assets/paru.png";
-import IcoLambung from "../assets/lambung.png";
-import IcoMata from "../assets/eye.png";
-import IcoJantung from "../assets/jantung.png";
-import IcoTHT from "../assets/ear.png";
 
 function ListDokter() {
   const [filter, setFilter] = useState("all");
@@ -22,38 +15,45 @@ function ListDokter() {
           <h1 className="text-xl lg:text-2xl font-semibold">Spesialisasi</h1>
           <div className="py-6 flex flex-row gap-2 lg:gap-4 overflow-x-auto items-center justify-evenly">
             <ButtonGroup
-              img={IcoAll}
+              img="fa-grip"
               title="Semua Dokter"
+              isSelected={filter === "all"}
               onClick={() => handleFilter("all")}
             />
             <ButtonGroup
-              img={IcoAnak}
+              img="fa-child"
               title="Kesehatan Anak"
+              isSelected={filter === "anak"}
               onClick={() => handleFilter("anak")}
             />
             <ButtonGroup
-              img={IcoParu}
+              img="fa-lungs"
               title="Paru-paru"
+              isSelected={filter === "paru-paru"}
               onClick={() => handleFilter("paru-paru")}
             />
             <ButtonGroup
-              img={IcoLambung}
+              img="fa-stomach"
               title="Lambung"
+              isSelected={filter === "lambung"}
               onClick={() => handleFilter("lambung")}
             />
             <ButtonGroup
-              img={IcoMata}
+              img="fa-eye"
               title="Mata"
+              isSelected={filter === "mata"}
               onClick={() => handleFilter("mata")}
             />
             <ButtonGroup
-              img={IcoJantung}
+              img="fa-heartbeat"
               title="Jantung"
+              isSelected={filter === "jantung"}
               onClick={() => handleFilter("jantung")}
             />
             <ButtonGroup
-              img={IcoTHT}
+              img="fa-ear"
               title="THT"
+              isSelected={filter === "THT"}
               onClick={() => handleFilter("THT")}
             />
           </div>
