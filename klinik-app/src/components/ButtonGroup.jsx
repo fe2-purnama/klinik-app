@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 function ButtonGroup(props) {
   const { img, title, onClick, isSelected } = props;
