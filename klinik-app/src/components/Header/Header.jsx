@@ -8,10 +8,34 @@ const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
     const location = useLocation();
     const [isHome, setIsHome] = useState(location.pathname === "/");
+    const [activeSection, setActiveSection] = useState('home');
 
     useEffect(() => {
         setIsHome(location.pathname === "/");
     }, [location]);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const sections = ['home', 'layanan', 'dokter', 'tentang', 'faqs', 'hubungi'];
+            const halfWindowHeight = window.innerHeight / 2;
+
+            for (let section of sections) {
+                const element = document.getElementById(section);
+                if (element) {
+                    const rect = element.getBoundingClientRect();
+                    if (rect.top < halfWindowHeight && rect.bottom > halfWindowHeight) {
+                        setActiveSection(section);
+                        break;
+                    }
+                }
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
 
     return (
         <>
@@ -28,26 +52,26 @@ const Header = () => {
                     
                     {/* Menu */}
                     <ul className="nav-links hidden lg:flex space-x-8">
-                        <li>
+                        <li className={activeSection === 'home' ? 'active' : ''}>
                             {isHome ? (
                                 <AnchorLink className='anchor-link' offset={80} href="#home">Home</AnchorLink>
                             ) : (
                                 <Link to="/">Home</Link>
                             )}
                         </li>
-                        <li>
+                        <li className={activeSection === 'layanan' ? 'active' : ''}>
                             <AnchorLink className='anchor-link' offset={120} href="#layanan">Layanan</AnchorLink>
                         </li>
-                        <li>
+                        <li className={activeSection === 'dokter' ? 'active' : ''}>
                             <AnchorLink className='anchor-link' offset={120} href="#dokter">Dokter</AnchorLink>
                         </li>
-                        <li>
+                        <li className={activeSection === 'tentang' ? 'active' : ''}>
                             <AnchorLink className='anchor-link' offset={120} href="#tentang">Tentang</AnchorLink>
                         </li>
-                        <li>
+                        <li className={activeSection === 'faqs' ? 'active' : ''}>
                             <AnchorLink className='anchor-link' offset={120} href="#faqs">FAQs</AnchorLink>
                         </li>
-                        <li>
+                        <li className={activeSection === 'hubungi' ? 'active' : ''}>
                             <AnchorLink className='anchor-link' offset={120} href="#hubungi">Hubungi</AnchorLink>
                         </li>
                         <li>
@@ -71,26 +95,26 @@ const Header = () => {
                     </svg>
                 </button>
                 <ul className="flex flex-col items-start mt-16 space-y-4 pl-8">
-                    <li>
+                    <li className={activeSection === 'home' ? 'active' : ''}>
                         {isHome ? (
                             <AnchorLink className='anchor-link' offset={80} href="#home">Home</AnchorLink>
                         ) : (
                             <Link to="/">Home</Link>
                         )}
                     </li>
-                    <li>
+                    <li className={activeSection === 'layanan' ? 'active' : ''}>
                         <AnchorLink className='anchor-link' offset={120} href="#layanan">Layanan</AnchorLink>
                     </li>
-                    <li>
+                    <li className={activeSection === 'dokter' ? 'active' : ''}>
                         <AnchorLink className='anchor-link' offset={120} href="#dokter">Dokter</AnchorLink>
                     </li>
-                    <li>
+                    <li className={activeSection === 'tentang' ? 'active' : ''}>
                         <AnchorLink className='anchor-link' offset={120} href="#tentang">Tentang</AnchorLink>
                     </li>
-                    <li>
+                    <li className={activeSection === 'faqs' ? 'active' : ''}>
                         <AnchorLink className='anchor-link' offset={120} href="#faqs">FAQs</AnchorLink>
                     </li>
-                    <li>
+                    <li className={activeSection === 'hubungi' ? 'active' : ''}>
                         <AnchorLink className='anchor-link' offset={120} href="#hubungi">Hubungi</AnchorLink>
                     </li>
                     <li>

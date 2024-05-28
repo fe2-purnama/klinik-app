@@ -13,6 +13,12 @@ nav {
     color: var(--other);
 }
 
+.nav-links li:hover,
+.nav-links li.active {
+    color: var(--primary);
+    font-weight: bold;
+}
+
 .logo h1 {
     font-weight: 600;
 }
