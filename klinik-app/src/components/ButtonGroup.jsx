@@ -3,13 +3,6 @@ import React, { useState } from "react";
 function ButtonGroup(props) {
   const { img, title, onClick, isSelected } = props;
 
-  const handleClick = () => {
-    setIsChecked(!isChecked);
-    if (onClick) {
-      onClick();
-    }
-  };
-
   return (
     <label
       className={`flex flex-col items-center justify-center p-4 min-w-24 min-h-28 lg:w-32 lg:h-40 gap-4 rounded-lg cursor-pointer transition-all duration-300 ease-in-out 
