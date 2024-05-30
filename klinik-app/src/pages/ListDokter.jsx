@@ -80,7 +80,7 @@ function ListDokter() {
             <h1 className="text-xl lg:text-2xl font-semibold">
               Dokter Kesehatan Anak
             </h1>
-            <div className="flex flex-row flex-wrap gap-4 lg:gap-7 py-6">
+            <div className="flex flex-row flex-wrap gap-4 lg:gap-5 py-6">
               <CardList />
               <CardList />
               <CardList />
