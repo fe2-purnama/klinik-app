@@ -27,6 +27,7 @@ function FormReservasi() {
               focus:text-gray-700 focus:bg-white focus:border-sky-200 focus:outline-none"
             id="exampleFormControlInput1"
             placeholder="Masukkan Nama Lengkap"
+            required
           />
         </div>
         <div className="input-group">
@@ -51,6 +52,7 @@ function FormReservasi() {
               focus:text-gray-700 focus:bg-white focus:border-sky-200 focus:outline-none"
             id="exampleFormControlInput1"
             placeholder="Masukkan Alamat Lengkap"
+            required
           />
         </div>
         <div className="input-group">
@@ -75,6 +77,7 @@ function FormReservasi() {
               focus:text-gray-700 focus:bg-white focus:border-sky-200 focus:outline-none"
             id="exampleFormControlInput1"
             placeholder="Masukkan NIK"
+            required
           />
         </div>
         <div className="input-group">
@@ -99,6 +102,8 @@ function FormReservasi() {
               focus:text-gray-700 focus:bg-white focus:border-sky-200 focus:outline-none"
             id="exampleFormControlInput1"
             placeholder="Masukkan Nama Dokter"
+            required
+            min={new Date().toISOString().split("T")[0]}
           />
         </div>
         <div className="input-group">
@@ -123,6 +128,7 @@ function FormReservasi() {
               focus:text-gray-700 focus:bg-white focus:border-sky-200 focus:outline-none"
             id="exampleFormControlInput1"
             placeholder="Masukkan Tempat, Tanggal Lahir"
+            required
           />
         </div>
         <div
@@ -150,6 +156,7 @@ function FormReservasi() {
               focus:text-gray-700 focus:bg-white focus:border-sky-200 focus:outline-none"
             id="exampleFormControlInput1"
             placeholder="Masukkan Keluhan"
+            required
           />
         </div>
         <div className="input-group">
@@ -173,6 +180,7 @@ function FormReservasi() {
               focus:text-gray-700 focus:bg-white focus:border-sky-200 focus:outline-none"
             id="exampleFormControlInput1"
             placeholder="Masukkan Nama Dokter"
+            required
           >
             <option>Laki-Laki</option>
             <option>Perempuan</option>
@@ -200,6 +208,7 @@ function FormReservasi() {
               focus:text-gray-700 focus:bg-white focus:border-sky-200 focus:outline-none"
             id="exampleFormControlInput1"
             placeholder="Masukkan Nomo HP"
+            required
           />
         </div>
         <button className="bg-sky-500 hover:bg-sky-600 text-white font-bold py-2 px-4 rounded h-fit w-full place-self-end">
