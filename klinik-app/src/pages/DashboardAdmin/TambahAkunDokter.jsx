@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
-import Sidebar from '../../components/SidebarAdmin/Sidebar';
-import HeaderAdmin from '../../components/HeaderAdmin/HeaderAdmin';
+import React from "react";
+import Sidebar from "../../components/SidebarAdmin/Sidebar";
+import HeaderAdmin from "../../components/HeaderAdmin/HeaderAdmin";
 
 const TambahAkunDokter = () => {
   return (
@@ -20,7 +20,10 @@ const TambahAkunDokter = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 lg:gap-10 lg:px-5">
               <div>
                 <div className="mb-5">
-                  <label htmlFor="str" className="block mb-2 text-sm font-medium text-[color:var(--other1)]">
+                  <label
+                    htmlFor="str"
+                    className="block mb-2 text-sm font-medium text-[color:var(--other1)]"
+                  >
                     STR
                   </label>
                   <input
@@ -32,7 +35,10 @@ const TambahAkunDokter = () => {
                   />
                 </div>
                 <div className="mb-5">
-                  <label htmlFor="nama" className="block mb-2 text-sm font-medium text-[color:var(--other1)]">
+                  <label
+                    htmlFor="nama"
+                    className="block mb-2 text-sm font-medium text-[color:var(--other1)]"
+                  >
                     Nama Dokter
                   </label>
                   <input
@@ -44,7 +50,10 @@ const TambahAkunDokter = () => {
                   />
                 </div>
                 <div className="mb-5">
-                  <label htmlFor="gender" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                  <label
+                    htmlFor="gender"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
                     Jenis Kelamin
                   </label>
                   <select
@@ -59,7 +68,10 @@ const TambahAkunDokter = () => {
                   </select>
                 </div>
                 <div className="mb-5">
-                  <label htmlFor="password" className="block mb-2 text-sm font-medium text-[color:var(--other1)]">
+                  <label
+                    htmlFor="password"
+                    className="block mb-2 text-sm font-medium text-[color:var(--other1)]"
+                  >
                     Password
                   </label>
                   <input
@@ -71,7 +83,10 @@ const TambahAkunDokter = () => {
                   />
                 </div>
                 <div className="md:mb-5 lg:mb-5">
-                  <label htmlFor="confirm-password" className="block mb-2 text-sm font-medium text-[color:var(--other1)]">
+                  <label
+                    htmlFor="confirm-password"
+                    className="block mb-2 text-sm font-medium text-[color:var(--other1)]"
+                  >
                     Konfirmasi Password
                   </label>
                   <input
@@ -85,7 +100,10 @@ const TambahAkunDokter = () => {
               </div>
               <div>
                 <div className="mb-5">
-                  <label htmlFor="email" className="block mb-2 text-sm font-medium text-[color:var(--other1)]">
+                  <label
+                    htmlFor="email"
+                    className="block mb-2 text-sm font-medium text-[color:var(--other1)]"
+                  >
                     Email
                   </label>
                   <input
@@ -97,7 +115,10 @@ const TambahAkunDokter = () => {
                   />
                 </div>
                 <div className="mb-5">
-                  <label htmlFor="noHP" className="block mb-2 text-sm font-medium text-[color:var(--other1)]">
+                  <label
+                    htmlFor="noHP"
+                    className="block mb-2 text-sm font-medium text-[color:var(--other1)]"
+                  >
                     No Handphone
                   </label>
                   <input
@@ -109,7 +130,10 @@ const TambahAkunDokter = () => {
                   />
                 </div>
                 <div className="mb-5">
-                  <label htmlFor="spesialist" className="block mb-2 text-sm font-medium text-[color:var(--other1)]">
+                  <label
+                    htmlFor="spesialist"
+                    className="block mb-2 text-sm font-medium text-[color:var(--other1)]"
+                  >
                     Spesialist
                   </label>
                   <input
@@ -121,7 +145,10 @@ const TambahAkunDokter = () => {
                   />
                 </div>
                 <div className="mb-5">
-                  <label htmlFor="pengalaman" className="block mb-2 text-sm font-medium text-[color:var(--other1)]">
+                  <label
+                    htmlFor="pengalaman"
+                    className="block mb-2 text-sm font-medium text-[color:var(--other1)]"
+                  >
                     Pengalaman
                   </label>
                   <input

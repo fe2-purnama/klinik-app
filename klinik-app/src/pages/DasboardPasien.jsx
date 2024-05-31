@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
-import Sidebar from '../components/Sidebar';
-import Table from '../components/Table';
-import Footer from '../components/Footer/Footer';
+import React from "react";
+import Sidebar from "../components/Sidebar";
+import Table from "../components/Table";
+import Footer from "../components/Footer/Footer";
 
 function DasboardPasien() {
   return (
@@ -14,7 +14,7 @@ function DasboardPasien() {
 
         <section className="py-4 lg:w-4/5 lg:p-5">
           <h1 className="text-2xl font-semibold mb-5">Daftar Reservasi Anda</h1>
-          <div className=" h-4/5 overflow-y-auto">
+          <div className="h-4/5 overflow-x-auto">
             <Table />
           </div>
         </section>
