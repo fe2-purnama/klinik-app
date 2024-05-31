@@ -5,6 +5,7 @@ import Logo from '../../assets/logo.png';
 import './Style.css';
 
 const Header = () => {
+
     const [isOpen, setIsOpen] = useState(false);
     const location = useLocation();
     const [isHome, setIsHome] = useState(location.pathname === '/');
