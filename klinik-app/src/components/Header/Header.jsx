@@ -8,10 +8,34 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const [isHome, setIsHome] = useState(location.pathname === '/');
+  const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
     setIsHome(location.pathname === '/');
   }, [location]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ['home', 'layanan', 'dokter', 'tentang', 'faqs', 'hubungi'];
+      const halfWindowHeight = window.innerHeight / 2;
+
+      for (let section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top < halfWindowHeight && rect.bottom > halfWindowHeight) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   return (
     <>
@@ -28,7 +52,7 @@ const Header = () => {
 
           {/* Menu */}
           <ul className="nav-links hidden lg:flex space-x-8">
-            <li>
+            <li className={activeSection === 'home' ? 'active' : ''}>
               {isHome ? (
                 <AnchorLink className="anchor-link" offset={80} href="#home">
                   Home
@@ -37,27 +61,27 @@ const Header = () => {
                 <Link to="/">Home</Link>
               )}
             </li>
-            <li>
+            <li className={activeSection === 'layanan' ? 'active' : ''}>
               <AnchorLink className="anchor-link" offset={120} href="#layanan">
                 Layanan
               </AnchorLink>
             </li>
-            <li>
+            <li className={activeSection === 'dokter' ? 'active' : ''}>
               <AnchorLink className="anchor-link" offset={120} href="#dokter">
                 Dokter
               </AnchorLink>
             </li>
-            <li>
+            <li className={activeSection === 'tentang' ? 'active' : ''}>
               <AnchorLink className="anchor-link" offset={120} href="#tentang">
                 Tentang
               </AnchorLink>
             </li>
-            <li>
+            <li className={activeSection === 'faqs' ? 'active' : ''}>
               <AnchorLink className="anchor-link" offset={120} href="#faqs">
                 FAQs
               </AnchorLink>
             </li>
-            <li>
+            <li className={activeSection === 'hubungi' ? 'active' : ''}>
               <AnchorLink className="anchor-link" offset={120} href="#hubungi">
                 Hubungi
               </AnchorLink>
@@ -69,7 +93,6 @@ const Header = () => {
             </li>
           </ul>
 
-          {/* Hamburger Icon */}
           <button className="lg:hidden flex items-center" onClick={() => setIsOpen(!isOpen)}>
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path>
@@ -79,14 +102,14 @@ const Header = () => {
       </nav>
 
       {/* Sidebar */}
-      <div className={`fixed top-0 right-0 w-64 h-full bg-white shadow-lg transform ${isOpen ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out z-20`}>
+      <div className={`sidebar fixed top-0 right-0 w-64 h-full bg-white shadow-lg transform ${isOpen ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out z-20`}>
         <button className="absolute top-4 right-4" onClick={() => setIsOpen(false)}>
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
           </svg>
         </button>
         <ul className="flex flex-col items-start mt-16 space-y-4 pl-8">
-          <li>
+          <li className={activeSection === 'home' ? 'active' : ''}>
             {isHome ? (
               <AnchorLink className="anchor-link" offset={80} href="#home">
                 Home
@@ -95,27 +118,27 @@ const Header = () => {
               <Link to="/">Home</Link>
             )}
           </li>
-          <li>
+          <li className={activeSection === 'layanan' ? 'active' : ''}>
             <AnchorLink className="anchor-link" offset={120} href="#layanan">
               Layanan
             </AnchorLink>
           </li>
-          <li>
+          <li className={activeSection === 'dokter' ? 'active' : ''}>
             <AnchorLink className="anchor-link" offset={120} href="#dokter">
               Dokter
             </AnchorLink>
           </li>
-          <li>
+          <li className={activeSection === 'tentang' ? 'active' : ''}>
             <AnchorLink className="anchor-link" offset={120} href="#tentang">
               Tentang
             </AnchorLink>
           </li>
-          <li>
+          <li className={activeSection === 'faqs' ? 'active' : ''}>
             <AnchorLink className="anchor-link" offset={120} href="#faqs">
               FAQs
             </AnchorLink>
           </li>
-          <li>
+          <li className={activeSection === 'hubungi' ? 'active' : ''}>
             <AnchorLink className="anchor-link" offset={120} href="#hubungi">
               Hubungi
             </AnchorLink>

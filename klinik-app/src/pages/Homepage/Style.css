@@ -49,6 +49,22 @@
 
 
 /* Hubungi Kami */
+.hubungi-konten {
+  background-color: var(--secondary);
+  margin: 70px 0px 120px 0px;
+}
+
+.hubungi-konten .konten {
+  height: 400px;
+}
+
+.hubungi img {
+  width: 480px;
+}
+
+.hubungi button {
+  background-color: var(--primary);
+}
 
 @media (min-width: 640px) {
     .hero-content h1 {

@@ -1,10 +1,10 @@
 .box {
-    width: 120px;
+    width: 140px;
     height: 150px;
     padding: 20px;
     margin: 10px;
     background-color: white;
-    border-radius: 8px;
+    border-radius: 25px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     color: var(--primary);
     cursor: pointer;
@@ -19,4 +19,8 @@
 .box.active {
     background-color: var(--primary);
     color: #fff;
+}
+
+.box:hover {
+    background-color: var(--tertiary);
 }

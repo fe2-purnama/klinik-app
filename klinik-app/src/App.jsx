@@ -6,6 +6,9 @@ import Register from './pages/Masuk/Register/Register';
 import ManageAkunDokter from './pages/DashboardAdmin/ManageAkunDokter';
 import TambahAkunDokter from './pages/DashboardAdmin/TambahAkunDokter';
 import EditAkunDokter from './pages/DashboardAdmin/EditAkunDokter';
+import DasboardPasien from './pages/DasboardPasien';
+import ListDokter from './pages/ListDokter';
+import DetailDokter from './pages/DetailDokter';
 import './App.css';
 
 const App = () => {
@@ -14,7 +17,11 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Header />}>
           <Route index element={<Home />} />
+          <Route path="/dasboard" element={<DasboardPasien />} />
+          <Route path="/list-dokter" element={<ListDokter />} />
+          <Route path="/detail-dokter" element={<DetailDokter />} />
         </Route>
+
         <Route path="/Login" element={<Login />} />
         <Route path="/Registrasi" element={<Register />} />
         <Route path="/manage-akun-dokter" element={<ManageAkunDokter />} />

@@ -1,12 +1,17 @@
+// components/ClinicServiceBox.jsx
+import React from 'react';
 import "./Box.css";
 
-const Box = ({ icon, text, isActive }) => {
+const ClinicServiceBox = ({ id, title, icon, isActive, onClick }) => {
     return (
-        <div className={`box flex flex-col items-center ${isActive ? 'active' : ''}`}>
-            <i className={`fas fa-${icon}`}></i>
-            <span className="text-center">{text}</span>
+        <div
+            className={`box flex flex-col cursor-pointer text-center transition-all duration-300 ease-in-out ${isActive ? 'active' : ''}`}
+            onClick={() => onClick(id)}
+        >
+            <i className={`fas ${icon} mb-2`}></i>
+            <span className="text-center">{title}</span>
         </div>
     );
 };
 
-export default Box;
+export default ClinicServiceBox;

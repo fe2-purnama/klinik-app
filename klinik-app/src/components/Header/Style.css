@@ -2,6 +2,7 @@
 nav {
     padding: 1rem 0;
     background-color: var(--secondary);
+    z-index: 10;
 }
 
 .nav-links {
@@ -10,6 +11,12 @@ nav {
 
 .nav-links li {
     color: var(--other);
+}
+
+.nav-links li:hover,
+.nav-links li.active {
+    color: var(--primary);
+    font-weight: bold;
 }
 
 .logo h1 {
@@ -21,6 +28,10 @@ nav {
     color: white;
     padding: 0.8rem 2rem;
     border-radius: 15px;
+}
+
+.sidebar {
+    z-index: 10000;
 }
 
 @media (min-width: 640px) {

@@ -1,0 +1,15 @@
+button {
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px var(--primary);
+}
+
+button:hover {
+    background-color: var(--secondary);
+}
+
+button.open {
+    background-color: var(--secondary);
+    color: black;
+}
+
+

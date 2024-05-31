@@ -1,29 +1,16 @@
-import "./Style.css";
+import React, { useState } from 'react';
+import Dokterfaqs from "../../assets/dokter-faqs.png";
 import Dokter from "../../assets/dokter-hero.png";
+import Dokterhubungi from "../../assets/dokter-hubungi.png";
 import Doktertentang from "../../assets/dokter-tentang.png";
-import Box from '../../components/Box/Box';
+import Accordion from '../../components/Accordion/Accordion';
 import Footer from "../../components/Footer/Footer";
+import ClinicServices from '../../components/ServiceList';
+import DocterType from '../../components/DocterList';
+import "./Style.css";
 
 
 const Homepage = () => {
-    const boxLayanan = [
-        { icon: 'user-md', text: 'Konsultasi Dokter', isActive: true },
-        { icon: 'stethoscope', text: 'Pemeriksaan Kesehatan', isActive: false },
-        { icon: 'pills', text: 'Pembelian Obat', isActive: false },
-        { icon: 'ambulance', text: 'Ambulance', isActive: false },
-        { icon: 'heartbeat', text: 'Pemeriksaan Jantung', isActive: false },
-        { icon: 'circle-chevron-right', text: 'Layanan Lainnya', isActive: false },
-    ];
-
-    const boxDokter = [
-        { icon: 'child', text: 'Kesehatan Anak', isActive: true },
-        { icon: 'lungs', text: 'Paru-paru', isActive: false },
-        { icon: 'stomach', text: 'Lambung', isActive: false },
-        { icon: 'eye', text: 'Mata', isActive: false },
-        { icon: 'heartbeat', text: 'Jantung', isActive: false },
-        { icon: 'circle-chevron-right', text: 'Spesialisasi Lainnya', isActive: false },
-    ];
-    
     const boxes = document.querySelectorAll('.box');
     boxes.forEach(box => {
         box.addEventListener('click', () => {
@@ -31,6 +18,8 @@ const Homepage = () => {
         box.classList.add('active');
         });
     });
+
+    const [openAccordionId, setOpenAccordionId] = useState(null);
     return (
         <main>
             <section id="home" className="hero flex justify-center">
@@ -58,15 +47,13 @@ const Homepage = () => {
 
             <section id="layanan" className="layanan mt-20">
                 <div className="sm:mx-8 md:mx-16">
-                    <div className="mb-10">
+                    <div className="mb-5">
                         <h1 className="text-center text-xl sm:text-2xl md:text-3xl font-bold">Layanan</h1>
                         <p className="text-center">Kami selalu memberikan layanan yang terbaik untuk anda</p>
                     </div>
                     
-                    <div className="box-container flex justify-center items-center mt-8">
-                        {boxLayanan.map((data, index) => (
-                            <Box key={index} icon={data.icon} text={data.text} isActive={data.isActive} />
-                        ))}
+                    <div className="box-container overflow-x-auto">
+                        <ClinicServices />
                     </div>
                 </div>
             </section>
@@ -78,10 +65,8 @@ const Homepage = () => {
                         <p className="text-center">Kami memiliki banyak dokter yang sudah berpengalaman di bidangnya</p>
                     </div>
                     
-                    <div className="box-container flex justify-center items-center mt-8">
-                        {boxDokter.map((data, index) => (
-                            <Box key={index} icon={data.icon} text={data.text} isActive={data.isActive} />
-                        ))}
+                    <div className="box-container overflow-x-auto">
+                        <DocterType />
                     </div>
                 </div>
             </section>
@@ -140,19 +125,69 @@ const Homepage = () => {
                         <p className="text-center">Kami selalu menjawab pertanyaan-pertanyaan yang sering muncul</p>
                     </div>
                     
+                    <div className="grid grid-cols-1 md:grid-cols-2">
+                        <div className="hero-image col-span-1 flex items-end justify-center">
+                            <img src={Dokterfaqs} alt="Dokter"/>
+                        </div>
+
+                        <div className="col-span-1 flex flex-col justify-center">
+                            <div className="faqs-text space-y-4">
+                                <Accordion id={1} title="Bagaimana cara melakukan reservasi secara online?" content="Anda dapat melakukan reservasi dokter melalui website kami dengan mengakses halaman reservasi, memilih dokter yang diinginkan, dan mengisi formulir reservasi sesuai dengan jadwal yang tersedia." openAccordionId={openAccordionId} setOpenAccordionId={setOpenAccordionId} />
+                                <Accordion id={2} title="Apakah ada biaya tambahan untuk melakukan reservasi?" content="Tidak, reservasi dokter melalui website kami tidak dikenakan biaya tambahan. Anda hanya perlu membayar biaya konsultasi atau perawatan medis sesuai dengan tarif yang berlaku." openAccordionId={openAccordionId} setOpenAccordionId={setOpenAccordionId} />
+                                <Accordion id={3} title="Bagaimana cara membatalkan reservasi dokter?" content="Anda bisa masuk ke bagian menu reservasi dan klik Batal pada aksi di setiap reservasti anda" openAccordionId={openAccordionId} setOpenAccordionId={setOpenAccordionId} />
+                                <Accordion id={4} title="Bagaimana jika ingin berkomunikasi dengan dokter?" content="Anda bisa menghubungi dokter lewat WhatsApp dengan menekan tombol Hubungi Dokter pada data reservasi anda" openAccordionId={openAccordionId} setOpenAccordionId={setOpenAccordionId} />
+                                <Accordion id={5} title="Apakah reservasi ini tersedia untuk semua jenis layanan medis?" content="Ya, Anda dapat melakukan reservasi untuk berbagai jenis layanan medis melalui website kami, termasuk konsultasi dokter umum, spesialis, pemeriksaan kesehatan, dan lain sebagainya." openAccordionId={openAccordionId} setOpenAccordionId={setOpenAccordionId} />
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
             </section>
-
-            <section id="hubungi" className="hubungi mt-20">
-                <div className="sm:mx-8 md:mx-16">
+            
+            <section id="hubungi" className="hubungi mt-20 flex items-center">
+                <div className="container mx-auto px-4 md:px-0">
                     <div className="mb-10">
                         <h1 className="text-center text-xl sm:text-2xl md:text-3xl font-bold">Hubungi Kami</h1>
                         <p className="text-center">Kami selalu menerima pesan, saran, dan kritik yang anda berikan</p>
                     </div>
 
-                </div>
+                    <div className="hubungi-konten rounded-lg">
+                        <div className="konten flex flex-col md:flex-row ">
+                            <div className="md:w-1/2 mb-8 md:mb-0 p-8">
+                                <div className="bg-white p-8 rounded-lg shadow-lg -mt-20 -mb-20 relative z-10">
+                                    <form>
+                                        <div className="mb-2">
+                                            <label htmlFor="name" className="block font-bold mb-2">Nama Lengkap</label>
+                                            <input type="text" id="name" className="w-full px-4 py-2 rounded-lg border border-gray-300" placeholder="Masukkan nama lengkap" />
+                                        </div>
+                                        <div className="mb-2">
+                                            <label htmlFor="phone" className="block font-bold mb-2">Nomor Telepon</label>
+                                            <input type="tel" id="phone" className="w-full px-4 py-2 rounded-lg border border-gray-300" placeholder="Masukkan nomor telepon" />
+                                        </div>
+                                        <div className="mb-2">
+                                            <label htmlFor="type" className="block font-bold mb-2">Jenis Pesan</label>
+                                            <select id="type" className="w-full px-4 py-2 rounded-lg border border-gray-300">
+                                                <option value="">Pilih jenis pesan</option>
+                                                <option value="pesan">Pesan</option>
+                                                <option value="saran">Saran</option>
+                                                <option value="kritik">Kritik</option>
+                                                <option value="permintaan">Permintaan</option>
+                                            </select>
+                                        </div>
+                                        <div className="mb-4">
+                                            <label htmlFor="message" className="block font-bold mb-2">Pesan</label>
+                                            <textarea id="message" className="w-full px-4 py-2 rounded-lg border border-gray-300" rows="4" placeholder="Ketikkan pesan"></textarea>
+                                        </div>
+                                        <button type="submit" className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600">Kirim Pesan</button>
+                                    </form>
+                                </div>
+                            </div>
 
+                            <div className="flex items-end mx-auto">
+                                <img src={Dokterhubungi} alt="Dokter" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
 
             <Footer />
