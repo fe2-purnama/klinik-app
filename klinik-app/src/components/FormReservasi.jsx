@@ -1,24 +1,17 @@
-import React from "react";
-import InputForm from "./../components/InputForm";
+/* eslint-disable no-unused-vars */
+import React from 'react';
+import InputForm from './../components/InputForm';
 
 function FormReservasi() {
   return (
     <form className="my-7 p-7 border-2 border-slate-200 rounded-lg">
       <h1 className="text-2xl font-semibold my-4">Data Diri</h1>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 gap-x-20">
-        <InputForm
-          label="Nama Lengkap"
-          type="text"
-          placeholder="Masukkan nama lengkap"
-        />
+        <InputForm label="Nama Lengkap" type="text" placeholder="Masukkan nama lengkap" />
         <InputForm label="Alamat" type="text" placeholder="Masukkan alamat" />
         <InputForm label="NIK" type="text" placeholder="Masukkan NIK" />
         <InputForm label="Tanggal Reservasi" type="date" />
-        <InputForm
-          label="Tempat, tanggal lahir"
-          type="text"
-          placeholder="Masukkan tempat, tanggal lahir"
-        />
+        <InputForm label="Tempat, tanggal lahir" type="text" placeholder="Masukkan tempat, tanggal lahir" />
         <div
           className="input-group 
               row-span-2"
@@ -75,9 +68,7 @@ function FormReservasi() {
           </select>
         </div>
         <InputForm label="No HP" type="number" placeholder="Masukkan No Hp" />
-        <button className="bg-sky-500 hover:bg-sky-600 text-white font-bold py-2 px-4 rounded h-fit w-full place-self-end">
-          Reservasi Sekarang
-        </button>
+        <button className="bg-sky-500 hover:bg-sky-600 text-white font-bold py-2 px-4 rounded h-fit w-full place-self-end">Reservasi Sekarang</button>
       </div>
     </form>
   );

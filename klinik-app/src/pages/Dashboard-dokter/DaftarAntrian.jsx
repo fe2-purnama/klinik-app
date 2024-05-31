@@ -90,6 +90,7 @@ const DaftarAntrian = () => {
     ]);
 
     const [editingIndex, setEditingIndex] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('');
 
     const handleStatusChange = (index, newStatus) => {
         if (index >= 0 && index < data.length) {
@@ -104,6 +105,10 @@ const DaftarAntrian = () => {
 
     const handleEditClick = (index) => {
         setEditingIndex(index);
+    };
+
+    const handleSearch = (event) => {
+        setSearchTerm(event.target.value);
     };
 
     const headers = [
@@ -122,6 +127,10 @@ const DaftarAntrian = () => {
         <div className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
             <div className="container px-6 py-8 mx-auto">
                 <h2 className='text-3xl font-medium text-gray-700'>Daftar Antrian</h2>
+                <div className="mt-6">
+                    <span>Cari </span>
+                    <input type="text" placeholder="Cari Nama Pasien" value={searchTerm} onChange={handleSearch} className="px-3 py-1 border border-gray-300 rounded-md  focus:ring-[color:var(--primary)]"/>
+                </div>
                 <Table headers={headers}>
                     {data.map((item, index) => (
                         <TableRow

@@ -8,11 +8,11 @@ import Dokter from '../../../assets/dokter-hero.png';
 
 const Login = () => {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2">
-      <div className="kiri h-screen flex flex-col justify-center items-center">
-        <div className="logo flex items-center mt-28 mb-12">
+    <div className="grid grid-cols-1 lg:grid-cols-2 h-screen">
+      <div className="kiri lg:h-screen flex flex-col justify-center items-center">
+        <div className="logo flex items-center mt-8 lg:mt-28 mb-12">
           <img src={Logo} alt="Klinik Prima" className="h-20" />
-          <h1 className="text-5xl ml-2">
+          <h1 className="text-3xl lg:text-5xl ml-2">
             <span className="text-[color:var(--primary)] font-bold">Klinik </span>
             <span className="text-[color:var(--other)] font-bold">Prima</span>
           </h1>
@@ -21,11 +21,11 @@ const Login = () => {
           <img src={Dokter} alt="Dokter Image" className="" />
         </div>
       </div>
-      <div className="kanan h-screen">
-        <div className="form">
-          <form className="max-w-lg mx-auto mt-28">
-            <div className="teks mb-5">
-              <h1 className="text-[color:var(--other1)] font-bold text-4xl">Selamat Datang!</h1>
+      <div className="kanan lg:h-screen flex justify-center p-4 lg:p-8">
+        <div className="form w-full max-w-lg mx-4 sm:mx-auto">
+          <form className="w-full">
+            <div className="teks mb-5 lg:mt-20">
+              <h1 className="text-[color:var(--other1)] font-bold text-3xl lg:text-4xl">Selamat Datang!</h1>
               <p className="text-[color:var(--other1)]">Silahkan masuk terlebih dahulu!</p>
             </div>
             <div className="mb-5">
@@ -60,7 +60,7 @@ const Login = () => {
                 Masuk
               </button>
             </div>
-            <div className="mb-60">
+            <div className="lg:mb-60">
               <p className="text-xs text-[color:var(--other1)]">
                 Belum punya akun? Silahkan{' '}
                 <Link className="font-bold" to="/Registrasi">
@@ -69,7 +69,7 @@ const Login = () => {
               </p>
             </div>
           </form>
-          <p className="text-sm font-bold text-[color:var(--other2)] flex justify-center items-center">Klinik Prima 2024. All rights reserved</p>
+          <p className="text-sm font-bold text-[color:var(--other2)] text-center mt-5 lg:mt-8">Klinik Prima 2024. All rights reserved</p>
         </div>
       </div>
     </div>
