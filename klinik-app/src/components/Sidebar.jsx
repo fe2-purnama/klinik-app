@@ -14,7 +14,7 @@ export default function Component() {
             >
               <img src={Queue} />
               <span className="flex-1 ms-3 whitespace-nowrap">
-                Reservasi Anda
+                Daftar Antrian
               </span>
             </a>
           </li>

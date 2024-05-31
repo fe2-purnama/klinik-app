@@ -77,6 +77,9 @@ const Header = () => {
                         <li>
                             <Link className="btn-login" to="/Login">Masuk</Link>
                         </li>
+                            <li>
+                            <Link className="btn-login" to="/dashboard-dokter">Dokter</Link>
+                        </li>
                     </ul>
 
                     <button className="lg:hidden flex items-center" onClick={() => setIsOpen(!isOpen)}>
@@ -120,6 +123,7 @@ const Header = () => {
                     <li>
                         <Link className="btn-login" to="/Login" onClick={() => setIsOpen(false)}>Masuk</Link>
                     </li>
+
                 </ul>
             </div>
             

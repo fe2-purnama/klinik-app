@@ -127,7 +127,7 @@ export default function Component() {
                 onClick={() => alert("batal")}
                 className="font-medium text-red-600 hover:underline"
               >
-                batal
+                Batal
               </a>
             </TableCell>
           </TableRow>
