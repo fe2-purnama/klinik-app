@@ -1,14 +1,7 @@
 import React, { useState } from 'react';
 import Table from '../../components/DashboardDokter/TableDokter';
 
-const TableRow = ({ item, index, isEditing, onEditClick, onStatusChange }) => {
-    const statusColors = {
-        "Menunggu": "text-yellow-800 bg-yellow-100",
-        "Progress": "text-blue-800 bg-blue-100",
-        "Selesai": "text-green-800 bg-green-100",
-        "Batal": "text-red-800 bg-red-100",
-    };
-
+const TableRow = ({ item, index }) => {
     return (
         <tr className="relative">
             <td className="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-nowrap border-b border-gray-200">
@@ -29,36 +22,26 @@ const TableRow = ({ item, index, isEditing, onEditClick, onStatusChange }) => {
             <td className="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-nowrap border-b border-gray-200">
                 {item.specialist}
             </td>
-            <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                <span className={`inline-flex px-4 py-1 text-xs font-semibold leading-5 rounded-full ${statusColors[item.status]}`}>{item.status}</span>
-            </td>
-            <td className="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap border-b border-gray-200">
+            <td className="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-nowrap border-b border-gray-200">
                 {item.complaint}
             </td>
-            <td className="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200 relative">
-                <button onClick={onEditClick} className="text-indigo-600 hover:text-indigo-900">Edit</button>
-                {isEditing && (
-                    <div className="aksi fixed right-8 z-50 w-48 py-2 mt-2 bg-white border border-gray-300 rounded-lg shadow-lg">
-                        <button onClick={() => onStatusChange(index - 1, 'Progress')} className="block w-full px-4 py-2 text-left text-blue-700 hover:bg-gray-100">Progress</button>
-                        <button onClick={() => onStatusChange(index - 1, 'Selesai')} className="block w-full px-4 py-2 text-left text-green-700 hover:bg-gray-100">Selesai</button>
-                        <button onClick={() => onStatusChange(index - 1, 'Batal')} className="block w-full px-4 py-2 text-left text-red-700 hover:bg-gray-100">Batal</button>
-                    </div>
-                )}
+            <td className="px-6 py-4 text-sm leading-5 text-gray-900  border-b border-gray-200">
+                {item.reviews}
             </td>
         </tr>
     );
 };
 
-const DaftarAntrian = () => {
-    const [data, setData] = useState([
+const ReviewDokter = () => {
+    const data = [
         {
             reservationNumber: 'R123456789',
             date: '2024-05-20',
             patientName: 'Budi Santoso',
             doctorName: 'Dr. Andi Wijaya',
             specialist: 'Umum',
-            status: 'Menunggu',
             complaint: 'Nyeri Perut',
+            reviews: 'Pelayanan dokter sangat baik dan profesional. Saya merasa lebih baik setelah konsultasi.',
         },
         {
             reservationNumber: 'R123456790',
@@ -66,8 +49,8 @@ const DaftarAntrian = () => {
             patientName: 'Siti Aminah',
             doctorName: 'Dr. Siti Nurhaliza',
             specialist: 'Gigi',
-            status: 'Progress',
             complaint: 'Sakit Gigi',
+            reviews: 'Dokter gigi sangat teliti dan memastikan perawatan dilakukan dengan benar. Saya merasa lebih nyaman setelah perawatan.',
         },
         {
             reservationNumber: 'R123456795',
@@ -75,8 +58,8 @@ const DaftarAntrian = () => {
             patientName: 'Khidir Karawita',
             doctorName: 'Dr. Arif Hermawan',
             specialist: 'Jantung',
-            status: 'Selesai',
             complaint: 'Sesak Napas',
+            reviews: 'Dokter memberikan penjelasan yang rinci tentang kondisi saya dan langkah-langkah perawatan yang harus dilakukan. Saya merasa lebih tenang setelah konsultasi.',
         },
         {
             reservationNumber: 'R123456801',
@@ -84,27 +67,10 @@ const DaftarAntrian = () => {
             patientName: 'Muhammad Sumbul',
             doctorName: 'Dr. Vitis',
             specialist: 'Umum',
-            status: 'Batal',
             complaint: 'Sesak Napas',
+            reviews: 'Meskipun harus menunggu cukup lama, pelayanan dokter sangat memuaskan. Saya mendapatkan perawatan yang tepat untuk mengatasi keluhan saya.',
         },
-    ]);
-
-    const [editingIndex, setEditingIndex] = useState(null);
-
-    const handleStatusChange = (index, newStatus) => {
-        if (index >= 0 && index < data.length) {
-            const updatedData = [...data];
-            updatedData[index].status = newStatus;
-            setData(updatedData);
-            setEditingIndex(null);
-        } else {
-            console.error(`Invalid index: ${index}`);
-        }
-    };
-
-    const handleEditClick = (index) => {
-        setEditingIndex(index);
-    };
+    ];
 
     const headers = [
         "No.",
@@ -113,24 +79,20 @@ const DaftarAntrian = () => {
         "Nama Pasien",
         "Dokter",
         "Spesialist",
-        "Status",
         "Keluhan",
-        "Aksi",
+        "Review",
     ];
 
     return (
         <div className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
             <div className="container px-6 py-8 mx-auto">
-                <h2 className='text-3xl font-medium text-gray-700'>Daftar Antrian</h2>
+                <h2 className='text-3xl font-medium text-gray-700'>Review Dokter</h2>
                 <Table headers={headers}>
                     {data.map((item, index) => (
                         <TableRow
                             key={index}
                             item={item}
                             index={index + 1}
-                            isEditing={editingIndex === index}
-                            onEditClick={() => handleEditClick(index)}
-                            onStatusChange={handleStatusChange}
                         />
                     ))}
                 </Table>
@@ -139,4 +101,4 @@ const DaftarAntrian = () => {
     );
 };
 
-export default DaftarAntrian;
+export default ReviewDokter;
