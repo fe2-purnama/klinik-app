@@ -1,4 +1,6 @@
-import React from "react";
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
+import React from 'react';
 
 function InputForm(props) {
   const { label, type, placeholder, value, onChange } = props;
@@ -29,7 +31,7 @@ function InputForm(props) {
         id="exampleFormControlInput1"
         placeholder={placeholder}
         required
-        min={new Date().toISOString().split("T")[0]}
+        min={new Date().toISOString().split('T')[0]}
       />
     </div>
   );

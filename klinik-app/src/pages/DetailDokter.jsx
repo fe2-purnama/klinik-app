@@ -1,7 +1,8 @@
-import React from "react";
-import Footer from "../components/Footer/Footer";
-import CardDetail from "../components/CardDetail";
-import FormReservasi from "../components/FormReservasi";
+/* eslint-disable no-unused-vars */
+import React from 'react';
+import Footer from '../components/Footer/Footer';
+import CardDetail from '../components/CardDetail';
+import FormReservasi from '../components/FormReservasi';
 
 function DetailDokter() {
   return (

@@ -2,6 +2,7 @@
 import React from 'react';
 import Sidebar from '../../components/SidebarAdmin/Sidebar';
 import TableDokter from '../../components/TableDokter/TableDokter';
+import HeaderAdmin from '../../components/HeaderAdmin/HeaderAdmin';
 
 const DashboardAdmin = () => {
   return (
@@ -11,8 +12,11 @@ const DashboardAdmin = () => {
           <Sidebar />
         </aside>
 
-        <section className="py-4 lg:w-4/5 lg:p-5">
-          <h1 className="text-2xl font-semibold mb-5">Manage Akun Dokter</h1>
+        <section className="w-full">
+          <HeaderAdmin />
+          <div className="py-4 lg:w-4/5 lg:p-5 mt-4">
+            <h1 className="text-2xl font-medium mb-5">Manage Akun Dokter</h1>
+          </div>
           <div className=" h-4/5 overflow-y-auto z-0">
             <TableDokter />
           </div>
