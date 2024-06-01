@@ -13,7 +13,7 @@ const TambahAkunDokter = () => {
 
         <section className="w-full">
           <HeaderAdmin />
-          <div className="py-4 lg:w-4/5 lg:p-5 mt-4">
+          <div className="py-4 lg:p-5 mt-4">
             <h1 className="text-2xl font-medium mb-5">Tambah Akun Dokter</h1>
           </div>
           <form>
