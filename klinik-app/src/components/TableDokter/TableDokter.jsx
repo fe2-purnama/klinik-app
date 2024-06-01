@@ -139,20 +139,20 @@ const TableDokter = () => {
             <TableCell className="font-medium text-gray-900 text-center">
               {index + 1}
             </TableCell>
-            <TableCell className="text-center">{dokter.str}</TableCell>
-            <TableCell className="text-center">{dokter.dokter}</TableCell>
-            <TableCell className="text-center">
-              {dokter.jenis_kelamin}
-            </TableCell>
-            <TableCell className="text-center">{dokter.spesialis}</TableCell>
-            <TableCell className="text-center">{dokter.no_hp}</TableCell>
-            <TableCell className="text-center">{dokter.pengalaman}</TableCell>
-            <TableCell className="text-center">
-              <button className="bg-sky-500 px-2 py-1 rounded mr-2">
-                <i className="text-white fas fa-pen"></i>
-                <Link to="/edit-akun-dokter"></Link>
-              </button>
-              <button className="bg-red-600 px-2 py-1 rounded">
+            <TableCell>{dokter.str}</TableCell>
+            <TableCell>{dokter.dokter}</TableCell>
+            <TableCell>{dokter.jenis_kelamin}</TableCell>
+            <TableCell>{dokter.spesialis}</TableCell>
+            <TableCell>{dokter.no_hp}</TableCell>
+            <TableCell>{dokter.pengalaman}</TableCell>
+            <TableCell>
+              <Link to="/admin/edit">
+                <button className="bg-sky-500 px-2 py-1 rounded mr-2 hover:bg-sky-600 shadow-none">
+                  <i className="text-white fas fa-pen"></i>
+                </button>
+              </Link>
+
+              <button className="bg-red-600 px-2 py-1 rounded hover:bg-red-700 shadow-none">
                 <i className="text-white fas fa-trash"></i>
               </button>
             </TableCell>

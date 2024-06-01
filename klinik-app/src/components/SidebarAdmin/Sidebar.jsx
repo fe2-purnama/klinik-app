@@ -18,7 +18,7 @@ const Sidebar = (props) => {
 
   return (
     <aside
-      className={`h-screen px-3 py-4 bg-white flex-col border-e-2 lg:flex z-10 ${
+      className={`h-screen px-3 py-4 bg-white flex-col border-e-2 lg:flex z-20 ${
         isShow ? "absolute" : "hidden"
       }`}
     >
@@ -48,7 +48,7 @@ const Sidebar = (props) => {
           <li className="mb-4">
             <Link
               className="flex items-center p-2 px-4 text-gray-900 rounded-lg hover:bg-blue-100"
-              to="/manage-akun-dokter"
+              to="/admin"
             >
               <i className="far fa-user-md fa-xl"></i>
               <span className="flex-1 ms-3 whitespace-nowrap">
@@ -59,7 +59,7 @@ const Sidebar = (props) => {
           <li>
             <Link
               className="flex items-center p-2 px-4 text-gray-900 rounded-lg hover:bg-blue-100"
-              to="/tambah-akun-dokter"
+              to="/admin/add"
             >
               <i className="far fa-user-plus fa-xl"></i>
               <span className="flex-1 ms-3 whitespace-nowrap">
@@ -73,7 +73,7 @@ const Sidebar = (props) => {
             className="flex items-center p-2 px-4 text-gray-900 rounded-lg hover:bg-blue-100"
             to="/Login"
           >
-            <i className="fas fa-sign-out fa-2xl"></i>
+            <i className="far fa-sign-out fa-2xl"></i>
             <span className="flex-1 ms-3 whitespace-nowrap">Logout</span>
           </Link>
         </li>
