@@ -2,9 +2,9 @@ import React from "react";
 
 const EditAkunDokter = () => {
   return (
-    <section className="w-full p-5 ">
-      <h1 className="text-2xl font-medium my-4">Edit Akun Dokter</h1>
-      <form>
+    <section className="w-full">
+      <h1 className="text-2xl font-medium mx-10 my-8">Edit Akun Dokter</h1>
+      <form className="bg-white rounded-lg px-5 py-5 mx-10 my-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 lg:gap-10">
           <div>
             <div className="mb-5">

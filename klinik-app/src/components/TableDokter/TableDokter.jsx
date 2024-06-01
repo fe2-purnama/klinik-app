@@ -133,7 +133,7 @@ const TableDokter = () => {
           <span>Aksi</span>
         </TableHeadCell>
       </TableHead>
-      <TableBody>
+      <TableBody className="bg-white">
         {dokter.map((dokter, index) => (
           <TableRow key={index}>
             <TableCell className="font-medium text-gray-900 text-center">
