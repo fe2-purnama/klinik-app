@@ -1,11 +1,12 @@
 import React, { createContext, useContext, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, LogOut, LayoutDashboard, Text } from 'lucide-react';
+import { Menu, LogOut, LayoutDashboard, Text, UserCircle2 } from 'lucide-react';
 import Brand from '../../assets/brand.png';
 import DoctorHeader from './HeaderDokter';
 import DaftarAntrian from '../../pages/Dashboard-dokter/DaftarAntrian';
 import ReviewDokter from '../../pages/Dashboard-dokter/ReviewDokter';
 import Modal from '../Modal/Modal';
+import ProfilDokter from '../../pages/Dashboard-dokter/ProfilDokter';
 
 const SidebarContext = createContext();
 
@@ -21,6 +22,8 @@ export default function DoctorSidebar() {
                 return <DaftarAntrian />;
             case '/dashboard-dokter/review-dokter':
                 return <ReviewDokter />;
+            case '/dashboard-dokter/profil-dokter':
+                return <ProfilDokter />;
             default:
                 return null;
         }
@@ -53,7 +56,8 @@ export default function DoctorSidebar() {
                             <SidebarContext.Provider value={{ expanded }}>
                                 <ul className="flex-1 px-3">
                                     <SidebarItem icon={<LayoutDashboard size={20} />} text="Daftar Antrian" to="/dashboard-dokter" active={location.pathname === '/dashboard-dokter'} />
-                                    <SidebarItem icon={<Text size={20} />} text="Review Dokter" to="/dashboard-dokter/review-dokter" active={location.pathname === '/dashboard-dokter/review-dokter'} />
+                                    <SidebarItem icon={<Text size={20} />} text="Review" to="/dashboard-dokter/review-dokter" active={location.pathname === '/dashboard-dokter/review-dokter'} />
+                                    <SidebarItem icon={<UserCircle2 size={20} />} text="Profil" to="/dashboard-dokter/profil-dokter" active={location.pathname === '/dashboard-dokter/profil-dokter'} />
                                 </ul>
                                 <div className={'flex-2 px-3'}>
                                     <SidebarItem icon={<LogOut size={20} />} text="Log Out" onClick={handleLogout} />
@@ -77,6 +81,8 @@ export default function DoctorSidebar() {
                 handleClose={handleCloseModal}
                 title="Konfirmasi Log Out"
                 message="Apakah Anda yakin ingin log out?"
+                confirmButton="bg-red-600 hover:bg-red-800 focus:ring-green-500"
+                cancelButton="hover:bg-gray-300 focus:ring-red-500"
             />
         </>
     )

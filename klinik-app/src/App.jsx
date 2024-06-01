@@ -12,9 +12,9 @@ import DasboardPasien from "./pages/DasboardPasien";
 import ListDokter from "./pages/ListDokter";
 import DetailDokter from "./pages/DetailDokter";
 import DokterSidebar from "./components/DashboardDokter/SidebarDokter";
-import DokterDashboard from './pages/Dashboard-dokter/DashboardDokter';
 import DaftarAntrian from './pages/Dashboard-dokter/DaftarAntrian';
 import ReviewDokter from "./pages/Dashboard-dokter/ReviewDokter";
+import ProfilDokter from "./pages/Dashboard-dokter/ProfilDokter";
 import './App.css';
 
 
@@ -39,6 +39,7 @@ const App = () => {
         <Route path="/dashboard-dokter" element={<DokterSidebar />}>
           <Route index element={<DaftarAntrian/>} />
           <Route path="review-dokter" element={<ReviewDokter />} />
+          <Route path="profil-dokter" element={<ProfilDokter />} />
         </Route>
 
       </Routes>
