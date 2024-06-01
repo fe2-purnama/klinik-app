@@ -6,10 +6,8 @@ import HeaderAdmin from "../../components/HeaderAdmin/HeaderAdmin";
 const TambahAkunDokter = () => {
   return (
     <section className="w-full">
-      <div className="py-4 lg:w-4/5 lg:p-5 mt-4">
-        <h1 className="text-2xl font-medium mb-5">Tambah Akun Dokter</h1>
-      </div>
-      <form>
+      <h1 className="text-2xl font-medium mx-10 my-8">Tambah Akun Dokter</h1>
+      <form className="bg-white rounded-lg px-2 py-4 mx-10 my-5">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 lg:gap-10 lg:px-5">
           <div>
             <div className="mb-5">

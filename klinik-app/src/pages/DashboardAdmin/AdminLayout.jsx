@@ -10,9 +10,9 @@ function AdminLayout() {
     setIsShow(!isShow);
   };
   return (
-    <section className="h-screen flex flex-row">
+    <section className="h-screen w-full flex flex-row bg-slate-200">
       <Sidebar Show={isShow} />
-      <section className="h-full w-full overflow-auto">
+      <section className="h-full w-full">
         <div className="flex flex-row items-center px-5 py-2 gap-4 border-b-2 sticky top-0 bg-white z-10">
           <a
             className="bg-white p-2 rounded-lg shadow-none cursor-pointer lg:hidden"
