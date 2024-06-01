@@ -11,6 +11,10 @@ import ListDokter from "./pages/ListDokter";
 import DetailDokter from "./pages/DetailDokter";
 import AdminLayout from "./pages/DashboardAdmin/AdminLayout";
 import PrivateRoute from "./pages/PrivateRoutes";
+import DokterSidebar from "./components/DashboardDokter/SidebarDokter";
+import DaftarAntrian from "./pages/Dashboard-dokter/DaftarAntrian";
+import ReviewDokter from "./pages/Dashboard-dokter/ReviewDokter";
+import ProfilDokter from "./pages/Dashboard-dokter/ProfilDokter";
 import "./App.css";
 
 const App = () => {
