@@ -1,11 +1,33 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useState } from 'react';
 import './Register.css';
 import { Link } from 'react-router-dom';
 import Logo from '../../../assets/logo.png';
 import Dokter from '../../../assets/dokter-hero.png';
 
 const Register = () => {
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    if (confirmPassword && e.target.value !== confirmPassword) {
+      setPasswordError('Password tidak sesuai');
+    } else {
+      setPasswordError('');
+    }
+  };
+
+  const handleConfirmPasswordChange = (e) => {
+    setConfirmPassword(e.target.value);
+    if (password && e.target.value !== password) {
+      setPasswordError('Password tidak sesuai');
+    } else {
+      setPasswordError('');
+    }
+  };
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 h-screen">
       <div className="kiri lg:h-screen flex flex-col justify-center items-center">
@@ -70,6 +92,8 @@ const Register = () => {
               <input
                 type="password"
                 id="password"
+                value={password}
+                onChange={handlePasswordChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
                 placeholder="Password"
                 required
@@ -82,10 +106,13 @@ const Register = () => {
               <input
                 type="password"
                 id="confirmPassword"
+                value={confirmPassword}
+                onChange={handleConfirmPasswordChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
                 placeholder="Confirm Password"
                 required
               />
+              {passwordError && <p className="text-sm text-red-600 mt-1">{passwordError}</p>}
             </div>
             <div className="mb-8">
               <button
