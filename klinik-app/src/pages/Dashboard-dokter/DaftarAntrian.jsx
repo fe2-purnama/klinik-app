@@ -23,12 +23,6 @@ const TableRow = ({ item, index, isEditing, onEditClick, onStatusChange }) => {
             <td className="px-2 py-4 text-sm leading-5 text-gray-900 whitespace-nowrap border-b border-gray-200 md:px-6">
                 {item.patientName}
             </td>
-            <td className="px-2 py-4 text-sm leading-5 text-gray-900 whitespace-nowrap border-b border-gray-200 md:px-6">
-                {item.doctorName}
-            </td>
-            <td className="px-2 py-4 text-sm leading-5 text-gray-900 whitespace-nowrap border-b border-gray-200 md:px-6">
-                {item.specialist}
-            </td>
             <td className="px-2 py-4 whitespace-no-wrap border-b border-gray-200 md:px-6">
                 <span className={`inline-flex px-4 py-1 text-xs font-semibold leading-5 rounded-full ${statusColors[item.status]}`}>{item.status}</span>
             </td>
@@ -55,8 +49,6 @@ const DaftarAntrian = () => {
             reservationNumber: 'R123456789',
             date: '2024-05-20',
             patientName: 'Budi Santoso',
-            doctorName: 'Dr. Andi Wijaya',
-            specialist: 'Umum',
             status: 'Menunggu',
             complaint: 'Nyeri Perut',
         },
@@ -64,8 +56,6 @@ const DaftarAntrian = () => {
             reservationNumber: 'R123456790',
             date: '2024-05-21',
             patientName: 'Siti Aminah',
-            doctorName: 'Dr. Siti Nurhaliza',
-            specialist: 'Gigi',
             status: 'Progress',
             complaint: 'Sakit Gigi',
         },
@@ -73,8 +63,6 @@ const DaftarAntrian = () => {
             reservationNumber: 'R123456795',
             date: '2024-05-22',
             patientName: 'Khidir Karawita',
-            doctorName: 'Dr. Arif Hermawan',
-            specialist: 'Jantung',
             status: 'Selesai',
             complaint: 'Sesak Napas',
         },
@@ -82,8 +70,6 @@ const DaftarAntrian = () => {
             reservationNumber: 'R123456801',
             date: '2024-05-22',
             patientName: 'Muhammad Sumbul',
-            doctorName: 'Dr. Vitis',
-            specialist: 'Umum',
             status: 'Batal',
             complaint: 'Sesak Napas',
         },
@@ -116,8 +102,6 @@ const DaftarAntrian = () => {
         "No. Reservasi",
         "Tanggal",
         "Nama Pasien",
-        "Dokter",
-        "Spesialist",
         "Status",
         "Keluhan",
         "Aksi",

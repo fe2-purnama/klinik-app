@@ -17,12 +17,6 @@ const TableRow = ({ item, index }) => {
                 {item.patientName}
             </td>
             <td className="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-nowrap border-b border-gray-200">
-                {item.doctorName}
-            </td>
-            <td className="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-nowrap border-b border-gray-200">
-                {item.specialist}
-            </td>
-            <td className="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-nowrap border-b border-gray-200">
                 {item.complaint}
             </td>
             <td className="px-6 py-4 text-sm leading-5 text-gray-900  border-b border-gray-200">
@@ -38,8 +32,6 @@ const ReviewDokter = () => {
             reservationNumber: 'R123456789',
             date: '2024-05-20',
             patientName: 'Budi Santoso',
-            doctorName: 'Dr. Andi Wijaya',
-            specialist: 'Umum',
             complaint: 'Nyeri Perut',
             reviews: 'Pelayanan dokter sangat baik dan profesional. Saya merasa lebih baik setelah konsultasi.',
         },
@@ -47,8 +39,6 @@ const ReviewDokter = () => {
             reservationNumber: 'R123456790',
             date: '2024-05-21',
             patientName: 'Siti Aminah',
-            doctorName: 'Dr. Siti Nurhaliza',
-            specialist: 'Gigi',
             complaint: 'Sakit Gigi',
             reviews: 'Dokter gigi sangat teliti dan memastikan perawatan dilakukan dengan benar. Saya merasa lebih nyaman setelah perawatan.',
         },
@@ -56,8 +46,6 @@ const ReviewDokter = () => {
             reservationNumber: 'R123456795',
             date: '2024-05-22',
             patientName: 'Khidir Karawita',
-            doctorName: 'Dr. Arif Hermawan',
-            specialist: 'Jantung',
             complaint: 'Sesak Napas',
             reviews: 'Dokter memberikan penjelasan yang rinci tentang kondisi saya dan langkah-langkah perawatan yang harus dilakukan. Saya merasa lebih tenang setelah konsultasi.',
         },
@@ -65,8 +53,6 @@ const ReviewDokter = () => {
             reservationNumber: 'R123456801',
             date: '2024-05-22',
             patientName: 'Muhammad Sumbul',
-            doctorName: 'Dr. Vitis',
-            specialist: 'Umum',
             complaint: 'Sesak Napas',
             reviews: 'Meskipun harus menunggu cukup lama, pelayanan dokter sangat memuaskan. Saya mendapatkan perawatan yang tepat untuk mengatasi keluhan saya.',
         },
@@ -77,8 +63,6 @@ const ReviewDokter = () => {
         "No. Reservasi",
         "Tanggal",
         "Nama Pasien",
-        "Dokter",
-        "Spesialist",
         "Keluhan",
         "Review",
     ];
