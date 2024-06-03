@@ -92,9 +92,6 @@ const Header = () => {
                     Masuk
                 </Link>
                 </li>
-                <li>
-                    <Link className="btn-login" to="/dashboard-dokter">Dokter</Link>
-                </li>
             </ul>
 
             <button className="lg:hidden flex items-center" onClick={() => setIsOpen(!isOpen)}>
