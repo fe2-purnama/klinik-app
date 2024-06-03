@@ -12,10 +12,10 @@ const services = [
     id: 1,
     title: 'Konsultasi Dokter',
     description: (
-      <div className="flex flex-col md:flex-row justify-between p-8">
-        <div>
-          <h1 className="text-2xl font-bold mb-4">Kami memberikan layanan reservasi konsultasi dokter secara Online</h1>
-          <ol className="list-decimal pl-6">
+      <div className='flex flex-col md:flex-row justify py-6 xl:px-20'>
+        <div className='mb-4'>
+          <h1 className="md:text-xl xl:text-2xl font-bold mb-4">Kami memberikan layanan reservasi konsultasi dokter secara Online</h1>
+          <ol className="list-decimal pl-6 text-base">
             <li>Masukkan akun</li>
             <li>Pilih menu konsultasi dokter</li>
             <li>Pilih kategori dokter</li>
@@ -25,7 +25,7 @@ const services = [
             <li>Anda berhasil melakukan reservasi Online</li>
           </ol>
         </div>
-        <img src={Layanan1} alt="Dokter melakukan konsultasi" className="w-1/2 md:w-1/3 rounded-lg shadow-lg" />
+        <img src={Layanan1} alt="Konsultasi Dokter" className="w-full md:w-1/3 rounded-lg shadow-lg" />
       </div>
     ),
     icon: 'fas fa-user-md',
@@ -34,17 +34,17 @@ const services = [
     id: 2,
     title: 'Pemeriksaan Kesehatan',
     description: (
-      <div className="flex flex-col md:flex-row justify-between p-8">
-        <div>
-          <h1 className="text-2xl font-bold mb-4">Kami memberikan layanan pemeriksaan kesehatan sesuai permintaan</h1>
-          <ol className="list-decimal pl-6">
+      <div className='flex flex-col md:flex-row justify py-6 xl:px-20'>
+        <div className='mb-4'>
+          <h1 className="md:text-xl xl:text-2xl font-bold mb-4">Kami memberikan layanan pemeriksaan kesehatan sesuai permintaan</h1>
+          <ol className="list-decimal pl-6 text-base">
             <li>Datang ke klinik sesuai jadwal reservasi dokter anda</li>
             <li>Terangkan keluhan anda</li>
             <li>Minta untuk pemeriksaan kesehatan</li>
             <li>Gunakan fasilitas pemeriksaan kesehatan</li>
           </ol>
         </div>
-        <img src={Layanan2} alt="Dokter melakukan konsultasi" className="w-1/2 md:w-1/3 rounded-lg shadow-lg" />
+        <img src={Layanan2} alt="Pemeriksaan Kesehatan" className="w-full md:w-1/3 rounded-lg shadow-lg" />
       </div>
     ),
     icon: 'fas fa-stethoscope',
@@ -53,10 +53,10 @@ const services = [
     id: 3,
     title: 'Resep Obat',
     description: (
-      <div className="flex flex-col md:flex-row justify-between p-8">
-        <div>
-          <h1 className="text-2xl font-bold mb-4">Kami memberikan layanan resep obat yang direkomendasikan oleh Dokter</h1>
-          <ol className="list-decimal pl-6">
+      <div className='flex flex-col md:flex-row justify py-6 xl:px-20'>
+        <div className='mb-4'>
+          <h1 className="md:text-xl xl:text-2xl font-bold mb-4">Kami memberikan layanan resep obat yang direkomendasikan oleh Dokter</h1>
+          <ol className="list-decimal pl-6 text-base">
             <li>Datang ke klinik sesuai jadwal klinik atau reservasi anda</li>
             <li>Terangkan keluhan anda pada Dokter kami</li>
             <li>Ambil resep obat dari Dokter kami</li>
@@ -65,7 +65,7 @@ const services = [
             <li>Anda mendapatkan obat sesuai resep yang diberikan</li>
           </ol>
         </div>
-        <img src={Layanan3} alt="Dokter melakukan konsultasi" className="w-1/2 md:w-1/3 rounded-lg shadow-lg" />
+        <img src={Layanan3} alt="Resep Obat" className="w-full md:w-1/3 rounded-lg shadow-lg" />
       </div>
     ),
     icon: 'fas fa-pills',
@@ -74,10 +74,10 @@ const services = [
     id: 4,
     title: 'Ambulance',
     description: (
-      <div className="flex flex-col md:flex-row justify-between p-8">
-        <div>
-          <h1 className="text-2xl font-bold mb-4">Kami memberikan layanan ambulance yang siap datang di tempat anda</h1>
-          <ol className="list-decimal pl-6">
+      <div className='flex flex-col md:flex-row justify py-6 xl:px-20'>
+        <div className='mb-4'>
+          <h1 className="md:text-xl xl:text-2xl font-bold mb-4">Kami memberikan layanan ambulance yang siap datang di tempat anda</h1>
+          <ol className="list-decimal pl-6 text-base">
             <li>
               Masuk ke halaman <b>Homepage</b>
             </li>
@@ -94,7 +94,7 @@ const services = [
             <li>Ambulance akan datang ke rumah anda</li>
           </ol>
         </div>
-        <img src={Layanan4} alt="Dokter melakukan konsultasi" className="w-1/2 md:w-1/3 rounded-lg shadow-lg" />
+        <img src={Layanan4} alt="Ambulance" className="w-full md:w-1/3 rounded-lg shadow-lg" />
       </div>
     ),
     icon: 'fas fa-ambulance',
@@ -103,10 +103,10 @@ const services = [
     id: 5,
     title: 'Laboratorium',
     description: (
-      <div className="flex flex-col md:flex-row justify-between p-8">
-        <div>
-          <h1 className="text-2xl font-bold mb-4">Kami memberikan layanan Laboratorium untuk pemeriksaan lanjut</h1>
-          <ol className="list-decimal pl-6">
+      <div className='flex flex-col md:flex-row justify py-6 xl:px-20'>
+        <div className='mb-4'>
+          <h1 className="md:text-xl xl:text-2xl font-bold mb-4">Kami memberikan layanan Laboratorium untuk pemeriksaan lanjut</h1>
+          <ol className="list-decimal pl-6 text-base">
             <li>
               Datang ke klinik sesuai <b>jadwal</b> klinik
             </li>
@@ -122,7 +122,7 @@ const services = [
             </li>
           </ol>
         </div>
-        <img src={Layanan5} alt="Dokter melakukan konsultasi" className="w-1/2 md:w-1/3 rounded-lg shadow-lg" />
+        <img src={Layanan5} alt="Laboratorium" className="w-full md:w-1/3 rounded-lg shadow-lg" />
       </div>
     ),
     icon: 'fas fa-stethoscope',
@@ -140,14 +140,15 @@ const ClinicServices = () => {
 
   return (
     <div className="container">
-      <div className="flex flex-wrap justify-center gap-4">
+      <div className="flex flex-row gap-1 overflow-x-auto justify-evenly lg:mx-36 xl:mx-40 2xl:mx-44">
         {services.map((service) => (
           <ClinicServiceBox key={service.id} id={service.id} title={service.title} icon={service.icon} isActive={service.id === activeService} onClick={handleServiceClick} />
         ))}
       </div>
-      <div className="px-6">{activeServiceInfo.description}</div>
+      <div className="">{activeServiceInfo.description}</div>
     </div>
   );
 };
 
 export default ClinicServices;
+{/* py-6 flex flex-row gap-2 lg:gap-4 overflow-x-auto items-center justify-evenly */}

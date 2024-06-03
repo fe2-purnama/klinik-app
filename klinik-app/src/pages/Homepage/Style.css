@@ -1,7 +1,7 @@
 /* Hero Section */
 .hero {
   background-color: var(--secondary);
-  height: 620px;
+  height: 88vh;
 }
 
 .hero-content {
@@ -30,40 +30,50 @@
   font-weight: 600;
 }
 
-/* Layanan */
-
-
-/* Dokter */
-
-
 /* Tentang Kami */
-.tentang p {
-  font-size: 20px;
-}
-
 .box.box-tentang {
   background-color: var(--secondary);
 }
 
-/* FAQs */
-
-
 /* Hubungi Kami */
 .hubungi-konten {
   background-color: var(--secondary);
-  margin: 70px 0px 120px 0px;
-}
-
-.hubungi-konten .konten {
-  height: 400px;
+  margin: 50px 0px 120px 0px;
+  border-radius: 50px;
 }
 
 .hubungi img {
-  width: 480px;
+  width: 380px;
 }
 
 .hubungi button {
   background-color: var(--primary);
+}
+
+@media (max-width: 640px) {
+    .hero-content h1 {
+        font-size: 2rem;
+        margin-top: -50px;
+    }
+
+    .hero-content p {
+        font-size: 1.125rem;
+    }
+
+    .hero-content button {
+        font-size: 1.125rem;
+    }
+
+    .hero-image img {
+      width: 100%;
+    }
+
+    .hero button {
+      width: 100%;
+    }
+    .faqs .hero-image img {
+      width: 40%;
+    }
 }
 
 @media (min-width: 640px) {
@@ -80,7 +90,11 @@
     }
 
     .hero-image img {
-      max-width: 300px;
+      width: 100%;
+    }
+
+    .faqs .hero-image img {
+      width: 40%;
     }
 }
 
@@ -100,6 +114,10 @@
     .hero-image img {
       max-width: 450px;
     }
+
+    .faqs .hero-image img {
+      width: 60%;
+    }
 }
 
 @media (min-width: 1024px) {
@@ -113,5 +131,15 @@
 
     .hero-image img {
       max-width: 550px;
+    }
+
+    .faqs .hero-image img {
+      width: 80%;
+    }
+}
+
+@media (min-width: 1280px) {
+    .faqs .hero-image img {
+      width: 90%;
     }
 }

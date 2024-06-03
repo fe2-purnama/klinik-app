@@ -80,11 +80,11 @@ const DoctorServices = () => {
   const activeDoctors = doctorData
     .find((service) => service.id === activeService)
     .doctors.sort((a, b) => b.experience - a.experience)
-    .slice(0, 5);
+    .slice(0, 4);
 
   return (
     <div className="container">
-      <div className="flex flex-wrap justify-center gap-4">
+      <div className="flex flex-row gap-1 overflow-x-auto justify-evenly lg:mx-36 xl:mx-40 2xl:mx-44">
         {doctorData.map((service) => (
           <DoctorServiceBox key={service.id} id={service.id} title={service.title} icon={service.icon} isActive={service.id === activeService} onClick={setActiveService} />
         ))}
@@ -95,7 +95,7 @@ const DoctorServices = () => {
           </div>
         </Link>
       </div>
-      <div className="doctor-list grid grid-cols-5 sm:grid-cols-2 lg:grid-cols-5 gap-2 ">
+      <div className="doctor-list xl:mx-20 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-2 ">
         {activeDoctors.map((doctor, index) => (
           <DoctorCard key={index} photo={doctor.photo} name={doctor.name} specialty={doctor.specialty} experience={doctor.experience} />
         ))}
