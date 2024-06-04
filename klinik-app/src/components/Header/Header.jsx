@@ -1,6 +1,6 @@
-import { Outlet, Link, useLocation } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 import Logo from '../../assets/logo.png';
 import './Style.css';
 
@@ -103,52 +103,52 @@ const Header = () => {
         </nav>
 
         {/* Sidebar */}
-        <div className={`sidebar fixed top-0 right-0 w-64 h-full bg-white shadow-lg transform ${isOpen ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out z-20`}>
-            <button className="absolute top-4 right-4" onClick={() => setIsOpen(false)}>
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <div className={`sidebar fixed top-0 right-0 w-64 h-full bg-[color:var(--secondary)] shadow-lg transform ${isOpen ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out z-20`}>
+            <button className="absolute top-4 right-4 text-gray-600 hover:text-red-500 transition-colors duration-200" onClick={() => setIsOpen(false)}>
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
+                </svg>
             </button>
-            <ul className="flex flex-col items-start mt-16 space-y-4 pl-8">
-            <li className={activeSection === 'home' ? 'active' : ''}>
+            <ul className="flex flex-col items-start mt-20 space-y-3">
+                <li className={`w-56 py-2 px-6 mx-3 rounded-xl ${activeSection === 'home' ? 'bg-[color:var(--primary)] text-white' : 'hover:bg-[color:var(--tertiary)] transition-colors duration-200'}`}>
                 {isHome ? (
-                <AnchorLink className="anchor-link" offset={80} href="#home">
+                    <AnchorLink className="anchor-link block w-full h-full" offset={80} href="#home">
                     Home
-                </AnchorLink>
+                    </AnchorLink>
                 ) : (
-                <Link to="/">Home</Link>
+                    <Link className="block w-full h-full" to="/">Home</Link>
                 )}
-            </li>
-            <li className={activeSection === 'layanan' ? 'active' : ''}>
-                <AnchorLink className="anchor-link" offset={120} href="#layanan">
-                Layanan
-                </AnchorLink>
-            </li>
-            <li className={activeSection === 'dokter' ? 'active' : ''}>
-                <AnchorLink className="anchor-link" offset={120} href="#dokter">
-                Dokter
-                </AnchorLink>
-            </li>
-            <li className={activeSection === 'tentang' ? 'active' : ''}>
-                <AnchorLink className="anchor-link" offset={120} href="#tentang">
-                Tentang
-                </AnchorLink>
-            </li>
-            <li className={activeSection === 'faqs' ? 'active' : ''}>
-                <AnchorLink className="anchor-link" offset={120} href="#faqs">
-                FAQs
-                </AnchorLink>
-            </li>
-            <li className={activeSection === 'hubungi' ? 'active' : ''}>
-                <AnchorLink className="anchor-link" offset={120} href="#hubungi">
-                Hubungi
-                </AnchorLink>
-            </li>
-            <li>
-                <Link className="btn-login" to="/Login" onClick={() => setIsOpen(false)}>
-                Masuk
-                </Link>
-            </li>
+                </li>
+                <li className={`w-56 py-2 px-6 mx-3 rounded-xl ${activeSection === 'layanan' ? 'bg-[color:var(--primary)] text-white' : 'hover:bg-[color:var(--tertiary)] transition-colors duration-200'}`}>
+                    <AnchorLink className="anchor-link block w-full h-full" offset={120} href="#layanan">
+                        Layanan
+                    </AnchorLink>
+                </li>
+                <li className={`w-56 py-2 px-6 mx-3 rounded-xl ${activeSection === 'dokter' ? 'bg-[color:var(--primary)] text-white' : 'hover:bg-[color:var(--tertiary)] transition-colors duration-200'}`}>
+                    <AnchorLink className="anchor-link block w-full h-full" offset={120} href="#dokter">
+                        Dokter
+                    </AnchorLink>
+                </li>
+                <li className={`w-56 py-2 px-6 mx-3 rounded-xl ${activeSection === 'tentang' ? 'bg-[color:var(--primary)] text-white' : 'hover:bg-[color:var(--tertiary)] transition-colors duration-200'}`}>
+                    <AnchorLink className="anchor-link block w-full h-full" offset={120} href="#tentang">
+                        Tentang
+                    </AnchorLink>
+                </li>
+                <li className={`w-56 py-2 px-6 mx-3 rounded-xl ${activeSection === 'faqs' ? 'bg-[color:var(--primary)] text-white' : 'hover:bg-[color:var(--tertiary)] transition-colors duration-200'}`}>
+                    <AnchorLink className="anchor-link block w-full h-full" offset={120} href="#faqs">
+                        FAQs
+                    </AnchorLink>
+                </li>
+                <li className={`w-56 py-2 px-6 mx-3 rounded-xl ${activeSection === 'hubungi' ? 'bg-[color:var(--primary)] text-white' : 'hover:bg-[color:var(--tertiary)] transition-colors duration-200'}`}>
+                    <AnchorLink className="anchor-link block w-full h-full" offset={120} href="#hubungi">
+                        Hubungi
+                    </AnchorLink>
+                </li>
+                <li className="w-56 pt-16 mx-3">
+                    <Link className="btn-login bg-[color:var(--secondary)] text-[color:var(--primary)] block w-full h-full hover:bg-[color:var(--primary)] hover:text-white" to="/Login" onClick={() => setIsOpen(false)}>
+                        Masuk
+                    </Link>
+                </li>
             </ul>
         </div>
 

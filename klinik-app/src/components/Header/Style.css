@@ -16,7 +16,6 @@ nav {
 .nav-links li:hover,
 .nav-links li.active {
     color: var(--primary);
-    font-weight: bold;
 }
 
 .logo h1 {
@@ -27,7 +26,17 @@ nav {
     background-color: var(--primary);
     color: white;
     padding: 0.8rem 2rem;
+    text-align: center;
+    border: 1px solid var(--primary);
     border-radius: 15px;
+}
+
+.btn-login:hover {
+    background-color: var(--secondary);
+    color: var(--primary);
+    transition-property: color, background-color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 200ms;
 }
 
 .sidebar {
