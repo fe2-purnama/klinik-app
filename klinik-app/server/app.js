@@ -1,18 +1,18 @@
 const express = require("express");
 const cors = require("cors");
 const session = require("express-session");
-const sequelizeStore = require("connect-session-sequelize");
+const sequelizeStore = require("connect-session-sequelize")(session.Store); // Import sequelizeStore properly
 const db = require("./config/db");
 const dotenv = require("dotenv");
 const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
+const reservationRoutes = require("./routes/reservationRoutes"); // Import reservation routes
 
 dotenv.config();
 
 const app = express();
 
-const sessionStore = sequelizeStore(session.Store);
-const store = new sessionStore({
+const sessionStore = new sequelizeStore({
   db: db,
 });
 
@@ -24,7 +24,7 @@ app.use(
     secret: SECRET,
     resave: false,
     saveUninitialized: true,
-    store: store,
+    store: sessionStore, // Use sessionStore here
     cookie: {
       secure: "auto",
     },
@@ -36,9 +36,17 @@ app.use(express.json());
 
 app.use(userRoutes);
 app.use(authRoutes);
+app.use('/reservations', reservationRoutes); // Mount reservation routes
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+db.authenticate()
+  .then(() => console.log("Database connected..."))
+  .catch(err => console.log("Error: " + err));
+
+db.sync({ force: false }) // Sync the database
+  .then(() => {
+    console.log("Tables have been synced.");
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  })
+  .catch(err => console.log("Error syncing tables: " + err));
 
 module.exports = app;
