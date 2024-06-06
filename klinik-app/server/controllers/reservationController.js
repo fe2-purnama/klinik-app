@@ -27,6 +27,34 @@ const getReservationById = async (req, res) => {
   }
 };
 
+const getReservationsByUserId = async (req, res) => {
+  try {
+    const response = await Reservation.findAll({
+      attributes: ["id_reservation", "id_user", "id_doctor", "doctor", "spesialist", "name", "nik", "ttl", "jk", "phone", "alamat", "tgl_reservasi", "keluhan", "status", "created_at"],
+      where: {
+        id_user: req.params.id,
+      },
+    });
+    res.status(200).json(response);
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
+  }
+};
+
+const getReservationsByDoctorId = async (req, res) => {
+  try {
+    const response = await Reservation.findAll({
+      attributes: ["id_reservation", "id_user", "id_doctor", "doctor", "spesialist", "name", "nik", "ttl", "jk", "phone", "alamat", "tgl_reservasi", "keluhan", "status", "created_at"],
+      where: {
+        id_doctor: req.params.id,
+      },
+    });
+    res.status(200).json(response);
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
+  }
+};
+
 const createReservation = async (req, res) => {
   const { id_user, id_doctor, doctor, spesialist, name, nik, ttl, jk, phone, alamat, tgl_reservasi, keluhan } = req.body;
   try {
@@ -58,7 +86,7 @@ const updateReservation = async (req, res) => {
   });
   if (!reservation) return res.status(404).json({ msg: "Reservasi tidak ditemukan" });
 
-  const { status } = req.body; // Update only the status
+  const { status } = req.body;
 
   try {
     await Reservation.update(
@@ -100,6 +128,8 @@ const deleteReservation = async (req, res) => {
 module.exports = {
   getReservations,
   getReservationById,
+  getReservationsByUserId,
+  getReservationsByDoctorId,
   createReservation,
   updateReservation,
   deleteReservation,
