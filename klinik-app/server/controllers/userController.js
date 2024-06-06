@@ -18,7 +18,7 @@ const getPatient = async (req, res) => {
 const getDoctor = async (req, res) => {
   try {
     const response = await Auth.findAll({
-      attributes: ["id_doctor", "name", "gender", "email", "role", "spesialist", "phone", "created_at"],
+      attributes: ["id_user", "id_doctor", "name", "gender", "email", "role", "spesialist", "phone", "created_at"],
       where: {
         role: "doctor",
       },
