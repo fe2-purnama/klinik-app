@@ -36,7 +36,7 @@ app.use(express.json());
 
 app.use(userRoutes);
 app.use(authRoutes);
-app.use('/reservations', reservationRoutes); // Mount reservation routes
+app.use(reservationRoutes); // Mount reservation routes
 
 db.authenticate()
   .then(() => console.log("Database connected..."))

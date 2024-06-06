@@ -64,7 +64,7 @@ const Reservation = db.define('Reservation', {
     allowNull: false
   },
   status: {
-    type: DataTypes.ENUM('Menunggu', 'In Progress', 'Batal'),
+    type: DataTypes.ENUM('Menunggu', 'In Progress', 'Batal', 'Selesai'),
     defaultValue: 'Menunggu'
   },
   created_at: {
