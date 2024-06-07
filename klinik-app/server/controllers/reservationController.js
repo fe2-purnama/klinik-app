@@ -5,7 +5,7 @@ const Auth = require("../models/user");
 const getReservations = async (req, res) => {
   try {
     const response = await Reservation.findAll({
-      attributes: ["id_reservation", "id_user", "id_doctor", "doctor", "spesialist", "name", "nik", "ttl", "jk", "phone", "alamat", "tgl_reservasi", "keluhan", "status", "created_at"],
+      attributes: ["id_reservation", "id_user", "id_doctor", "name", "nik", "ttl", "gender", "phone", "address", "tgl_reservasi", "keluhan", "status", "created_at"],
     });
     res.status(200).json(response);
   } catch (error) {
@@ -16,7 +16,7 @@ const getReservations = async (req, res) => {
 const getReservationById = async (req, res) => {
   try {
     const response = await Reservation.findOne({
-      attributes: ["id_reservation", "id_user", "id_doctor", "doctor", "spesialist", "name", "nik", "ttl", "jk", "phone", "alamat", "tgl_reservasi", "keluhan", "status", "created_at"],
+      attributes: ["id_reservation", "id_user", "id_doctor", "name", "nik", "ttl", "gender", "phone", "address", "tgl_reservasi", "keluhan", "status", "created_at"],
       where: {
         id_reservation: req.params.id,
       },
@@ -30,7 +30,7 @@ const getReservationById = async (req, res) => {
 const getReservationsByUserId = async (req, res) => {
   try {
     const response = await Reservation.findAll({
-      attributes: ["id_reservation", "id_user", "id_doctor", "doctor", "spesialist", "name", "nik", "ttl", "jk", "phone", "alamat", "tgl_reservasi", "keluhan", "status", "created_at"],
+      attributes: ["id_reservation", "id_user", "id_doctor", "name", "nik", "ttl", "gender", "phone", "address", "tgl_reservasi", "keluhan", "status", "created_at"],
       where: {
         id_user: req.params.id,
       },
@@ -44,7 +44,7 @@ const getReservationsByUserId = async (req, res) => {
 const getReservationsByDoctorId = async (req, res) => {
   try {
     const response = await Reservation.findAll({
-      attributes: ["id_reservation", "id_user", "id_doctor", "doctor", "spesialist", "name", "nik", "ttl", "jk", "phone", "alamat", "tgl_reservasi", "keluhan", "status", "created_at"],
+      attributes: ["id_reservation", "id_user", "id_doctor", "name", "nik", "ttl", "gender", "phone", "address", "tgl_reservasi", "keluhan", "status", "created_at"],
       where: {
         id_doctor: req.params.id,
       },
@@ -56,19 +56,17 @@ const getReservationsByDoctorId = async (req, res) => {
 };
 
 const createReservation = async (req, res) => {
-  const { id_user, id_doctor, doctor, spesialist, name, nik, ttl, jk, phone, alamat, tgl_reservasi, keluhan } = req.body;
+  const { id_user, id_doctor, name, nik, ttl, gender, phone, address, tgl_reservasi, keluhan, status } = req.body;
   try {
     await Reservation.create({
       id_user: id_user,
       id_doctor: id_doctor,
-      doctor: doctor,
-      spesialist: spesialist,
       name: name,
       nik: nik,
       ttl: ttl,
-      jk: jk,
+      gender: gender,
       phone: phone,
-      alamat: alamat,
+      address: address,
       tgl_reservasi: tgl_reservasi,
       keluhan: keluhan,
     });

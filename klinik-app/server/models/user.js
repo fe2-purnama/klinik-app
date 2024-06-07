@@ -9,12 +9,16 @@ const Auth = db.define(
       primaryKey: true,
       autoIncrement: true,
     },
+    id_doctor: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     gender: {
-      type: DataTypes.ENUM("male", "female"),
+      type: DataTypes.ENUM("Laki-laki", "Perempuan"),
       allowNull: false,
     },
     email: {
@@ -40,14 +44,6 @@ const Auth = db.define(
     password: {
       type: DataTypes.STRING,
       allowNull: false,
-    },
-    experience: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    address: {
-      type: DataTypes.STRING,
-      allowNull: true,
     },
     created_at: {
       type: DataTypes.DATE,
