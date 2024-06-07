@@ -6,7 +6,7 @@ import Register from "./pages/Masuk/Register/Register";
 import ManageAkunDokter from "./pages/DashboardAdmin/ManageAkunDokter";
 import TambahAkunDokter from "./pages/DashboardAdmin/TambahAkunDokter";
 import EditAkunDokter from "./pages/DashboardAdmin/EditAkunDokter";
-import DasboardPasien from "./pages/DasboardPasien";
+import DasboardPasien from "./pages/Dashboard-pasien/DasboardPasien";
 import ListDokter from "./pages/ListDokter";
 import DetailDokter from "./pages/DetailDokter";
 import AdminLayout from "./pages/DashboardAdmin/AdminLayout";

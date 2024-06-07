@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import Sidebar from "../components/Sidebar";
-import Table from "../components/Table";
-import Footer from "../components/Footer/Footer";
+import Sidebar from "../../components/Sidebar";
+import Table from "../../components/Table";
+import Footer from "../../components/Footer/Footer";
 
 function DasboardPasien() {
   return (
