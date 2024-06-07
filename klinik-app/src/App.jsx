@@ -16,6 +16,9 @@ import DaftarAntrian from "./pages/Dashboard-dokter/DaftarAntrian";
 import ReviewDokter from "./pages/Dashboard-dokter/ReviewDokter";
 import ProfilDokter from "./pages/Dashboard-dokter/ProfilDokter";
 import "./App.css";
+import PrivateRoutePasien from "./pages/Dashboard-pasien/PrivateRoutePasien";
+import ProfilePasien from "./pages/Dashboard-pasien/ProfilePasien";
+import DaftarReservasi from "./pages/Dashboard-pasien/DaftarReservasi";
 
 const App = () => {
   return (
@@ -25,7 +28,13 @@ const App = () => {
           <Route index element={<Home />} />
           <Route path="/list-dokter" element={<ListDokter />} />
           <Route path="/detail-dokter" element={<DetailDokter />} />
-          <Route path="/dasboard" element={<DasboardPasien />} />
+          <Route
+            path="/dashboard"
+            element={<PrivateRoutePasien element={<DasboardPasien />} />}
+          >
+            <Route index element={<DaftarReservasi />} />
+            <Route path="profile-pasien" element={<ProfilePasien />} />
+          </Route>
         </Route>
         <Route path="/Login" element={<Login />} />
         <Route path="/Registrasi" element={<Register />} />

@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import Sidebar from "../../components/Sidebar";
-import Table from "../../components/Table";
 import Footer from "../../components/Footer/Footer";
+import { Outlet } from "react-router-dom";
 
 function DasboardPasien() {
   return (
@@ -13,9 +13,8 @@ function DasboardPasien() {
         </aside>
 
         <section className="py-4 w-full lg:p-5 overflow-auto">
-          <h1 className="text-2xl font-semibold mb-5">Daftar Reservasi Anda</h1>
           <div className="h-4/5 overflow-x-auto">
-            <Table />
+            <Outlet />
           </div>
         </section>
       </div>
