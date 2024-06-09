@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
-import { Button, Modal } from "flowbite-react";
 import axios from "axios";
 import {
   Table,
@@ -9,15 +8,20 @@ import {
   TableHead,
   TableHeadCell,
   TableRow,
+  Button,
+  Modal,
 } from "flowbite-react";
 
 export default function Component(props) {
   const { data } = props;
   const [openModal, setOpenModal] = useState(false);
+  const [OpenModalReview, setOpenModalReview] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
+  const [selectedDoctorId, setSelectedDoctorId] = useState(null);
+  const [review, setReview] = useState(null);
 
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoicXdlcnR5MTIzQHF3ZXJ0eS5jb20iLCJyb2xlIjoicGF0aWVudCIsImlhdCI6MTcxNzkxNzQ5NSwiZXhwIjoxNzE3OTIxMDk1fQ.hQUzblvokTvB9IqcKL491nEgRhyRpPl9LFPJwE_ZgQE";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoicXdlcnR5MTIzQHF3ZXJ0eS5jb20iLCJyb2xlIjoicGF0aWVudCIsImlhdCI6MTcxNzkzOTk0NSwiZXhwIjoxNzE3OTQzNTQ1fQ.qmPTjQpI-rva6-lNa_vwPnJZD2K9Pp5enE9ActABus0";
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -35,6 +39,14 @@ export default function Component(props) {
   const sortedData = data.sort((a, b) => {
     return statusPriority[a.status] - statusPriority[b.status];
   });
+
+  const statusColors = {
+    Menunggu: "text-yellow-800 bg-yellow-100",
+    Proses: "text-blue-800 bg-blue-100",
+    Selesai: "text-green-800 bg-green-100",
+    Batal: "text-red-800 bg-red-100",
+  };
+
   const handleDelete = async () => {
     try {
       const response = await axios.patch(
@@ -61,11 +73,35 @@ export default function Component(props) {
     }
   };
 
-  const statusColors = {
-    Menunggu: "text-yellow-800 bg-yellow-100",
-    Proces: "text-blue-800 bg-blue-100",
-    Selesai: "text-green-800 bg-green-100",
-    Batal: "text-red-800 bg-red-100",
+  const handleReview = (e) => {
+    setReview(e.target.value);
+    console.log(review);
+  };
+
+  const handleCreateReview = async () => {
+    try {
+      const response = await axios.post(
+        `http://localhost:5000/api/v1/create/review`,
+        {
+          reservation_id: `${selectedId}`,
+          doctor_id: `${selectedDoctorId}`,
+          review: `${review}`,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setOpenModalReview(false);
+      setSelectedId(null);
+      setSelectedDoctorId(null);
+      window.location.reload();
+    }
   };
 
   return (
@@ -97,7 +133,7 @@ export default function Component(props) {
               <TableCell>{data.specialization}</TableCell>
               <TableCell>
                 <span
-                  className={`inline-flex px-4 py-1 text-xs font-semibold leading-5 rounded-full text-yellow-800 ${
+                  className={`inline-flex px-4 py-1 text-xs font-semibold leading-5 rounded-full ${
                     statusColors[data.status]
                   }`}
                 >
@@ -115,6 +151,21 @@ export default function Component(props) {
                     className="font-medium text-red-600 hover:underline cursor-pointer"
                   >
                     batal
+                  </button>
+                )}
+                {data.status === "Selesai" && data.review[0] === undefined && (
+                  <button
+                    className="font-medium text-blue-600 hover:underline cursor-pointer"
+                    onClick={() => {
+                      setSelectedId(data.reservation_id);
+                      setSelectedDoctorId(data.doctor_id);
+                      console.log(selectedId);
+                      console.log(selectedDoctorId);
+                      console.log(data);
+                      setOpenModalReview(true);
+                    }}
+                  >
+                    review
                   </button>
                 )}
               </TableCell>
@@ -145,6 +196,35 @@ export default function Component(props) {
               <Button color="gray" onClick={() => setOpenModal(false)}>
                 Tidak
               </Button>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
+
+      <Modal
+        show={OpenModalReview}
+        size="md"
+        onClose={() => setOpenModalReview(false)}
+        popup
+      >
+        <Modal.Header />
+        <Modal.Body>
+          <div className="space-y-6">
+            <h3 className="text-xl font-medium text-gray-900 dark:text-white">
+              Kirim Review Anda Setelah Konsultasi
+            </h3>
+            <textarea
+              className="w-full h-40 border text-md border-gray-300 rounded-lg p-2 text-gray-900 focus:outline-none focus:ring-sky-500 focus:border-sky-500"
+              placeholder="Masukkan review anda"
+              onChange={handleReview}
+            ></textarea>
+            <div className="flex flex-col">
+              <button
+                className="bg-sky-500 hover:bg-sky-700 text-white py-2 px-4 rounded-lg"
+                onClick={handleCreateReview}
+              >
+                Berikan review
+              </button>
             </div>
           </div>
         </Modal.Body>
