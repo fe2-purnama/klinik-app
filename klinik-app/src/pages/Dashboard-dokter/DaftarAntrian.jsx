@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Table from '../../components/DashboardDokter/TableDokter';
+import axios from 'axios';
 
 const TableRow = ({ item, index, isEditing, onEditClick, onStatusChange }) => {
     const statusColors = {
         "Menunggu": "text-yellow-800 bg-yellow-100",
-        "Progress": "text-blue-800 bg-blue-100",
+        "Proses": "text-blue-800 bg-blue-100",
         "Selesai": "text-green-800 bg-green-100",
         "Batal": "text-red-800 bg-red-100",
     };
@@ -15,13 +16,13 @@ const TableRow = ({ item, index, isEditing, onEditClick, onStatusChange }) => {
                 {index}
             </td>
             <td className="px-2 py-4 text-sm leading-5 text-gray-900 whitespace-nowrap border-b border-gray-200 md:px-6">
-                {item.reservationNumber}
+                {item.reservation_id}
             </td>
             <td className="px-2 py-4 text-sm leading-5 text-gray-900 whitespace-nowrap border-b border-gray-200 md:px-6">
-                {item.date}
+                {new Date(item.reservation_date).toLocaleDateString()}
             </td>
             <td className="px-2 py-4 text-sm leading-5 text-gray-900 whitespace-nowrap border-b border-gray-200 md:px-6">
-                {item.patientName}
+                {item.patient_name}
             </td>
             <td className="px-2 py-4 whitespace-no-wrap border-b border-gray-200 md:px-6">
                 <span className={`inline-flex px-4 py-1 text-xs font-semibold leading-5 rounded-full ${statusColors[item.status]}`}>{item.status}</span>
@@ -33,9 +34,9 @@ const TableRow = ({ item, index, isEditing, onEditClick, onStatusChange }) => {
                 <button onClick={onEditClick} className="text-indigo-600 hover:text-indigo-900">Edit</button>
                 {isEditing && (
                     <div className="aksi fixed right-8 z-50 w-48 py-2 mt-2 bg-white border border-gray-300 rounded-lg shadow-lg">
-                        <button onClick={() => onStatusChange(index - 1, 'Progress')} className="block w-full px-4 py-2 text-left text-blue-700 hover:bg-gray-100">Progress</button>
-                        <button onClick={() => onStatusChange(index - 1, 'Selesai')} className="block w-full px-4 py-2 text-left text-green-700 hover:bg-gray-100">Selesai</button>
-                        <button onClick={() => onStatusChange(index - 1, 'Batal')} className="block w-full px-4 py-2 text-left text-red-700 hover:bg-gray-100">Batal</button>
+                        <button onClick={() => onStatusChange(item.reservation_id, 'Progress')} className="block w-full px-4 py-2 text-left text-blue-700 hover:bg-gray-100">Progress</button>
+                        <button onClick={() => onStatusChange(item.reservation_id, 'Selesai')} className="block w-full px-4 py-2 text-left text-green-700 hover:bg-gray-100">Selesai</button>
+                        <button onClick={() => onStatusChange(item.reservation_id, 'Batal')} className="block w-full px-4 py-2 text-left text-red-700 hover:bg-gray-100">Batal</button>
                     </div>
                 )}
             </td>
@@ -44,48 +45,64 @@ const TableRow = ({ item, index, isEditing, onEditClick, onStatusChange }) => {
 };
 
 const DaftarAntrian = () => {
-    const [data, setData] = useState([
-        {
-            reservationNumber: 'R123456789',
-            date: '2024-05-20',
-            patientName: 'Budi Santoso',
-            status: 'Menunggu',
-            complaint: 'Nyeri Perut',
-        },
-        {
-            reservationNumber: 'R123456790',
-            date: '2024-05-21',
-            patientName: 'Siti Aminah',
-            status: 'Progress',
-            complaint: 'Sakit Gigi',
-        },
-        {
-            reservationNumber: 'R123456795',
-            date: '2024-05-22',
-            patientName: 'Khidir Karawita',
-            status: 'Selesai',
-            complaint: 'Sesak Napas',
-        },
-        {
-            reservationNumber: 'R123456801',
-            date: '2024-05-22',
-            patientName: 'Muhammad Sumbul',
-            status: 'Batal',
-            complaint: 'Sesak Napas',
-        },
-    ]);
-
+    const [data, setData] = useState([]);
     const [editingIndex, setEditingIndex] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
 
-    const handleStatusChange = (index, newStatus) => {
-        if (index >= 0 && index < data.length) {
-            const updatedData = [...data];
-            updatedData[index].status = newStatus;
-            setData(updatedData);
+    const fetchData = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await axios.get('http://localhost:5000/api/v1/reservation/doctor', {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            setData(response.data);
+        } catch (error) {
+            console.error('Failed to fetch reservations:', error);
+            if (error.response) {
+                console.error('Response data:', error.response.data);
+                console.error('Response status:', error.response.status);
+                console.error('Response headers:', error.response.headers);
+            } else if (error.request) {
+                console.error('Request data:', error.request);
+            } else {
+                console.error('Error message:', error.message);
+            }
+        }
+    };
+
+    useEffect(() => {
+        fetchData();
+        const intervalId = setInterval(fetchData, 5000);
+
+        return () => {
+            clearInterval(intervalId);
+        };
+    }, []);
+
+    const handleStatusChange = async (id, newStatus) => {
+        try {
+            const token = localStorage.getItem('token');
+            await axios.patch('http://localhost:5000/api/v1/reservation/update', { reservation_id: id, status: newStatus }, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            setData(prevData => prevData.map(item => (item.reservation_id === id ? { ...item, status: newStatus } : item)));
             setEditingIndex(null);
-        } else {
-            console.error(`Invalid index: ${index}`);
+        } catch (error) {
+            console.error('Failed to update status:', error);
+            if (error.response) {
+                console.error('Response data:', error.response.data);
+                console.error('Response status:', error.response.status);
+                console.error('Response headers:', error.response.headers);
+            } else if (error.request) {
+                console.error('Request data:', error.request);
+            } else {
+                console.error('Error message:', error.message);
+            }
         }
     };
 
@@ -107,6 +124,8 @@ const DaftarAntrian = () => {
         "Aksi",
     ];
 
+    const filteredData = data.filter(item => item.patient_name && item.patient_name.toLowerCase().includes(searchTerm.toLowerCase()));
+
     return (
         <div className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
             <div className="container px-6 py-8 mx-auto">
@@ -116,9 +135,9 @@ const DaftarAntrian = () => {
                     <input type="text" placeholder="Cari Nama Pasien" value={searchTerm} onChange={handleSearch} className="px-3 py-1 border border-gray-300 rounded-md focus:ring-[color:var(--primary)]"/>
                 </div>
                 <Table headers={headers}>
-                    {data.map((item, index) => (
+                    {filteredData.map((item, index) => (
                         <TableRow
-                            key={index}
+                            key={item.reservation_id}
                             item={item}
                             index={index + 1}
                             isEditing={editingIndex === index}
@@ -133,5 +152,3 @@ const DaftarAntrian = () => {
 };
 
 export default DaftarAntrian;
-
-
