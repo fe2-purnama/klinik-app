@@ -1,20 +1,57 @@
-import React, { createContext, useContext, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+// Tambahkan impor useState dan Modal
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, LogOut, LayoutDashboard, Text, UserCircle2 } from 'lucide-react';
 import Brand from '../../assets/brand.png';
 import DoctorHeader from './HeaderDokter';
 import DaftarAntrian from '../../pages/Dashboard-dokter/DaftarAntrian';
 import ReviewDokter from '../../pages/Dashboard-dokter/ReviewDokter';
-import Modal from '../Modal/Modal';
+import Modal from '../Modal/Modal'; // Impor Modal
 import ProfilDokter from '../../pages/Dashboard-dokter/ProfilDokter';
+import axios from 'axios';
 
 const SidebarContext = createContext();
 
 export default function DoctorSidebar() {
     const [expanded, setExpanded] = useState(true);
     const location = useLocation();
+    const navigate = useNavigate();
 
-    const doctorName = "Dr. Eka Prasetyo, Sp.JP";
+    const [doctorName, setDoctorName] = useState('');
+    const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+
+    useEffect(() => {
+        const fetchDoctorName = async () => {
+            try {
+                const token = localStorage.getItem('token');
+                const response = await axios.get('http://localhost:5000/api/v1/doctor/profile', {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+
+                const doctorName = response.data.doctor[0].name;
+                setDoctorName(doctorName);
+            } catch (error) {
+                console.error('Failed to fetch doctor name:', error);
+            }
+        };
+
+        fetchDoctorName();
+    }, []);
+
+    const handleLogout = () => {
+        setIsLogoutModalOpen(true); // Buka modal konfirmasi log out
+    };
+
+    const handleCloseModal = () => {
+        setIsLogoutModalOpen(false); // Tutup modal konfirmasi log out
+    };
+
+    const handleConfirmLogout = () => {
+        localStorage.removeItem('token');
+        navigate('/Login');
+    };
 
     const renderContent = () => {
         switch (location.pathname) {
@@ -27,16 +64,6 @@ export default function DoctorSidebar() {
             default:
                 return null;
         }
-    };
-
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const handleLogout = () => {
-        setIsModalOpen(true);
-    };
-
-    const handleCloseModal = () => {
-        setIsModalOpen(false);
     };
 
     return (
@@ -76,16 +103,18 @@ export default function DoctorSidebar() {
                 </div>
             </div>
 
+            {/* Modal konfirmasi log out */}
             <Modal
-                isOpen={isModalOpen}
+                isOpen={isLogoutModalOpen}
                 handleClose={handleCloseModal}
                 title="Konfirmasi Log Out"
                 message="Apakah Anda yakin ingin log out?"
                 confirmButton="bg-red-600 hover:bg-red-800 focus:ring-green-500"
                 cancelButton="hover:bg-gray-300 focus:ring-red-500"
+                handleConfirm={handleConfirmLogout} // Menambahkan fungsi handleConfirm untuk log out
             />
         </>
-    )
+    );
 }
 
 function SidebarItem({ icon, text, active, to, onClick}) {

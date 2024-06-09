@@ -1,12 +1,35 @@
-/* eslint-disable no-unused-vars */
-// Login.jsx
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import './Login.css';
 import Logo from '../../../assets/logo.png';
 import Dokter from '../../../assets/dokter-hero.png';
+import axios from 'axios';
 
 const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:5000/api/v1/login', { email, password });
+      const { token, role } = response.data;
+
+      localStorage.setItem('token', token);
+
+      if (role === 'doctor') {
+        navigate('/dashboard-dokter');
+      } else if (role === 'patient') {
+        navigate('/dasboard');
+      } else if (role === 'admin') {
+        navigate('/admin');
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+    }
+  };
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 h-screen">
       <div className="kiri lg:h-screen flex flex-col justify-center items-center">
@@ -23,7 +46,7 @@ const Login = () => {
       </div>
       <div className="kanan lg:h-screen flex justify-center p-4 lg:p-8">
         <div className="form w-full max-w-lg mx-4 sm:mx-auto">
-          <form className="w-full">
+          <form className="w-full" onSubmit={handleSubmit}>
             <div className="teks mb-5 lg:mt-20">
               <h1 className="text-[color:var(--other1)] font-bold text-3xl lg:text-4xl">Selamat Datang!</h1>
               <p className="text-[color:var(--other1)]">Silahkan masuk terlebih dahulu!</p>
@@ -37,6 +60,8 @@ const Login = () => {
                 id="email"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
                 placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
@@ -49,6 +74,8 @@ const Login = () => {
                 id="password"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
                 placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 required
               />
             </div>
