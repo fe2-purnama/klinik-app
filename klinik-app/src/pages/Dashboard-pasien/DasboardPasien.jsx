@@ -13,7 +13,7 @@ function DasboardPasien() {
         </aside>
 
         <section className="py-4 w-full lg:p-5 overflow-auto">
-          <div className="h-4/5 overflow-x-auto">
+          <div className="overflow-x-auto">
             <Outlet />
           </div>
         </section>
