@@ -23,14 +23,6 @@ const Reservation = db.define('Reservation', {
       key: 'id_doctor'
     }
   },
-  doctor: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  spesialist: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
   name: {
     type: DataTypes.STRING,
     allowNull: false
@@ -43,15 +35,15 @@ const Reservation = db.define('Reservation', {
     type: DataTypes.DATEONLY,
     allowNull: false
   },
-  jk: {
-    type: DataTypes.STRING,
+  gender: {
+    type: DataTypes.ENUM('Laki-laki', 'Perempuan'),
     allowNull: false
   },
   phone: {
     type: DataTypes.STRING,
     allowNull: false
   },
-  alamat: {
+  address: {
     type: DataTypes.STRING,
     allowNull: false
   },

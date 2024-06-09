@@ -1,62 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Table from '../../components/DashboardDokter/TableDokter';
 
-const TableRow = ({ item, index }) => {
-    return (
-        <tr className="relative">
-            <td className="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-nowrap border-b border-gray-200">
-                {index}
-            </td>
-            <td className="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-nowrap border-b border-gray-200">
-                {item.reservationNumber}
-            </td>
-            <td className="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-nowrap border-b border-gray-200">
-                {item.date}
-            </td>
-            <td className="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-nowrap border-b border-gray-200">
-                {item.patientName}
-            </td>
-            <td className="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-nowrap border-b border-gray-200">
-                {item.complaint}
-            </td>
-            <td className="px-6 py-4 text-sm leading-5 text-gray-900  border-b border-gray-200">
-                {item.reviews}
-            </td>
-        </tr>
-    );
-};
-
 const ReviewDokter = () => {
-    const data = [
-        {
-            reservationNumber: 'R123456789',
-            date: '2024-05-20',
-            patientName: 'Budi Santoso',
-            complaint: 'Nyeri Perut',
-            reviews: 'Pelayanan dokter sangat baik dan profesional. Saya merasa lebih baik setelah konsultasi.',
-        },
-        {
-            reservationNumber: 'R123456790',
-            date: '2024-05-21',
-            patientName: 'Siti Aminah',
-            complaint: 'Sakit Gigi',
-            reviews: 'Dokter gigi sangat teliti dan memastikan perawatan dilakukan dengan benar. Saya merasa lebih nyaman setelah perawatan.',
-        },
-        {
-            reservationNumber: 'R123456795',
-            date: '2024-05-22',
-            patientName: 'Khidir Karawita',
-            complaint: 'Sesak Napas',
-            reviews: 'Dokter memberikan penjelasan yang rinci tentang kondisi saya dan langkah-langkah perawatan yang harus dilakukan. Saya merasa lebih tenang setelah konsultasi.',
-        },
-        {
-            reservationNumber: 'R123456801',
-            date: '2024-05-22',
-            patientName: 'Muhammad Sumbul',
-            complaint: 'Sesak Napas',
-            reviews: 'Meskipun harus menunggu cukup lama, pelayanan dokter sangat memuaskan. Saya mendapatkan perawatan yang tepat untuk mengatasi keluhan saya.',
-        },
-    ];
+    const [data, setData] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
+
+    const fetchReviews = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await axios.get('http://localhost:5000/api/v1/doctor/review', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            const reviews = response.data[0]?.doctor[0]?.reservation.map(reservation => ({
+                reservationNumber: reservation.reservation_id,
+                date: new Date(reservation.reservation_date).toLocaleDateString(),
+                patientName: reservation.patient_name,
+                complaint: reservation.complaint,
+                review: reservation.review.length > 0 ? reservation.review[0].review : "Belum memberikan review",
+            }));
+            setData(reviews);
+        } catch (error) {
+            console.error('Failed to fetch reviews:', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchReviews();
+        const intervalId = setInterval(fetchReviews, 5000);
+
+        return () => {
+            clearInterval(intervalId);
+        };
+    }, []);
 
     const headers = [
         "No.",
@@ -66,12 +44,14 @@ const ReviewDokter = () => {
         "Keluhan",
         "Review",
     ];
-    
-    const [searchTerm, setSearchTerm] = useState('');
-    
+
     const handleSearch = (event) => {
         setSearchTerm(event.target.value);
     };
+
+    const filteredData = data.filter(item =>
+        item.patientName && item.patientName.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     return (
         <div className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
@@ -79,15 +59,18 @@ const ReviewDokter = () => {
                 <h2 className='text-3xl font-medium text-gray-700'>Review Dokter</h2>
                 <div className="mt-6">
                     <span>Cari </span>
-                    <input type="text" placeholder="Cari Nama Pasien" value={searchTerm} onChange={handleSearch} className="px-3 py-1 border border-gray-300 rounded-md  focus:ring-[color:var(--primary)]"/>
+                    <input type="text" placeholder="Cari Nama Pasien" value={searchTerm} onChange={handleSearch} className="px-3 py-1 border border-gray-300 rounded-md focus:ring-[color:var(--primary)]"/>
                 </div>
                 <Table headers={headers}>
-                    {data.map((item, index) => (
-                        <TableRow
-                            key={index}
-                            item={item}
-                            index={index + 1}
-                        />
+                    {filteredData.map((item, index) => (
+                        <tr key={index} className="relative">
+                            <td className="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-nowrap border-b border-gray-200">{index + 1}</td>
+                            <td className="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-nowrap border-b border-gray-200">{item.reservationNumber}</td>
+                            <td className="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-nowrap border-b border-gray-200">{item.date}</td>
+                            <td className="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-nowrap border-b border-gray-200">{item.patientName}</td>
+                            <td className="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-nowrap border-b border-gray-200">{item.complaint}</td>
+                            <td className="px-6 py-4 text-sm leading-5 text-gray-900 border-b border-gray-200">{item.review}</td>
+                        </tr>
                     ))}
                 </Table>
             </div>
