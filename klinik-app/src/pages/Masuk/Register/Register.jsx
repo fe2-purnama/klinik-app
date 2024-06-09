@@ -4,6 +4,7 @@ import "./Register.css";
 import { Link } from "react-router-dom";
 import Logo from "../../../assets/logo.png";
 import Dokter from "../../../assets/dokter-hero.png";
+import { Alert } from "flowbite-react";
 import Axios from "axios";
 
 const Register = () => {
@@ -16,6 +17,8 @@ const Register = () => {
   const [confirmPassword, setconfirmPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [responseMessage, setResponseMessage] = useState("");
+  const [responseError, setResponseError] = useState("");
 
   const handleChange = (e) => {
     setFormData((prevFormData) => ({
@@ -48,7 +51,7 @@ const Register = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (passwordError) {
@@ -56,15 +59,17 @@ const Register = () => {
     }
 
     try {
-      const response = Axios.post(
-        "http://localhost:5000/api/v1/doctor/register",
+      setLoading(true);
+      const response = await Axios.post(
+        "http://localhost:5000/api/v1/register",
         formData
       );
+      setResponseMessage(response.data.message);
     } catch (error) {
-      console.log(error);
+      setResponseError(error.response.data.error);
+    } finally {
+      setLoading(false);
     }
-
-    console.log(formData);
   };
 
   return (
@@ -74,7 +79,7 @@ const Register = () => {
           <img src={Logo} alt="Klinik Prima" className="h-20" />
           <h1 className="text-3xl lg:text-5xl ml-2">
             <span className="text-[color:var(--primary)] font-bold">
-              Klinik{" "}
+              Klinik
             </span>
             <span className="text-[color:var(--other)] font-bold">Prima</span>
           </h1>
@@ -93,6 +98,15 @@ const Register = () => {
               <p className="text-[color:var(--other1)]">
                 Silahkan daftar terlebih dahulu!
               </p>
+
+              {responseMessage && (
+                <Alert
+                  color="success"
+                  onDismiss={() => setResponseMessage(null)}
+                >
+                  <span className="font-medium">{responseMessage}</span>
+                </Alert>
+              )}
             </div>
             <div className="mb-5">
               <label className="block mb-2 text-sm font-medium text-[color:var(--other1)]">
@@ -132,6 +146,7 @@ const Register = () => {
                 placeholder="Email"
                 required
               />
+              <p className="text-sm text-red-500">{responseError}</p>
             </div>
             <div className="mb-5">
               <label className="block mb-2 text-sm font-medium text-[color:var(--other1)]">
