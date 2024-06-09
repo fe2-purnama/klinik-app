@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { Button, Modal } from "flowbite-react";
+import axios from "axios";
 import {
   Table,
   TableBody,
@@ -15,15 +16,56 @@ export default function Component(props) {
   const [openModal, setOpenModal] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
 
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoicXdlcnR5MTIzQHF3ZXJ0eS5jb20iLCJyb2xlIjoicGF0aWVudCIsImlhdCI6MTcxNzkxNzQ5NSwiZXhwIjoxNzE3OTIxMDk1fQ.hQUzblvokTvB9IqcKL491nEgRhyRpPl9LFPJwE_ZgQE";
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    const options = { day: "2-digit", month: "short", year: "numeric" };
-    return date.toLocaleDateString("en-GB", options);
+    const options = { day: "2-digit", month: "long", year: "numeric" };
+    return date.toLocaleDateString("id-GB", options);
   };
 
-  const handleDelete = () => {
-    console.log(`Deleting reservation with ID ${selectedId}`);
-    setOpenModal(false);
+  const statusPriority = {
+    Menunggu: 1,
+    Proses: 2,
+    Selesai: 3,
+    Batal: 4,
+  };
+
+  const sortedData = data.sort((a, b) => {
+    return statusPriority[a.status] - statusPriority[b.status];
+  });
+  const handleDelete = async () => {
+    try {
+      const response = await axios.patch(
+        `http://localhost:5000/api/v1/reservation/update`,
+        {
+          reservation_id: `${selectedId}`,
+          status: "Batal",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response.data.message);
+      console.log(`Deleting reservation with ID ${selectedId}`);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setOpenModal(false);
+      setSelectedId(null);
+      window.location.reload();
+    }
+  };
+
+  const statusColors = {
+    Menunggu: "text-yellow-800 bg-yellow-100",
+    Proces: "text-blue-800 bg-blue-100",
+    Selesai: "text-green-800 bg-green-100",
+    Batal: "text-red-800 bg-red-100",
   };
 
   return (
@@ -43,28 +85,38 @@ export default function Component(props) {
           </TableHeadCell>
         </TableHead>
         <TableBody className="divide-y">
-          {data.map((data, index) => (
+          {sortedData.map((data, index) => (
             <TableRow key={index}>
               <TableCell className="whitespace-nowrap font-medium text-gray-900">
                 {index + 1}
               </TableCell>
-              <TableCell>{data.id_reservation}</TableCell>
-              <TableCell>{formatDate(data.created_at)}</TableCell>
-              <TableCell>{data.name}</TableCell>
-              <TableCell>{data.doctor}</TableCell>
-              <TableCell>{data.spesialist}</TableCell>
-              <TableCell>{data.status}</TableCell>
-              <TableCell>{data.keluhan}</TableCell>
+              <TableCell>{data.reservation_id}</TableCell>
+              <TableCell>{formatDate(data.reservation_date)}</TableCell>
+              <TableCell>{data.patient_name}</TableCell>
+              <TableCell>{data.doctor_name}</TableCell>
+              <TableCell>{data.specialization}</TableCell>
               <TableCell>
-                <button
-                  onClick={() => {
-                    setSelectedId(data.id_reservation);
-                    setOpenModal(true);
-                  }}
-                  className="font-medium text-red-600 hover:underline cursor-pointer"
+                <span
+                  className={`inline-flex px-4 py-1 text-xs font-semibold leading-5 rounded-full text-yellow-800 ${
+                    statusColors[data.status]
+                  }`}
                 >
-                  batal
-                </button>
+                  {data.status}
+                </span>
+              </TableCell>
+              <TableCell>{data.complaint}</TableCell>
+              <TableCell>
+                {data.status === "Menunggu" && (
+                  <button
+                    onClick={() => {
+                      setSelectedId(data.reservation_id);
+                      setOpenModal(true);
+                    }}
+                    className="font-medium text-red-600 hover:underline cursor-pointer"
+                  >
+                    batal
+                  </button>
+                )}
               </TableCell>
             </TableRow>
           ))}

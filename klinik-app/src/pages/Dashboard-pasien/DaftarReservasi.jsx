@@ -1,27 +1,30 @@
 import React, { useEffect, useState } from "react";
 import TabelReservasiPasien from "../../components/TabelReservasiPasien";
-import Axios from "axios";
+import axios from "axios";
 import { Spinner } from "flowbite-react";
 
 function DaftarReservasi() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
-  const getReservations = () => {
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoicXdlcnR5MTIzQHF3ZXJ0eS5jb20iLCJyb2xlIjoicGF0aWVudCIsImlhdCI6MTcxNzkxNzQ5NSwiZXhwIjoxNzE3OTIxMDk1fQ.hQUzblvokTvB9IqcKL491nEgRhyRpPl9LFPJwE_ZgQE";
+
+  const getReservations = async () => {
     try {
-      Axios.get("http://localhost:5000/reservations/user/31")
-        .then((res) => {
-          setData(res.data);
-          setLoading(false);
-        })
-        .catch((err) => {
-          setError(err);
-          setLoading(false);
-        });
-    } catch (error) {
-      setError(error);
+      const response = await axios.get(
+        "http://localhost:5000/api/v1/reservation",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      setData(response.data);
       setLoading(false);
+    } catch (error) {
+      console.log(error.response.data.message);
     }
   };
 
