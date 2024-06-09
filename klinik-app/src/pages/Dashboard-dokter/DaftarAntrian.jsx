@@ -34,7 +34,7 @@ const TableRow = ({ item, index, isEditing, onEditClick, onStatusChange }) => {
                 <button onClick={onEditClick} className="text-indigo-600 hover:text-indigo-900">Edit</button>
                 {isEditing && (
                     <div className="aksi fixed right-8 z-50 w-48 py-2 mt-2 bg-white border border-gray-300 rounded-lg shadow-lg">
-                        <button onClick={() => onStatusChange(item.reservation_id, 'Progress')} className="block w-full px-4 py-2 text-left text-blue-700 hover:bg-gray-100">Progress</button>
+                        <button onClick={() => onStatusChange(item.reservation_id, 'Proses')} className="block w-full px-4 py-2 text-left text-blue-700 hover:bg-gray-100">Progress</button>
                         <button onClick={() => onStatusChange(item.reservation_id, 'Selesai')} className="block w-full px-4 py-2 text-left text-green-700 hover:bg-gray-100">Selesai</button>
                         <button onClick={() => onStatusChange(item.reservation_id, 'Batal')} className="block w-full px-4 py-2 text-left text-red-700 hover:bg-gray-100">Batal</button>
                     </div>
