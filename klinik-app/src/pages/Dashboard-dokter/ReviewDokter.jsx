@@ -28,11 +28,11 @@ const ReviewDokter = () => {
     };
 
     useEffect(() => {
-        fetchReviews(); // Panggil fetchReviews pertama kali saat komponen dimount
-        const intervalId = setInterval(fetchReviews, 5000); // Panggil fetchReviews setiap 5 detik
+        fetchReviews();
+        const intervalId = setInterval(fetchReviews, 5000);
 
         return () => {
-            clearInterval(intervalId); // Hentikan polling saat komponen dilepas (unmounted)
+            clearInterval(intervalId);
         };
     }, []);
 
@@ -49,7 +49,7 @@ const ReviewDokter = () => {
         setSearchTerm(event.target.value);
     };
 
-    const filteredData = data.filter(item => 
+    const filteredData = data.filter(item =>
         item.patientName && item.patientName.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
