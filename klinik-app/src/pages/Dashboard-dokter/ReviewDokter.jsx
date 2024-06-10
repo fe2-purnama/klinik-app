@@ -29,7 +29,7 @@ const ReviewDokter = () => {
 
     useEffect(() => {
         fetchReviews();
-        const intervalId = setInterval(fetchReviews, 5000);
+        const intervalId = setInterval(fetchReviews, 2000);
 
         return () => {
             clearInterval(intervalId);
