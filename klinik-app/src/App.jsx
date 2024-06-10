@@ -19,6 +19,7 @@ import "./App.css";
 import PrivateRoutePasien from "./pages/Dashboard-pasien/PrivateRoutePasien";
 import ProfilePasien from "./pages/Dashboard-pasien/ProfilePasien";
 import DaftarReservasi from "./pages/Dashboard-pasien/DaftarReservasi";
+import DaftarReviewPasien from "./pages/Dashboard-pasien/DaftarReviewPasien";
 
 const App = () => {
   return (
@@ -33,6 +34,7 @@ const App = () => {
             element={<PrivateRoutePasien element={<DasboardPasien />} />}
           >
             <Route index element={<DaftarReservasi />} />
+            <Route path="review" element={<DaftarReviewPasien />} />
             <Route path="profile-pasien" element={<ProfilePasien />} />
           </Route>
         </Route>

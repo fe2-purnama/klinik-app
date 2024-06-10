@@ -20,9 +20,6 @@ export default function Component(props) {
   const [selectedDoctorId, setSelectedDoctorId] = useState(null);
   const [review, setReview] = useState(null);
 
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoicXdlcnR5MTIzQHF3ZXJ0eS5jb20iLCJyb2xlIjoicGF0aWVudCIsImlhdCI6MTcxNzkzOTk0NSwiZXhwIjoxNzE3OTQzNTQ1fQ.qmPTjQpI-rva6-lNa_vwPnJZD2K9Pp5enE9ActABus0";
-
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const options = { day: "2-digit", month: "long", year: "numeric" };
