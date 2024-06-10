@@ -5,6 +5,7 @@ import { Spinner } from "flowbite-react";
 
 function DaftarReservasi() {
   const [data, setData] = useState([]);
+  const [originalData, setOriginalData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const token = localStorage.getItem("token");
@@ -21,6 +22,7 @@ function DaftarReservasi() {
         }
       );
       setData(response.data);
+      setOriginalData(response.data);
       setLoading(false);
     } catch (error) {
       console.log(error.response.data.message);
@@ -31,9 +33,30 @@ function DaftarReservasi() {
     getReservations();
   }, []);
 
+  const handleFilter = (e) => {
+    const filter = e.target.value;
+    if (filter) {
+      const filteredData = originalData.filter((item) =>
+        item.reservation_id.includes(filter)
+      );
+      setData(filteredData);
+    } else {
+      setData(originalData);
+    }
+  };
+
   return (
     <div>
       <h1 className="text-2xl font-semibold mb-5">Daftar Reservasi Anda</h1>
+      <div className="my-4">
+        <span>Cari reservasi</span>
+        <input
+          type="text"
+          placeholder="id reservasi"
+          onChange={handleFilter}
+          className="bg-gray-50 mx-4 w-40 rounded-lg border-1 focus:border-sky-500 focus:ring-sky-500"
+        />
+      </div>
       {loading ? (
         <div>
           <span className="text-lg">Loading...</span>
