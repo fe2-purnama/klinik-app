@@ -41,11 +41,11 @@ export default function DoctorSidebar() {
     }, []);
 
     const handleLogout = () => {
-        setIsLogoutModalOpen(true); // Buka modal konfirmasi log out
+        setIsLogoutModalOpen(true);
     };
 
     const handleCloseModal = () => {
-        setIsLogoutModalOpen(false); // Tutup modal konfirmasi log out
+        setIsLogoutModalOpen(false);
     };
 
     const handleConfirmLogout = () => {
@@ -111,7 +111,7 @@ export default function DoctorSidebar() {
                 message="Apakah Anda yakin ingin log out?"
                 confirmButton="bg-red-600 hover:bg-red-800 focus:ring-green-500"
                 cancelButton="hover:bg-gray-300 focus:ring-red-500"
-                handleConfirm={handleConfirmLogout} // Menambahkan fungsi handleConfirm untuk log out
+                handleConfirm={handleConfirmLogout}
             />
         </>
     );

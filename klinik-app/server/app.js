@@ -1,12 +1,13 @@
 const express = require("express");
 const cors = require("cors");
 const session = require("express-session");
-const sequelizeStore = require("connect-session-sequelize")(session.Store); // Import sequelizeStore properly
+const sequelizeStore = require("connect-session-sequelize")(session.Store);
 const db = require("./config/db");
 const dotenv = require("dotenv");
 const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
-const reservationRoutes = require("./routes/reservationRoutes"); // Import reservation routes
+const reservationRoutes = require("./routes/reservationRoutes"); 
+const reviewRoutes = require("./routes/reviewRoutes");
 
 dotenv.config();
 
@@ -36,7 +37,8 @@ app.use(express.json());
 
 app.use(userRoutes);
 app.use(authRoutes);
-app.use(reservationRoutes); // Mount reservation routes
+app.use(reservationRoutes);
+app.use(reviewRoutes);
 
 db.authenticate()
   .then(() => console.log("Database connected..."))
