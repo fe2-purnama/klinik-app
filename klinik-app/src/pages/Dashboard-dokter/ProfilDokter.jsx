@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import Modal from '../../components/Modal/Modal';
 
 const DoctorProfile = ({ profile }) => (
@@ -15,35 +16,120 @@ const DoctorProfile = ({ profile }) => (
     </div>
 );
 
-const ProfilDokter = () => {
-    const initialProfile = {
-        name: 'Dr. Eka Prasetyo, Sp.JP',
-        gender: 'Laki-laki',
-        password: 'dokter123',
-        phone: '082111222333',
-        specialist: 'Jantung',
-        experience: 10,
-    };
+const getToken = () => localStorage.getItem('token');
 
-    const [profile, setProfile] = useState(initialProfile);
-    const [tempProfile, setTempProfile] = useState(initialProfile);
-    const [confirmPassword, setConfirmPassword] = useState('');
+const ProfilDokter = () => {
+    const [profile, setProfile] = useState(null);
+    const [tempProfile, setTempProfile] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [formData, setFormData] = useState({
+        name: '',
+        gender: '',
+        phone_number: '',
+        specialization: '',
+        experience: '',
+        password: '',
+        confirm_password: '',
+    });
+
+    useEffect(() => {
+        fetchProfile();
+        const intervalId = setInterval(fetchProfile, 2000);
+
+        return () => {
+            clearInterval(intervalId);
+        };
+    }, []);
+
+    const fetchProfile = async () => {
+        try {
+            const token = getToken();
+            const response = await axios.get('http://localhost:5000/api/v1/doctor/profile', {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            const { email, doctor } = response.data;
+
+            const doctorData = doctor[0];
+
+            if (!doctorData) {
+                console.error('Failed to fetch profile data:', response.data);
+                return;
+            }
+
+            const formattedProfile = {
+                name: doctorData.name,
+                email,
+                gender: doctorData.gender,
+                phone: doctorData.phone_number,
+                specialist: doctorData.specialization,
+                experience: doctorData.experience,
+            };
+            setProfile(formattedProfile);
+            setTempProfile(formattedProfile);
+        } catch (error) {
+            console.error('Failed to fetch profile:', error);
+        }
+    };
 
     const handleSave = () => {
         setIsModalOpen(true);
     };
 
-    const handleCloseModal = (confirm) => {
+    const handleCloseModal = () => {
         setIsModalOpen(false);
-        if (confirm) {
-            setProfile(tempProfile);
+    };
+
+    const handleConfirmModal = async () => {
+        setIsModalOpen(false);
+        try {
+            const token = getToken();
+            const { user_id, doctor_id } = profile;
+            const updatedData = {
+                user_id,
+                doctor_id,
+                name: formData.name,
+                gender: formData.gender,
+                phone_number: formData.phone_number,
+                specialization: formData.specialization,
+                experience: formData.experience,
+                email: formData.email,
+                password: formData.password,
+                confirm_password: formData.confirm_password
+            };
+            console.log('Data yang diperbarui:', updatedData);
+
+            const response = await axios.patch('http://localhost:5000/api/v1/doctor/update', updatedData, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            console.log('Data respons:', response.data);
+
+            setFormData({
+                name: '',
+                gender: '',
+                phone_number: '',
+                specialization: '',
+                experience: '',
+                password: '',
+                confirm_password: '',
+            });
+            fetchProfile();
+        } catch (error) {
+            console.error('Gagal memperbarui profil:', error);
         }
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
     };
+
+    if (!profile) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <div className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
@@ -65,8 +151,9 @@ const ProfilDokter = () => {
                                         type="text"
                                         name="name"
                                         id="name"
-                                        value={tempProfile.name}
-                                        onChange={(e) => setTempProfile({ ...tempProfile, name: e.target.value })}
+                                        placeholder={tempProfile.name}
+                                        value={formData.name}
+                                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                     />
                                 </div>
@@ -77,8 +164,8 @@ const ProfilDokter = () => {
                                     <select
                                         id="gender"
                                         name="gender"
-                                        value={tempProfile.gender}
-                                        onChange={(e) => setTempProfile({ ...tempProfile, gender: e.target.value })}
+                                        value={formData.gender}
+                                        onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
                                         className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                     >
                                         <option value="Laki-laki">Laki-laki</option>
@@ -93,8 +180,9 @@ const ProfilDokter = () => {
                                         type="password"
                                         name="password"
                                         id="password"
-                                        value={tempProfile.password}
-                                        onChange={(e) => setTempProfile({ ...tempProfile, password: e.target.value })}
+                                        placeholder="Ubah password disini"
+                                        value={formData.password}
+                                        onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                     />
                                 </div>
@@ -106,13 +194,14 @@ const ProfilDokter = () => {
                                         type="password"
                                         name="confirmPassword"
                                         id="confirmPassword"
-                                        value={confirmPassword}
-                                        onChange={(e) => setConfirmPassword(e.target.value)}
+                                        placeholder="Masukkan ulang password"
+                                        value={formData.confirm_password}
+                                        onChange={(e) => setFormData({ ...formData, confirm_password: e.target.value })}
                                         className={`mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md ${
-                                            confirmPassword !== '' && confirmPassword !== tempProfile.password ? 'border-red-500' : ''
+                                            formData.confirm_password !== '' && formData.confirm_password !== formData.password ? 'border-red-500' : ''
                                         }`}
                                     />
-                                    {confirmPassword !== '' && confirmPassword !== tempProfile.password && (
+                                    {formData.confirm_password !== '' && formData.confirm_password !== formData.password && (
                                         <p className="mt-2 text-sm text-red-600">Password tidak cocok.</p>
                                     )}
                                 </div>
@@ -124,8 +213,9 @@ const ProfilDokter = () => {
                                         type="tel"
                                         name="phone"
                                         id="phone"
-                                        value={tempProfile.phone}
-                                        onChange={(e) => setTempProfile({ ...tempProfile, phone: e.target.value })}
+                                        placeholder={tempProfile.phone}
+                                        value={formData.phone_number}
+                                        onChange={(e) => setFormData({ ...formData, phone_number: e.target.value })}
                                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                     />
                                 </div>
@@ -136,8 +226,8 @@ const ProfilDokter = () => {
                                     <select
                                         id="specialist"
                                         name="specialist"
-                                        value={tempProfile.specialist}
-                                        onChange={(e) => setTempProfile({ ...tempProfile, specialist: e.target.value })}
+                                        value={formData.specialization}
+                                        onChange={(e) => setFormData({ ...formData, specialization: e.target.value })}
                                         className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                     >
                                         <option value="">Pilih Spesialis</option>
@@ -148,6 +238,7 @@ const ProfilDokter = () => {
                                         <option value="Paru-Paru">Paru-Paru</option>
                                         <option value="Tulang">Tulang</option>
                                         <option value="Mata">Mata</option>
+                                        <option value="Cardiology">Cardiology</option>
                                     </select>
                                 </div>
                                 <div className="col-span-1">
@@ -159,17 +250,17 @@ const ProfilDokter = () => {
                                             type="number"
                                             name="experience"
                                             id="experience"
-                                            value={tempProfile.experience}
-                                            onChange={(e) => setTempProfile({ ...tempProfile, experience: e.target.value })}
+                                            placeholder={tempProfile.experience}
+                                            value={formData.experience}
+                                            onChange={(e) => setFormData({ ...formData, experience: e.target.value })}
                                             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-12 shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                            placeholder="Masukkan tahun"
                                         />
                                         <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                                             <span className="text-gray-500 sm:text-sm">tahun</span>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                                </div>
                             <div className="mt-6">
                                 <button
                                     type="submit"
@@ -183,7 +274,8 @@ const ProfilDokter = () => {
                     </div>
                     <Modal
                         isOpen={isModalOpen}
-                        handleClose={(confirm) => handleCloseModal(confirm)}
+                        handleClose={handleCloseModal}
+                        handleConfirm={handleConfirmModal}
                         title="Konfirmasi Simpan Profil"
                         message="Apakah Anda yakin menyimpan perubahan Profil?"
                         confirmButton="bg-green-600 hover:bg-green-800 focus:ring-green-500"
