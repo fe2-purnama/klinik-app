@@ -32,6 +32,10 @@ const ProfilDokter = () => {
         confirm_password: '',
     });
 
+    const [userId, setUserId] = useState(null);
+    const [email, setEmail] = useState('');
+    const [doctorId, setDoctorId] = useState(null);
+
     useEffect(() => {
         fetchProfile();
         const intervalId = setInterval(fetchProfile, 2000);
@@ -50,7 +54,7 @@ const ProfilDokter = () => {
                 },
             });
 
-            const { email, doctor } = response.data;
+            const { email, doctor, user_id } = response.data;
 
             const doctorData = doctor[0];
 
@@ -69,6 +73,9 @@ const ProfilDokter = () => {
             };
             setProfile(formattedProfile);
             setTempProfile(formattedProfile);
+            setUserId(user_id);
+            setEmail(email);
+            setDoctorId(doctorData.doctor_id);
         } catch (error) {
             console.error('Failed to fetch profile:', error);
         }
@@ -83,45 +90,45 @@ const ProfilDokter = () => {
     };
 
     const handleConfirmModal = async () => {
-        setIsModalOpen(false);
-        try {
-            const token = getToken();
-            const { user_id, doctor_id } = profile;
-            const updatedData = {
-                user_id,
-                doctor_id,
-                name: formData.name,
-                gender: formData.gender,
-                phone_number: formData.phone_number,
-                specialization: formData.specialization,
-                experience: formData.experience,
-                email: formData.email,
-                password: formData.password,
-                confirm_password: formData.confirm_password
-            };
-            console.log('Data yang diperbarui:', updatedData);
+    setIsModalOpen(false);
+    try {
+        const token = getToken();
 
-            const response = await axios.patch('http://localhost:5000/api/v1/doctor/update', updatedData, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-            console.log('Data respons:', response.data);
+        const updatedData = {
+            user_id: userId,
+            doctor_id: doctorId,
+            name: formData.name,
+            gender: formData.gender,
+            phone_number: formData.phone_number,
+            specialization: formData.specialization,
+            experience: parseInt(formData.experience),
+            email,
+            password: formData.password,
+            confirm_password: formData.confirm_password
+        };
+        console.log('Data yang diperbarui:', updatedData);
 
-            setFormData({
-                name: '',
-                gender: '',
-                phone_number: '',
-                specialization: '',
-                experience: '',
-                password: '',
-                confirm_password: '',
-            });
-            fetchProfile();
-        } catch (error) {
-            console.error('Gagal memperbarui profil:', error);
-        }
-    };
+        const response = await axios.patch('http://localhost:5000/api/v1/doctor/update', updatedData, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        console.log('Data respons:', response.data);
+
+        setFormData({
+            name: '',
+            gender: '',
+            phone_number: '',
+            specialization: '',
+            experience: '',
+            password: '',
+            confirm_password: '',
+        });
+        fetchProfile();
+    } catch (error) {
+        console.error('Gagal memperbarui profil:', error);
+    }
+};
 
     const handleSubmit = (e) => {
         e.preventDefault();
