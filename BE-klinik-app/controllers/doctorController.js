@@ -131,11 +131,12 @@ const getDoctorbyId = async (req, res) => {
 }
 
 const getDoctorbyUserId = async (req, res) => {
-    const { user_id } = req.body;
+    const { user_id } = req.params;
+    const userIdInt = parseInt(user_id, 10)
     try {
         const doctor = await prisma.auth.findUnique({
             where: {
-                user_id: user_id,
+                user_id: userIdInt,
             },
             select: {
                 user_id: true,

@@ -8,7 +8,7 @@ router.get('/doctor', authMiddleware, doctorController.getDoctor);
 router.patch('/doctor/update', authMiddleware, doctorController.updateDoctor);
 router.delete('/doctor/delete', authMiddleware, doctorController.deleteDoctor);
 router.get('/doctor/profile', authMiddleware, doctorController.getDoctorbyId);
-router.get('/doctor/detail', authMiddleware, doctorController.getDoctorbyUserId);
+router.get('/doctor/detail/:user_id', doctorController.getDoctorbyUserId);
 router.get('/doctor/review', authMiddleware, doctorController.getDoctorReview);
 
 router.get('/doctor/all', doctorController.getAllDoctor);
