@@ -1,82 +1,108 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 function ProfilePasien() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    phone_number: "",
+  });
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const token = localStorage.getItem("token");
+
+  const handleChange = (e) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [e.target.name]: e.target.value,
+    }));
+    console.log(formData);
+  };
 
   const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-    if (confirmPassword && e.target.value !== confirmPassword) {
-      setPasswordError("Password tidak sesuai");
+    const newPassword = e.target.value;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      password: newPassword,
+    }));
+
+    setPassword(newPassword);
+
+    if (confirmPassword && newPassword !== confirmPassword) {
+      setPasswordError("Passwords do not match");
     } else {
       setPasswordError("");
     }
   };
 
   const handleConfirmPasswordChange = (e) => {
-    setConfirmPassword(e.target.value);
-    if (password && e.target.value !== password) {
-      setPasswordError("Password tidak sesuai");
+    const newConfirmPassword = e.target.value;
+    setConfirmPassword(newConfirmPassword);
+
+    if (formData.password !== newConfirmPassword) {
+      setPasswordError("Passwords do not match");
     } else {
       setPasswordError("");
     }
   };
 
+  const getUser = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/api/v1/me", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        name: response.data.patient.name,
+        email: response.data.email,
+        phone_number: response.data.patient.phone_number,
+      }));
+
+      console.log(formData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(formData);
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
   return (
     <section className="w-full">
-      <h1 className="text-2xl font-medium ">Edit Akun Dokter</h1>
-      <form className="bg-white rounded-lg mt-6">
+      <h1 className="text-2xl font-medium ">Profile Akun</h1>
+      <form className="bg-white rounded-lg mt-6" onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 lg:gap-10">
           <div>
-            <div className="mb-5">
-              <label
-                htmlFor="str"
-                className="block mb-2 text-sm font-medium text-[color:var(--other1)]"
-              >
-                STR
-              </label>
-              <input
-                type="number"
-                id="str"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
-                placeholder="00000007878011999"
-                required
-              />
-            </div>
             <div className="mb-5">
               <label
                 htmlFor="nama"
                 className="block mb-2 text-sm font-medium text-[color:var(--other1)]"
               >
-                Nama Dokter
+                Nama
               </label>
               <input
                 type="text"
-                id="nama"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
                 placeholder="Dr. Andi Wijaya"
                 required
               />
             </div>
-            <div className="mb-5">
-              <label
-                htmlFor="gender"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Jenis Kelamin
-              </label>
-              <select
-                id="gender"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
-              >
-                <option value="" disabled selected>
-                  Jenis Kelamin
-                </option>
-                <option value="laki-laki">Laki-Laki</option>
-                <option value="perempuan">Perempuan</option>
-              </select>
-            </div>
+
             <div className="mb-5">
               <label
                 htmlFor="password"
@@ -87,7 +113,8 @@ function ProfilePasien() {
               <input
                 type="password"
                 id="password"
-                value={password}
+                name="password"
+                value={password || formData.password}
                 onChange={handlePasswordChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
                 placeholder="Password"
@@ -103,7 +130,8 @@ function ProfilePasien() {
               </label>
               <input
                 type="password"
-                id="confirm-password"
+                id="confirmPassword"
+                name="confirmPassword"
                 value={confirmPassword}
                 onChange={handleConfirmPasswordChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
@@ -126,6 +154,9 @@ function ProfilePasien() {
               <input
                 type="email"
                 id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
                 placeholder="AndiWijaya@gmail.com"
                 required
@@ -140,53 +171,23 @@ function ProfilePasien() {
               </label>
               <input
                 type="number"
-                id="noHP"
+                id="phone_number"
+                name="phone_number"
+                value={formData.phone_number}
+                onChange={handleChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
                 placeholder="083423432231"
                 required
               />
-            </div>
-            <div className="mb-5">
-              <label
-                htmlFor="spesialist"
-                className="block mb-2 text-sm font-medium text-[color:var(--other1)]"
-              >
-                Spesialist
-              </label>
-              <input
-                type="text"
-                id="spesialist"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
-                placeholder="Kardiologi"
-                required
-              />
-            </div>
-            <div className="relative mb-5">
-              <label
-                htmlFor="pengalaman"
-                className="block mb-2 text-sm font-medium text-[color:var(--other1)]"
-              >
-                Pengalaman
-              </label>
-              <div className="relative">
-                <input
-                  type="number"
-                  id="pengalaman"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 pr-12 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
-                  placeholder="4"
-                  required
-                />
-                <span className="absolute inset-y-0 right-0 flex text-sm items-center pr-3 pointer-events-none text-gray-500">
-                  tahun
-                </span>
-              </div>
             </div>
           </div>
         </div>
 
         <button
           type="submit"
-          className="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky-600 dark:hover:bg-sky-700 dark:focus:ring-sky-800"
+          className={`text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky-600 dark:hover:bg-sky-700 dark:focus:ring-sky-800 ${
+            passwordError ? "opacity-50 cursor-not-allowed" : ""
+          }`}
         >
           Simpan
         </button>
