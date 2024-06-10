@@ -74,6 +74,7 @@ const getReservation = async (req, res) => {
             },
             select: {
                 reservation_id: true,
+                doctor_id: true,
                 doctor_name: true,
                 specialization: true,
                 patient_name: true,
@@ -147,4 +148,38 @@ const createReview = async (req, res) => {
 
 }
 
-module.exports = { createReservation, getReservation, getReservationbyDoctor, updateStatusReservation, createReview };
+const getPatientReview = async (req, res) => {
+    try {
+        const doctor = await prisma.auth.findMany({
+            where: {
+                user_id: req.user_id,
+            },
+            select: {
+                patient: {
+                    select: {
+                        reservation: {
+                            select: {
+                                reservation_id: true,
+                                reservation_date: true,
+                                patient_name: true,
+                                complaint: true,
+                                review: {
+                                    select: {
+                                        review: true
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+
+                }
+            },
+        })
+        res.status(200).json(doctor)
+    } catch (error) {
+        res.status(500).json({ error: error.message })
+    }
+}
+
+module.exports = { createReservation, getReservation, getReservationbyDoctor, updateStatusReservation, createReview, getPatientReview };

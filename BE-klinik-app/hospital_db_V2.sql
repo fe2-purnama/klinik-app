@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 09, 2024 at 07:12 AM
+-- Generation Time: Jun 10, 2024 at 04:11 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -64,7 +64,9 @@ INSERT INTO `auth` (`user_id`, `email`, `password`, `role`) VALUES
 (15, 'qwerty123@qwerty.com', '$2b$10$dktJPVxXzIVGqzrQ2o5EEeVuZ6PYUtBTAamEZ9CPk/yfZl4Y1CJtu', 'patient'),
 (16, 'qwerty@qwerty.com', '$2b$10$zgEFZeu78qM9.hB7kTTX2eSmPEFT3U1n.OHh7X0jZh5KofsDWaKne', 'doctor'),
 (19, 'qwerty1234@qwerty.com', '$2b$10$XFHqCkx5J1oVYm.KMYBrHOeI5fExtcN3k8xfMZsPG61KCQMUh/iH6', 'patient'),
-(24, 'qwerty1234567@qwerty.com', '$2b$10$oMIMuvAJxftPXe6bUAZp2O.k7Tj.N7z3lpIqYpPobUNo8qhwBYbde', 'doctor');
+(24, 'qwerty1234567@qwerty.com', '$2b$10$oMIMuvAJxftPXe6bUAZp2O.k7Tj.N7z3lpIqYpPobUNo8qhwBYbde', 'doctor'),
+(58, 'qwerty123456789@qwerty.com', '$2b$10$UkBhIW.TKYBWnsSoHEAiUO/LnDf86uDqq.Z8tG/2dCuyA/TmlxzdO', 'patient'),
+(68, 'qweq@qweqwe', '$2b$10$ue0XR9kXSFLU8kVXkWQJN.nscWyQyurGgzstdR9pWPP7Nvg.iK0KK', 'patient');
 
 -- --------------------------------------------------------
 
@@ -111,7 +113,9 @@ INSERT INTO `patient` (`user_id`, `name`, `phone_number`) VALUES
 (6, 'john cena', '123'),
 (8, 'john cena', '123'),
 (15, 'john cena', '123'),
-(19, 'john cena', '123');
+(19, 'john cena', '123'),
+(58, 'qwe', '123'),
+(68, 'qwerty', '12312');
 
 -- --------------------------------------------------------
 
@@ -141,9 +145,9 @@ CREATE TABLE `reservation` (
 --
 
 INSERT INTO `reservation` (`reservation_id`, `patient_id`, `doctor_id`, `doctor_name`, `specialization`, `patient_name`, `nik`, `ttl`, `gender`, `phone_number`, `address`, `reservation_date`, `complaint`, `status`) VALUES
-('RD240000', 15, 'STR234235', 'Dr. John Doe', 'Cardiology', 'Jane Smith', '987654321', '1990-01-01', 'Female', '08123456789', 'Jl. Merdeka No. 1, Jakarta', '2024-06-15 00:00:00', 'Chest pain and shortness of breath', 'Menunggu'),
+('RD240000', 15, 'STR234235', 'Dr. John Doe', 'Cardiology', 'Jane Smith', '987654321', '1990-01-01', 'Female', '08123456789', 'Jl. Merdeka No. 1, Jakarta', '2024-06-15 00:00:00', 'Chest pain and shortness of breath', 'Selesai'),
 ('RD240001', 15, 'STR234235', 'Dr. John Doe', 'Cardiology', 'Jane Smith', '987654321', '1990-01-01', 'Female', '08123456789', 'Jl. Merdeka No. 1, Jakarta', '2024-06-15 00:00:00', 'Chest pain and shortness of breath', 'Menunggu'),
-('RD240002', 15, 'STR234235', 'Dr. John Doe', 'Cardiology', 'Jane Smith', '987654321', '1990-01-01', 'Female', '08123456789', 'Jl. Merdeka No. 1, Jakarta', '2024-06-15 00:00:00', 'Chest pain and shortness of breath', 'Menunggu');
+('RD240002', 15, 'STR234235', 'Dr. John Doe', 'Cardiology', 'Jane Smith', '987654321', '1990-01-01', 'Female', '08123456789', 'Jl. Merdeka No. 1, Jakarta', '2024-06-15 00:00:00', 'Chest pain and shortness of breath', 'Selesai');
 
 -- --------------------------------------------------------
 
@@ -157,6 +161,13 @@ CREATE TABLE `review` (
   `doctor_id` varchar(20) NOT NULL,
   `review` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `review`
+--
+
+INSERT INTO `review` (`review_id`, `reservation_id`, `doctor_id`, `review`) VALUES
+(3, 'RD240000', 'STR234235', 'setelah berobat langsung jadi fullstack');
 
 --
 -- Indexes for dumped tables
@@ -213,19 +224,19 @@ ALTER TABLE `review`
 -- AUTO_INCREMENT for table `auth`
 --
 ALTER TABLE `auth`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT for table `patient`
 --
 ALTER TABLE `patient`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT for table `review`
 --
 ALTER TABLE `review`
-  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
