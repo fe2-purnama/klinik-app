@@ -18,7 +18,6 @@ function ProfilePasien() {
       ...prevFormData,
       [e.target.name]: e.target.value,
     }));
-    console.log(formData);
   };
 
   const handlePasswordChange = (e) => {
@@ -62,8 +61,6 @@ function ProfilePasien() {
         email: response.data.email,
         phone_number: response.data.patient.phone_number,
       }));
-
-      console.log(formData);
     } catch (error) {
       console.log(error);
     }

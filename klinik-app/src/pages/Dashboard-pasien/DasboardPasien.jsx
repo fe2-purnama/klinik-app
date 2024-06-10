@@ -7,7 +7,7 @@ import { Outlet } from "react-router-dom";
 function DasboardPasien() {
   return (
     <>
-      <div className="my-4 h-[600px] px-14 flex flex-row">
+      <div className="my-4 h-[600px] px-8 lg:px-14 flex flex-row">
         <aside className="mr-4 border-r-2 hidden lg:block">
           <Sidebar />
         </aside>
