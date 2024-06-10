@@ -7,8 +7,8 @@ function DaftarReservasi() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoicXdlcnR5MTIzQHF3ZXJ0eS5jb20iLCJyb2xlIjoicGF0aWVudCIsImlhdCI6MTcxNzkzOTk0NSwiZXhwIjoxNzE3OTQzNTQ1fQ.qmPTjQpI-rva6-lNa_vwPnJZD2K9Pp5enE9ActABus0";
+  const token = localStorage.getItem("token");
+
   const getReservations = async () => {
     try {
       const response = await axios.get(
