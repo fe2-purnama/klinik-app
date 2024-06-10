@@ -130,6 +130,35 @@ const getDoctorbyId = async (req, res) => {
     }
 }
 
+const getDoctorbyUserId = async (req, res) => {
+    const { user_id } = req.body;
+    try {
+        const doctor = await prisma.auth.findUnique({
+            where: {
+                user_id: user_id,
+            },
+            select: {
+                user_id: true,
+                email: true,
+                doctor: {
+                    select: {
+                        doctor_id: true,
+                        name: true,
+                        gender: true,
+                        phone_number: true,
+                        experience: true,
+                        specialization: true,
+                    }
+                }
+            },
+        });
+
+        res.status(200).json(doctor);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
 const getDoctorReview = async (req, res) => {
     try {
         const doctor = await prisma.auth.findMany({
@@ -182,4 +211,13 @@ const getAllDoctor = async (req, res) => {
     }
 }
 
-module.exports = { createDoctor, getDoctor, updateDoctor, deleteDoctor, getDoctorbyId, getDoctorReview, getAllDoctor };
+module.exports = {
+    createDoctor,
+    getDoctor,
+    updateDoctor,
+    deleteDoctor,
+    getDoctorbyId,
+    getDoctorReview,
+    getAllDoctor,
+    getDoctorbyUserId
+};

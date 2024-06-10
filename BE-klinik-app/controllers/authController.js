@@ -71,7 +71,12 @@ const getUser = async (req, res) => {
             select: {
                 user_id: true,
                 email: true,
-                role: true,
+                patient: {
+                    select: {
+                        name: true,
+                        phone_number: true
+                    }
+                }
             },
         });
 
