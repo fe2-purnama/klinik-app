@@ -1,9 +1,11 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { useLocation } from 'react-router-dom';
 
 const TambahAkunDokter = () => {
+  const location = useLocation();
   const [formData, setFormData] = useState({
     doctor_id: '',
     name: '',
@@ -18,6 +20,17 @@ const TambahAkunDokter = () => {
 
   const [passwordError, setPasswordError] = useState('');
   const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsImVtYWlsIjoiYWRtaW4iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTc5MTc0MTQsImV4cCI6MTcxNzkyMTAxNH0.bxBH3A4Bz0BessnGm186x9TUEnlY09KlTGo9skSYPmI'; // Replace with your actual token
+
+  useEffect(() => {
+    if (location.state && location.state.doctor) {
+      setFormData((prevData) => ({
+        ...prevData,
+        ...location.state.doctor,
+        password: '',
+        confirm_password: '',
+      }));
+    }
+  }, [location.state]);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -60,7 +73,6 @@ const TambahAkunDokter = () => {
       return;
     }
 
-    // Parse experience to number
     const formDataToSend = { ...formData, experience: parseInt(formData.experience, 10) };
 
     try {
@@ -73,14 +85,12 @@ const TambahAkunDokter = () => {
 
       console.log('Success:', response.data);
 
-      // Show success modal
       Swal.fire({
         icon: 'success',
         title: 'Sukses',
         text: 'Data dokter berhasil ditambahkan!',
       });
 
-      // Reset form
       setFormData({
         doctor_id: '',
         name: '',
@@ -95,7 +105,6 @@ const TambahAkunDokter = () => {
     } catch (error) {
       console.error('Error:', error);
 
-      // Show error modal
       Swal.fire({
         icon: 'error',
         title: 'Gagal',

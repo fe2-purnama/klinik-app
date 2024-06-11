@@ -1,14 +1,59 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 const EditAkunDokter = () => {
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const { user_id } = useParams(); // Mengambil user_id dari parameter URL
+  const [formData, setFormData] = useState({
+    doctor_id: '',
+    name: '',
+    gender: '',
+    password: '',
+    confirm_password: '',
+    email: '',
+    phone_number: '',
+    specialization: '',
+    experience: '',
+  });
   const [passwordError, setPasswordError] = useState('');
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get(`http://localhost:5000/api/v1/doctor/detail/${user_id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const doctorData = response.data;
+        setFormData({
+          doctor_id: doctorData.doctor[0].doctor_id || '',
+          name: doctorData.doctor[0].name || '',
+          gender: doctorData.doctor[0].gender || '',
+          email: doctorData.email || '',
+          phone_number: doctorData.doctor[0].phone_number || '',
+          specialization: doctorData.doctor[0].specialization || '',
+          experience: doctorData.doctor[0].experience || '',
+          password: '',
+          confirm_password: '',
+        });
+      } catch (error) {
+        console.error('Error fetching doctor details:', error);
+      }
+    };
+
+    fetchData();
+  }, [user_id]);
+
   const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-    if (confirmPassword && e.target.value !== confirmPassword) {
+    setFormData((prevData) => ({
+      ...prevData,
+      password: e.target.value,
+    }));
+    if (formData.confirm_password && e.target.value !== formData.confirm_password) {
       setPasswordError('Password tidak sesuai');
     } else {
       setPasswordError('');
@@ -16,41 +61,76 @@ const EditAkunDokter = () => {
   };
 
   const handleConfirmPasswordChange = (e) => {
-    setConfirmPassword(e.target.value);
-    if (password && e.target.value !== password) {
+    setFormData((prevData) => ({
+      ...prevData,
+      confirm_password: e.target.value,
+    }));
+    if (formData.password && e.target.value !== formData.password) {
       setPasswordError('Password tidak sesuai');
     } else {
       setPasswordError('');
     }
   };
 
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [id]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (formData.password !== formData.confirm_password) {
+      setPasswordError('Password tidak sesuai');
+      return;
+    }
+    try {
+      const token = localStorage.getItem('token');
+      await axios.put(`http://localhost:5000/api/v1/doctor/${user_id}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      alert('Data berhasil diperbarui');
+    } catch (error) {
+      console.error('Error updating doctor details:', error);
+      alert('Terjadi kesalahan saat memperbarui data');
+    }
+  };
+
   return (
     <section className="w-full">
       <h1 className="text-2xl font-medium mx-10 my-8">Edit Akun Dokter</h1>
-      <form className="bg-white rounded-lg px-5 py-5 mx-10 my-4">
+      <form onSubmit={handleSubmit} className="bg-white rounded-lg px-5 py-5 mx-10 my-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 lg:gap-10">
           <div>
             <div className="mb-5">
-              <label htmlFor="str" className="block mb-2 text-sm font-medium text-[color:var(--other1)]">
+              <label htmlFor="doctor_id" className="block mb-2 text-sm font-medium text-[color:var(--other1)]">
                 STR
               </label>
               <input
-                type="number"
-                id="str"
+                type="text"
+                id="doctor_id"
+                value={formData.doctor_id}
+                onChange={handleChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
-                placeholder="00000007878011999"
+                placeholder="STR"
                 required
               />
             </div>
             <div className="mb-5">
-              <label htmlFor="nama" className="block mb-2 text-sm font-medium text-[color:var(--other1)]">
+              <label htmlFor="name" className="block mb-2 text-sm font-medium text-[color:var(--other1)]">
                 Nama Dokter
               </label>
               <input
                 type="text"
-                id="nama"
+                id="name"
+                value={formData.name}
+                onChange={handleChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
-                placeholder="Dr. Andi Wijaya"
+                placeholder="Nama Dokter"
                 required
               />
             </div>
@@ -60,9 +140,11 @@ const EditAkunDokter = () => {
               </label>
               <select
                 id="gender"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
+                value={formData.gender}
+                onChange={handleChange}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500 pointer-events-none"
               >
-                <option value="">Jenis Kelamin</option>
+                <option value="">{formData.gender}</option>
                 <option value="laki-laki">Laki-Laki</option>
                 <option value="perempuan">Perempuan</option>
               </select>
@@ -74,7 +156,7 @@ const EditAkunDokter = () => {
               <input
                 type="password"
                 id="password"
-                value={password}
+                value={formData.password}
                 onChange={handlePasswordChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
                 placeholder="Password"
@@ -82,19 +164,19 @@ const EditAkunDokter = () => {
               />
             </div>
             <div className="md:mb-5 lg:mb-5">
-              <label htmlFor="confirm-password" className="block mb-2 text-sm font-medium text-[color:var(--other1)]">
+              <label htmlFor="confirm_password" className="block mb-2 text-sm font-medium text-[color:var(--other1)]">
                 Konfirmasi Password
               </label>
               <input
                 type="password"
-                id="confirm-password"
-                value={confirmPassword}
+                id="confirm_password"
+                value={formData.confirm_password}
                 onChange={handleConfirmPasswordChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
                 placeholder="Konfirmasi Password"
                 required
               />
-              {passwordError && <p className="text-sm text-red-600 mt-1">{passwordError}</p>}
+              {passwordError && <p className="text-sm text-red-500">{passwordError}</p>}
             </div>
           </div>
           <div>
@@ -105,45 +187,53 @@ const EditAkunDokter = () => {
               <input
                 type="email"
                 id="email"
+                value={formData.email}
+                onChange={handleChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
-                placeholder="AndiWijaya@gmail.com"
+                placeholder="Email"
                 required
               />
             </div>
             <div className="mb-5">
-              <label htmlFor="noHP" className="block mb-2 text-sm font-medium text-[color:var(--other1)]">
+              <label htmlFor="phone_number" className="block mb-2 text-sm font-medium text-[color:var(--other1)]">
                 No Handphone
               </label>
               <input
-                type="number"
-                id="noHP"
+                type="text"
+                id="phone_number"
+                value={formData.phone_number}
+                onChange={handleChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
-                placeholder="083423432231"
+                placeholder="No Handphone"
                 required
               />
             </div>
             <div className="mb-5">
-              <label htmlFor="spesialist" className="block mb-2 text-sm font-medium text-[color:var(--other1)]">
-                Spesialist
+              <label htmlFor="specialization" className="block mb-2 text-sm font-medium text-[color:var(--other1)]">
+                Spesialis
               </label>
               <input
                 type="text"
-                id="spesialist"
+                id="specialization"
+                value={formData.specialization}
+                onChange={handleChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
-                placeholder="Kardiologi"
+                placeholder="Spesialist"
                 required
               />
             </div>
             <div className="relative mb-5">
-              <label htmlFor="pengalaman" className="block mb-2 text-sm font-medium text-[color:var(--other1)]">
+              <label htmlFor="experience" className="block mb-2 text-sm font-medium text-[color:var(--other1)]">
                 Pengalaman
               </label>
               <div className="relative">
                 <input
                   type="number"
-                  id="pengalaman"
+                  id="experience"
+                  value={formData.experience}
+                  onChange={handleChange}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 pr-12 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
-                  placeholder="4"
+                  placeholder="Pengalaman"
                   required
                 />
                 <span className="absolute inset-y-0 right-0 flex text-sm items-center pr-3 pointer-events-none text-gray-500">tahun</span>
@@ -151,10 +241,9 @@ const EditAkunDokter = () => {
             </div>
           </div>
         </div>
-
         <button
           type="submit"
-          className="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky-600 dark:hover:bg-sky-700 dark:focus:ring-sky-800"
+          className="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-sky-500 dark:hover:bg-sky-600 dark:focus:ring-sky-700"
         >
           Simpan
         </button>
