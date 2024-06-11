@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import swal from 'sweetalert2';
 import Modal from '../../components/Modal/Modal';
 
 const DoctorProfile = ({ profile }) => (
@@ -20,12 +21,12 @@ const getToken = () => localStorage.getItem('token');
 
 const ProfilDokter = () => {
     const [profile, setProfile] = useState(null);
-    const [tempProfile, setTempProfile] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
         gender: '',
         phone_number: '',
+        email: '',
         specialization: '',
         experience: '',
         password: '',
@@ -38,11 +39,6 @@ const ProfilDokter = () => {
 
     useEffect(() => {
         fetchProfile();
-        const intervalId = setInterval(fetchProfile, 2000);
-
-        return () => {
-            clearInterval(intervalId);
-        };
     }, []);
 
     const fetchProfile = async () => {
@@ -63,16 +59,27 @@ const ProfilDokter = () => {
                 return;
             }
 
+            setFormData({
+                name: doctorData.name,
+                gender: doctorData.gender,
+                phone_number: doctorData.phone_number,
+                email,
+                specialization: doctorData.specialization,
+                experience: doctorData.experience,
+                password: '',
+                confirm_password: '',
+            });
+
             const formattedProfile = {
                 name: doctorData.name,
                 email,
                 gender: doctorData.gender,
-                phone: doctorData.phone_number,
-                specialist: doctorData.specialization,
+                phone_number: doctorData.phone_number,
+                specialization: doctorData.specialization,
                 experience: doctorData.experience,
             };
+
             setProfile(formattedProfile);
-            setTempProfile(formattedProfile);
             setUserId(user_id);
             setEmail(email);
             setDoctorId(doctorData.doctor_id);
@@ -90,45 +97,51 @@ const ProfilDokter = () => {
     };
 
     const handleConfirmModal = async () => {
-    setIsModalOpen(false);
-    try {
-        const token = getToken();
+        setIsModalOpen(false);
+        try {
+            const token = getToken();
 
-        const updatedData = {
-            user_id: userId,
-            doctor_id: doctorId,
-            name: formData.name,
-            gender: formData.gender,
-            phone_number: formData.phone_number,
-            specialization: formData.specialization,
-            experience: parseInt(formData.experience),
-            email,
-            password: formData.password,
-            confirm_password: formData.confirm_password
-        };
-        console.log('Data yang diperbarui:', updatedData);
+            const updatedData = {
+                user_id: userId,
+                doctor_id: doctorId,
+                name: formData.name,
+                gender: formData.gender,
+                phone_number: formData.phone_number,
+                specialization: formData.specialization,
+                experience: parseInt(formData.experience),
+                email: formData.email,
+                password: formData.password,
+                confirm_password: formData.confirm_password
+            };
+            console.log('Data yang diperbarui:', updatedData);
 
-        const response = await axios.patch('http://localhost:5000/api/v1/doctor/update', updatedData, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
-        console.log('Data respons:', response.data);
+            const response = await axios.patch('http://localhost:5000/api/v1/doctor/update', updatedData, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            console.log('Data respons:', response.data);
+            
+            swal.fire({
+                title: 'Tersimpan!',
+                text: 'Berhasil ubah profil!',
+                icon: 'success',
+                timer: 2000,
+                showConfirmButton: false,
+            });
 
-        setFormData({
-            name: '',
-            gender: '',
-            phone_number: '',
-            specialization: '',
-            experience: '',
-            password: '',
-            confirm_password: '',
-        });
-        fetchProfile();
-    } catch (error) {
-        console.error('Gagal memperbarui profil:', error);
-    }
-};
+            fetchProfile();
+        } catch (error) {
+            swal.fire({
+                title: 'Gagal!',
+                text: 'Terjadi kesalahan saat ubah profil!',
+                icon: 'error',
+                timer: 2000,
+                showConfirmButton: false,
+            });
+            console.error('Gagal memperbarui profil:', error);
+        }
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -158,7 +171,7 @@ const ProfilDokter = () => {
                                         type="text"
                                         name="name"
                                         id="name"
-                                        placeholder={tempProfile.name}
+                                        placeholder="Masukkan nama lengkap"
                                         value={formData.name}
                                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
@@ -220,9 +233,23 @@ const ProfilDokter = () => {
                                         type="tel"
                                         name="phone"
                                         id="phone"
-                                        placeholder={tempProfile.phone}
+                                        placeholder="Masukkan nomor handphone"
                                         value={formData.phone_number}
                                         onChange={(e) => setFormData({ ...formData, phone_number: e.target.value })}
+                                        className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                </div>
+                                <div className="col-span-1">
+                                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
+                                        Email
+                                    </label>
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        id="email"
+                                        placeholder="Masukkan email anda"
+                                        value={formData.email}
+                                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                     />
                                 </div>
@@ -256,7 +283,7 @@ const ProfilDokter = () => {
                                             type="number"
                                             name="experience"
                                             id="experience"
-                                            placeholder={tempProfile.experience}
+                                            placeholder="Masukkan pengalaman"
                                             value={formData.experience}
                                             onChange={(e) => setFormData({ ...formData, experience: e.target.value })}
                                             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-12 shadow-sm sm:text-sm border-gray-300 rounded-md"
