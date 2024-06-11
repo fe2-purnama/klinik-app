@@ -5,7 +5,6 @@ function ProfilePasien() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    password: "",
     phone_number: "",
   });
   const [password, setPassword] = useState("");
@@ -68,6 +67,22 @@ function ProfilePasien() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    try {
+      const response = await axios.patch(
+        "http://localhost:5000/api/v1/update",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log(response.data.message);
+    } catch (error) {
+      console.log(error);
+    }
     console.log(formData);
   };
 
@@ -76,7 +91,7 @@ function ProfilePasien() {
   }, []);
 
   return (
-    <section className="w-full">
+    <section className="w-full p-2">
       <h1 className="text-2xl font-medium ">Profile Akun</h1>
       <form className="bg-white rounded-lg mt-6" onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 lg:gap-10">
@@ -182,6 +197,7 @@ function ProfilePasien() {
 
         <button
           type="submit"
+          onClick={handleSubmit}
           className={`text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky-600 dark:hover:bg-sky-700 dark:focus:ring-sky-800 ${
             passwordError ? "opacity-50 cursor-not-allowed" : ""
           }`}

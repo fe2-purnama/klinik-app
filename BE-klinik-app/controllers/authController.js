@@ -85,4 +85,31 @@ const getUser = async (req, res) => {
     }
 }
 
-module.exports = { register, login, getUser };
+const updateUser = async (req, res) => {
+
+    const { name, password, email, phone_number } = req.body;
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    try {
+        const user = await prisma.auth.update({
+            where: {
+                user_id: req.user_id
+            },
+            data: {
+                email: email,
+                password: hashedPassword,
+                patient: {
+                    update: {
+                        name: name,
+                        phone_number: phone_number,
+                    }
+                }
+            }
+        });
+        res.status(200).json({ message: 'User updated successfully' });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
+module.exports = { register, login, getUser, updateUser };

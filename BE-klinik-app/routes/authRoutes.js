@@ -7,6 +7,8 @@ const adminController = require('../controllers/adminController');
 router.post('/register', authController.register);
 router.post('/login', authController.login);
 router.get('/me', authMiddleware, authController.getUser);
+router.patch('/update', authMiddleware, authController.updateUser);
+
 
 router.post('/admin/register', adminController.createAdmin);
 

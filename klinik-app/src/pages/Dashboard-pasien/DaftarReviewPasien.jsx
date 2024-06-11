@@ -36,7 +36,6 @@ function DaftarReviewPasien() {
       );
 
       setData(response.data[0].patient.reservation);
-      console.log(response.data[0].patient.reservation);
     } catch (error) {
       console.log(error);
     } finally {
