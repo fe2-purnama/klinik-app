@@ -130,6 +130,68 @@ const getDoctorbyId = async (req, res) => {
     }
 }
 
+const getDoctorbyUserId = async (req, res) => {
+    const { user_id } = req.params;
+    const userIdInt = parseInt(user_id, 10)
+    try {
+        const doctor = await prisma.auth.findUnique({
+            where: {
+                user_id: userIdInt,
+            },
+            select: {
+                user_id: true,
+                email: true,
+                doctor: {
+                    select: {
+                        doctor_id: true,
+                        name: true,
+                        gender: true,
+                        phone_number: true,
+                        experience: true,
+                        specialization: true,
+                    }
+                }
+            },
+        });
+
+        res.status(200).json(doctor);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
+const getReservationbyDoctor = async (req, res) => {
+
+    try {
+        const reservationDoctor = await prisma.auth.findMany({
+            where: {
+                user_id: req.user_id,
+            },
+            select: {
+                doctor: {
+                    select: {
+                        reservation: {
+                            select: {
+                                reservation_id: true,
+                                reservation_date: true,
+                                patient_name: true,
+                                status: true,
+                                complaint: true,
+                            }
+                        }
+                    }
+
+
+                }
+            },
+        });
+        res.status(200).json(reservationDoctor);
+
+    } catch (error) {
+
+    }
+}
+
 const getDoctorReview = async (req, res) => {
     try {
         const doctor = await prisma.auth.findMany({
@@ -182,4 +244,14 @@ const getAllDoctor = async (req, res) => {
     }
 }
 
-module.exports = { createDoctor, getDoctor, updateDoctor, deleteDoctor, getDoctorbyId, getDoctorReview, getAllDoctor };
+module.exports = {
+    createDoctor,
+    getDoctor,
+    updateDoctor,
+    deleteDoctor,
+    getDoctorbyId,
+    getDoctorReview,
+    getAllDoctor,
+    getDoctorbyUserId,
+    getReservationbyDoctor
+};

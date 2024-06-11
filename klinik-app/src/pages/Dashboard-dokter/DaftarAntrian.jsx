@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Table from '../../components/DashboardDokter/TableDokter';
 import axios from 'axios';
+import swal from 'sweetalert2';
 
 const TableRow = ({ item, index, isEditing, onEditClick, onStatusChange }) => {
     const statusColors = {
@@ -52,12 +53,22 @@ const DaftarAntrian = () => {
     const fetchData = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.get('http://localhost:5000/api/v1/reservation/doctor', {
+            const response = await axios.get('http://localhost:5000/api/v1/doctor/reservation', {
                 headers: {
-                    Authorization: `Bearer ${token}`,
-                },
+                    'Authorization': `Bearer ${token}`
+                }
             });
-            setData(response.data);
+
+            const reservations = response.data[0]?.doctor[0]?.reservation.map(reservation => ({
+                reservation_id: reservation.reservation_id,
+                reservation_date: reservation.reservation_date,
+                patient_name: reservation.patient_name,
+                complaint: reservation.complaint,
+                status: reservation.status
+            }));
+
+            setData(reservations);
+
         } catch (error) {
             console.error('Failed to fetch reservations:', error);
             if (error.response) {
@@ -84,27 +95,63 @@ const DaftarAntrian = () => {
     const handleStatusChange = async (id, newStatus) => {
         try {
             const token = localStorage.getItem('token');
-            await axios.patch('http://localhost:5000/api/v1/reservation/update', { reservation_id: id, status: newStatus }, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
 
-            setData(prevData => prevData.map(item => (item.reservation_id === id ? { ...item, status: newStatus } : item)));
-            setEditingIndex(null);
+            swal.fire({
+                title: "Yakin merubah status?",
+                text: false,
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                cancelButtonText: "Tidak",
+                confirmButtonText: "Ubah status"
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    try {
+                        await axios.patch('http://localhost:5000/api/v1/reservation/update', 
+                        { reservation_id: id, status: newStatus }, 
+                        {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            },
+                        });
+
+                        setData(prevData => prevData.map(item => (item.reservation_id === id ? { ...item, status: newStatus } : item)));
+                        setEditingIndex(null);
+
+                        swal.fire({
+                            title: 'Tersimpan!',
+                            text: 'Berhasil ubah status antrian!',
+                            icon: 'success',
+                            timer: 2000,
+                            showConfirmButton: false,
+                        });
+                    } catch (error) {
+                        swal.fire({
+                            title: 'Gagal!',
+                            text: 'Terjadi kesalahan saat ubah status!',
+                            icon: 'error',
+                            timer: 2000,
+                            showConfirmButton: false,
+                        });
+
+                        console.error('Failed to update status:', error);
+                        if (error.response) {
+                            console.error('Response data:', error.response.data);
+                            console.error('Response status:', error.response.status);
+                            console.error('Response headers:', error.response.headers);
+                        } else if (error.request) {
+                            console.error('Request data:', error.request);
+                        } else {
+                            console.error('Error message:', error.message);
+                        }
+                    }
+                }
+            });
         } catch (error) {
-            console.error('Failed to update status:', error);
-            if (error.response) {
-                console.error('Response data:', error.response.data);
-                console.error('Response status:', error.response.status);
-                console.error('Response headers:', error.response.headers);
-            } else if (error.request) {
-                console.error('Request data:', error.request);
-            } else {
-                console.error('Error message:', error.message);
-            }
+            console.error('Failed to show confirmation dialog:', error);
         }
-    };
+};
 
     const handleEditClick = (index) => {
         setEditingIndex(index);
