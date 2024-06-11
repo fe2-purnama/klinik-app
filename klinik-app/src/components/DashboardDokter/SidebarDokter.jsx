@@ -21,24 +21,24 @@ export default function DoctorSidebar() {
     const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
     useEffect(() => {
-        const fetchDoctorName = async () => {
-            try {
-                const token = localStorage.getItem('token');
-                const response = await axios.get('http://localhost:5000/api/v1/doctor/profile', {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
-
-                const doctorName = response.data.doctor[0].name;
-                setDoctorName(doctorName);
-            } catch (error) {
-                console.error('Failed to fetch doctor name:', error);
-            }
-        };
-
         fetchDoctorName();
     }, []);
+
+    const fetchDoctorName = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await axios.get('http://localhost:5000/api/v1/doctor/profile', {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            const doctorName = response.data.doctor[0].name;
+            setDoctorName(doctorName);
+        } catch (error) {
+            console.error('Failed to fetch doctor name:', error);
+        }
+    };
 
     const handleLogout = () => {
         setIsLogoutModalOpen(true);
