@@ -18,7 +18,7 @@ const Sidebar = (props) => {
 
   const confirmLogout = () => {
     localStorage.removeItem('token');
-    window.location.href = '/login'; // Redirect to login page
+    window.location.href = '/login'; // Redirect ke login page
   };
 
   const cancelLogout = () => {

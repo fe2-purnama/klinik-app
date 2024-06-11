@@ -1,10 +1,12 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const EditAkunDokter = () => {
   const { user_id } = useParams(); // Mengambil user_id dari parameter URL
+  const navigate = useNavigate(); // Hook untuk redirection
   const [formData, setFormData] = useState({
     doctor_id: '',
     name: '',
@@ -86,18 +88,34 @@ const EditAkunDokter = () => {
       setPasswordError('Password tidak sesuai');
       return;
     }
-    try {
-      const token = localStorage.getItem('token');
-      await axios.put(`http://localhost:5000/api/v1/doctor/${user_id}`, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      alert('Data berhasil diperbarui');
-    } catch (error) {
-      console.error('Error updating doctor details:', error);
-      alert('Terjadi kesalahan saat memperbarui data');
-    }
+
+    Swal.fire({
+      title: 'Konfirmasi Simpan',
+      text: 'Apakah Anda yakin ingin menyimpan perubahan?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Ya, simpan!',
+      cancelButtonText: 'Batal',
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const token = localStorage.getItem('token');
+          await axios.patch(`http://localhost:5000/api/v1/doctor/update`, formData, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          Swal.fire('Tersimpan!', 'Data dokter berhasil diperbarui.', 'success').then(() => {
+            navigate('/admin');
+          });
+        } catch (error) {
+          console.error('Error updating doctor details:', error);
+          Swal.fire('Gagal!', 'Terjadi kesalahan saat memperbarui data.', 'error');
+        }
+      }
+    });
   };
 
   return (
@@ -209,18 +227,25 @@ const EditAkunDokter = () => {
               />
             </div>
             <div className="mb-5">
-              <label htmlFor="specialization" className="block mb-2 text-sm font-medium text-[color:var(--other1)]">
-                Spesialis
+              <label htmlFor="specialization" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                Spesialisasi
               </label>
-              <input
-                type="text"
+              <select
                 id="specialization"
                 value={formData.specialization}
                 onChange={handleChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
-                placeholder="Spesialist"
-                required
-              />
+              >
+                <option value="">Pilih Spesialis</option>
+                <option value="Umum">Umum</option>
+                <option value="Gigi">Gigi</option>
+                <option value="Jantung">Jantung</option>
+                <option value="THT">THT</option>
+                <option value="Paru-Paru">Paru-Paru</option>
+                <option value="Tulang">Tulang</option>
+                <option value="Mata">Mata</option>
+                <option value="Cardiology">Cardiology</option>
+              </select>
             </div>
             <div className="relative mb-5">
               <label htmlFor="experience" className="block mb-2 text-sm font-medium text-[color:var(--other1)]">

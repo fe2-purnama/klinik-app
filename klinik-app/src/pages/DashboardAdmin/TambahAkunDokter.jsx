@@ -19,7 +19,7 @@ const TambahAkunDokter = () => {
   });
 
   const [passwordError, setPasswordError] = useState('');
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsImVtYWlsIjoiYWRtaW4iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTc5MTc0MTQsImV4cCI6MTcxNzkyMTAxNH0.bxBH3A4Bz0BessnGm186x9TUEnlY09KlTGo9skSYPmI'; // Replace with your actual token
+  const token = localStorage.getItem('token'); // Ambil token dari local storage
 
   useEffect(() => {
     if (location.state && location.state.doctor) {
@@ -66,51 +66,74 @@ const TambahAkunDokter = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (formData.password !== formData.confirm_password) {
       setPasswordError('Password tidak sesuai');
       return;
     }
 
-    const formDataToSend = { ...formData, experience: parseInt(formData.experience, 10) };
-
-    try {
-      const response = await axios.post('http://localhost:5000/api/v1/doctor/register', JSON.stringify(formDataToSend), {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
-
-      console.log('Success:', response.data);
-
-      Swal.fire({
-        icon: 'success',
-        title: 'Sukses',
-        text: 'Data dokter berhasil ditambahkan!',
-      });
-
-      setFormData({
-        doctor_id: '',
-        name: '',
-        gender: '',
-        password: '',
-        confirm_password: '',
-        email: '',
-        phone_number: '',
-        specialization: '',
-        experience: '',
-      });
-    } catch (error) {
-      console.error('Error:', error);
-
+    if (!token) {
       Swal.fire({
         icon: 'error',
-        title: 'Gagal',
-        text: 'Terjadi kesalahan saat menambahkan data dokter.',
+        title: 'Token tidak ditemukan',
+        text: 'Harap login terlebih dahulu.',
       });
+      return;
     }
+
+    Swal.fire({
+      title: 'Konfirmasi',
+      text: 'Apakah Anda yakin ingin menyimpan data ini?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Ya, simpan!',
+      cancelButtonText: 'Batal',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const formDataToSend = { ...formData, experience: parseInt(formData.experience, 10) };
+
+        axios
+          .post('http://localhost:5000/api/v1/doctor/register', JSON.stringify(formDataToSend), {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json',
+            },
+          })
+          .then((response) => {
+            console.log('Success:', response.data);
+
+            Swal.fire({
+              icon: 'success',
+              title: 'Sukses',
+              text: 'Data dokter berhasil ditambahkan!',
+            });
+
+            setFormData({
+              doctor_id: '',
+              name: '',
+              gender: '',
+              password: '',
+              confirm_password: '',
+              email: '',
+              phone_number: '',
+              specialization: '',
+              experience: '',
+            });
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+
+            Swal.fire({
+              icon: 'error',
+              title: 'Gagal',
+              text: 'Terjadi kesalahan saat menambahkan data dokter.',
+            });
+          });
+      }
+    });
   };
 
   return (
@@ -222,18 +245,25 @@ const TambahAkunDokter = () => {
               />
             </div>
             <div className="mb-5">
-              <label htmlFor="specialization" className="block mb-2 text-sm font-medium text-[color:var(--other1)]">
-                Spesialist
+              <label htmlFor="specialization" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                Spesialisasi
               </label>
-              <input
-                type="text"
+              <select
                 id="specialization"
                 value={formData.specialization}
                 onChange={handleChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
-                placeholder="Spesialist"
-                required
-              />
+              >
+                <option value="">Pilih Spesialis</option>
+                <option value="Umum">Umum</option>
+                <option value="Gigi">Gigi</option>
+                <option value="Jantung">Jantung</option>
+                <option value="THT">THT</option>
+                <option value="Paru-Paru">Paru-Paru</option>
+                <option value="Tulang">Tulang</option>
+                <option value="Mata">Mata</option>
+                <option value="Cardiology">Cardiology</option>
+              </select>
             </div>
             <div className="relative mb-5">
               <label htmlFor="experience" className="block mb-2 text-sm font-medium text-[color:var(--other1)]">
