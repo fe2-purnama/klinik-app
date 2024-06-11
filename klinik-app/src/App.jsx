@@ -41,13 +41,10 @@ const App = () => {
         <Route path="/Login" element={<Login />} />
         <Route path="/Registrasi" element={<Register />} />
 
-        <Route
-          path="/admin"
-          element={<PrivateRoute element={<AdminLayout />} />}
-        >
+        <Route path="/admin" element={<PrivateRoute element={<AdminLayout />} />}>
           <Route index element={<ManageAkunDokter />} />
           <Route path="add" element={<TambahAkunDokter />} />
-          <Route path="edit" element={<EditAkunDokter />} />
+          <Route path="edit/:user_id" element={<EditAkunDokter />} />
         </Route>
 
         <Route path="/dashboard-dokter" element={<DokterSidebar />}>

@@ -1,117 +1,44 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
-
 import { Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow } from 'flowbite-react';
 
-const dokter = [
-  {
-    str: '00000007878011999',
-    dokter: 'Dr. Andi Wijaya',
-    jenis_kelamin: 'Laki-laki',
-    spesialis: 'Kardiologi',
-    no_hp: '083423432231',
-    pengalaman: '4',
-  },
-  {
-    str: '00000007878011999',
-    dokter: 'Dr. Andi Wijaya',
-    jenis_kelamin: 'Laki-laki',
-    spesialis: 'Kardiologi',
-    no_hp: '083423432231',
-    pengalaman: '4',
-  },
-  {
-    str: '00000007878011999',
-    dokter: 'Dr. Andi Wijaya',
-    jenis_kelamin: 'Laki-laki',
-    spesialis: 'Kardiologi',
-    no_hp: '083423432231',
-    pengalaman: '4',
-  },
-  {
-    str: '00000007878011999',
-    dokter: 'Dr. Andi Wijaya',
-    jenis_kelamin: 'Laki-laki',
-    spesialis: 'Kardiologi',
-    no_hp: '083423432231',
-    pengalaman: '4',
-  },
-  {
-    str: '00000007878011999',
-    dokter: 'Dr. Andi Wijaya',
-    jenis_kelamin: 'Laki-laki',
-    spesialis: 'Kardiologi',
-    no_hp: '083423432231',
-    pengalaman: '4',
-  },
-  {
-    str: '00000007878011999',
-    dokter: 'Dr. Andi Wijaya',
-    jenis_kelamin: 'Laki-laki',
-    spesialis: 'Kardiologi',
-    no_hp: '083423432231',
-    pengalaman: '4',
-  },
-  {
-    str: '00000007878011999',
-    dokter: 'Dr. Andi Wijaya',
-    jenis_kelamin: 'Laki-laki',
-    spesialis: 'Kardiologi',
-    no_hp: '083423432231',
-    pengalaman: '4',
-  },
-  {
-    str: '00000007878011999',
-    dokter: 'Dr. Andi Wijaya',
-    jenis_kelamin: 'Laki-laki',
-    spesialis: 'Kardiologi',
-    no_hp: '083423432231',
-    pengalaman: '4',
-  },
-  {
-    str: '00000007878011999',
-    dokter: 'Dr. Andi Wijaya',
-    jenis_kelamin: 'Laki-laki',
-    spesialis: 'Kardiologi',
-    no_hp: '083423432231',
-    pengalaman: '4',
-  },
-  {
-    str: '00000007878011999',
-    dokter: 'Dr. Andi Wijaya',
-    jenis_kelamin: 'Laki-laki',
-    spesialis: 'Kardiologi',
-    no_hp: '083423432231',
-    pengalaman: '4',
-  },
-  {
-    str: '00000007878011999',
-    dokter: 'Dr. Andi Wijaya',
-    jenis_kelamin: 'Laki-laki',
-    spesialis: 'Kardiologi',
-    no_hp: '083423432231',
-    pengalaman: '4',
-  },
-  {
-    str: '00000007878011999',
-    dokter: 'Dr. Andi Wijaya',
-    jenis_kelamin: 'Laki-laki',
-    spesialis: 'Kardiologi',
-    no_hp: '083423432231',
-    pengalaman: '4',
-  },
-  {
-    str: '00000007878011999',
-    dokter: 'Dr. Andi Wijaya',
-    jenis_kelamin: 'Laki-laki',
-    spesialis: 'Kardiologi',
-    no_hp: '083423432231',
-    pengalaman: '4',
-  },
-];
+const apiUrl = 'http://localhost:5000/api/v1/doctor';
 
-const TableDokter = () => {
+axios.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers.authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+const TableDokter = ({ filterStr }) => {
+  const [items, setItems] = useState([]);
+  const [requestError, setRequestError] = useState();
+
+  const fetchData = useCallback(async () => {
+    try {
+      const result = await axios.get(apiUrl);
+      setItems(result.data);
+    } catch (err) {
+      setRequestError(err.message);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  const filteredItems = items.filter((item) => item.doctor_id.includes(filterStr));
+
   return (
     <Table className="border-none drop-shadow-none">
       <TableHead>
@@ -127,25 +54,21 @@ const TableDokter = () => {
         </TableHeadCell>
       </TableHead>
       <TableBody className="bg-white">
-        {dokter.map((dokter, index) => (
-          <TableRow key={index}>
+        {filteredItems.map((item, index) => (
+          <TableRow key={item.user_id}>
             <TableCell className="font-medium text-gray-900 text-center">{index + 1}</TableCell>
-            <TableCell>{dokter.str}</TableCell>
-            <TableCell>{dokter.dokter}</TableCell>
-            <TableCell>{dokter.jenis_kelamin}</TableCell>
-            <TableCell>{dokter.spesialis}</TableCell>
-            <TableCell>{dokter.no_hp}</TableCell>
-            <TableCell className="text-center">{dokter.pengalaman}</TableCell>
+            <TableCell>{item.doctor_id}</TableCell>
+            <TableCell>{item.name}</TableCell>
+            <TableCell>{item.gender}</TableCell>
+            <TableCell>{item.specialization}</TableCell>
+            <TableCell>{item.phone_number}</TableCell>
+            <TableCell className="text-center">{item.experience}</TableCell>
             <TableCell className="">
-              <Link to="/admin/edit">
-                <button className="my-2 bg-sky-500 px-2 py-1 rounded mr-2 hover:bg-sky-600 shadow-none">
+              <Link to={`/admin/edit/${item.user_id}`}>
+                <button className="bg-sky-500 px-2 py-1 rounded mr-2 hover:bg-sky-600 shadow-none">
                   <i className="text-white fas fa-pen"></i>
                 </button>
               </Link>
-
-              <button className="bg-red-600 px-2 py-1 rounded hover:bg-red-700 shadow-none">
-                <i className="text-white fas fa-trash"></i>
-              </button>
             </TableCell>
           </TableRow>
         ))}

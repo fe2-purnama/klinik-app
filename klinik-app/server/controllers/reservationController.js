@@ -56,7 +56,7 @@ const getReservationsByDoctorId = async (req, res) => {
 };
 
 const createReservation = async (req, res) => {
-  const { id_user, id_doctor, name, nik, ttl, gender, phone, address, tgl_reservasi, keluhan, status } = req.body;
+  const { id_user, id_doctor, name, nik, ttl, gender, phone, address, tgl_reservasi, keluhan } = req.body;
   try {
     await Reservation.create({
       id_user: id_user,

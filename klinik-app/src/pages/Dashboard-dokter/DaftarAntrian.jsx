@@ -34,7 +34,7 @@ const TableRow = ({ item, index, isEditing, onEditClick, onStatusChange }) => {
                 <button onClick={onEditClick} className="text-indigo-600 hover:text-indigo-900">Edit</button>
                 {isEditing && (
                     <div className="aksi fixed right-8 z-50 w-48 py-2 mt-2 bg-white border border-gray-300 rounded-lg shadow-lg">
-                        <button onClick={() => onStatusChange(item.reservation_id, 'Proses')} className="block w-full px-4 py-2 text-left text-blue-700 hover:bg-gray-100">Progress</button>
+                        <button onClick={() => onStatusChange(item.reservation_id, 'Proses')} className="block w-full px-4 py-2 text-left text-blue-700 hover:bg-gray-100">Proses</button>
                         <button onClick={() => onStatusChange(item.reservation_id, 'Selesai')} className="block w-full px-4 py-2 text-left text-green-700 hover:bg-gray-100">Selesai</button>
                         <button onClick={() => onStatusChange(item.reservation_id, 'Batal')} className="block w-full px-4 py-2 text-left text-red-700 hover:bg-gray-100">Batal</button>
                     </div>
@@ -52,12 +52,22 @@ const DaftarAntrian = () => {
     const fetchData = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.get('http://localhost:5000/api/v1/reservation/doctor', {
+            const response = await axios.get('http://localhost:5000/api/v1/doctor/reservation', {
                 headers: {
-                    Authorization: `Bearer ${token}`,
-                },
+                    'Authorization': `Bearer ${token}`
+                }
             });
-            setData(response.data);
+
+            const reservations = response.data[0]?.doctor[0]?.reservation.map(reservation => ({
+                reservation_id: reservation.reservation_id,
+                reservation_date: reservation.reservation_date,
+                patient_name: reservation.patient_name,
+                complaint: reservation.complaint,
+                status: reservation.status
+            }));
+
+            setData(reservations);
+
         } catch (error) {
             console.error('Failed to fetch reservations:', error);
             if (error.response) {
@@ -74,7 +84,7 @@ const DaftarAntrian = () => {
 
     useEffect(() => {
         fetchData();
-        const intervalId = setInterval(fetchData, 5000);
+        const intervalId = setInterval(fetchData, 2000);
 
         return () => {
             clearInterval(intervalId);
