@@ -1,12 +1,13 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Logo from '../../assets/logo.png';
 
 const Sidebar = (props) => {
   const { Show } = props;
   const [isShow, setIsShow] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const location = useLocation(); // Menggunakan useLocation untuk mendapatkan path saat ini
 
   const handleClick = () => {
     setIsShow(!isShow);
@@ -47,13 +48,13 @@ const Sidebar = (props) => {
           </li>
           <div className="flex-1 px-4">
             <li className="mb-4">
-              <Link className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-blue-100" to="/admin">
+              <Link className={`flex items-center p-2 rounded-lg ${location.pathname === '/admin' ? 'bg-blue-100 text-gray-900' : 'text-gray-900 hover:bg-blue-100'}`} to="/admin">
                 <i className="far fa-user-md fa-xl"></i>
                 <span className="flex-1 ml-3 whitespace-nowrap">Manage Akun Dokter</span>
               </Link>
             </li>
             <li>
-              <Link className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-blue-100" to="/admin/add">
+              <Link className={`flex items-center p-2 rounded-lg ${location.pathname === '/admin/add' ? 'bg-blue-100 text-gray-900' : 'text-gray-900 hover:bg-blue-100'}`} to="/admin/add">
                 <i className="far fa-user-plus fa-xl"></i>
                 <span className="flex-1 ml-3 whitespace-nowrap">Tambah Akun Dokter</span>
               </Link>
