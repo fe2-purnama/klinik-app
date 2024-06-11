@@ -52,12 +52,22 @@ const DaftarAntrian = () => {
     const fetchData = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.get('http://localhost:5000/api/v1/reservation/doctor', {
+            const response = await axios.get('http://localhost:5000/api/v1/doctor/reservation', {
                 headers: {
-                    Authorization: `Bearer ${token}`,
-                },
+                    'Authorization': `Bearer ${token}`
+                }
             });
-            setData(response.data);
+
+            const reservations = response.data[0]?.doctor[0]?.reservation.map(reservation => ({
+                reservation_id: reservation.reservation_id,
+                reservation_date: reservation.reservation_date,
+                patient_name: reservation.patient_name,
+                complaint: reservation.complaint,
+                status: reservation.status
+            }));
+
+            setData(reservations);
+
         } catch (error) {
             console.error('Failed to fetch reservations:', error);
             if (error.response) {

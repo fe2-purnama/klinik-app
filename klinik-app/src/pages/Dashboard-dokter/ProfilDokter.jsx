@@ -243,9 +243,8 @@ const ProfilDokter = () => {
                                         <option value="Jantung">Jantung</option>
                                         <option value="THT">THT</option>
                                         <option value="Paru-Paru">Paru-Paru</option>
-                                        <option value="Tulang">Tulang</option>
                                         <option value="Mata">Mata</option>
-                                        <option value="Cardiology">Cardiology</option>
+                                        <option value="Kesehatan Anak">Kesehatan Anak</option>
                                     </select>
                                 </div>
                                 <div className="col-span-1">

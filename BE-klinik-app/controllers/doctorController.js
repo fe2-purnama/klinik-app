@@ -160,6 +160,38 @@ const getDoctorbyUserId = async (req, res) => {
     }
 }
 
+const getReservationbyDoctor = async (req, res) => {
+
+    try {
+        const reservationDoctor = await prisma.auth.findMany({
+            where: {
+                user_id: req.user_id,
+            },
+            select: {
+                doctor: {
+                    select: {
+                        reservation: {
+                            select: {
+                                reservation_id: true,
+                                reservation_date: true,
+                                patient_name: true,
+                                status: true,
+                                complaint: true,
+                            }
+                        }
+                    }
+
+
+                }
+            },
+        });
+        res.status(200).json(reservationDoctor);
+
+    } catch (error) {
+
+    }
+}
+
 const getDoctorReview = async (req, res) => {
     try {
         const doctor = await prisma.auth.findMany({
@@ -220,5 +252,6 @@ module.exports = {
     getDoctorbyId,
     getDoctorReview,
     getAllDoctor,
-    getDoctorbyUserId
+    getDoctorbyUserId,
+    getReservationbyDoctor
 };

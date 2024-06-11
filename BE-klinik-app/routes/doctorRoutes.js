@@ -10,6 +10,7 @@ router.delete('/doctor/delete', authMiddleware, doctorController.deleteDoctor);
 router.get('/doctor/profile', authMiddleware, doctorController.getDoctorbyId);
 router.get('/doctor/detail/:user_id', doctorController.getDoctorbyUserId);
 router.get('/doctor/review', authMiddleware, doctorController.getDoctorReview);
+router.get('/doctor/reservation', authMiddleware, doctorController.getReservationbyDoctor);
 
 router.get('/doctor/all', doctorController.getAllDoctor);
 

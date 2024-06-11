@@ -3,6 +3,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Jantung1 from '../assets/dokter-jantung1.png';
+import KA1 from '../assets/Dokter/Kesehatan Anak/Satrio-removebg.png';
+import KA2 from '../assets/Dokter/Kesehatan Anak/Fadilah-removebg.png';
+import KA3 from '../assets/Dokter/Kesehatan Anak/Fahrul-removebg.png';
+import KA4 from '../assets/Dokter/Kesehatan Anak/Soerjatmono-removebg.png';
+import KA5 from '../assets/Dokter/Kesehatan Anak/Ayunda-removebg.png';
 import DoctorCard from '../components/Card/DocterType';
 import DoctorServiceBox from './Box/Box';
 
@@ -12,12 +17,11 @@ const doctorData = [
     title: 'Kesehatan Anak',
     icon: 'fas fa-child',
     doctors: [
-      { photo: Jantung1, name: 'Dr. Harley Davidson', specialty: 'Kesehatan Anak', experience: 10 },
-      { photo: Jantung1, name: 'Dr. Harley Davidson', specialty: 'Kesehatan Anak', experience: 8 },
-      { photo: Jantung1, name: 'Dr. Harley Davidson', specialty: 'Kesehatan Anak', experience: 12 },
-      { photo: Jantung1, name: 'Dr. Harley Davidson', specialty: 'Kesehatan Anak', experience: 15 },
-      { photo: Jantung1, name: 'Dr. Harley Davidson', specialty: 'Kesehatan Anak', experience: 9 },
-      { photo: Jantung1, name: 'Dr. Harley Davidson', specialty: 'Kesehatan Anak', experience: 7 },
+      { photo: KA1, name: 'Dr. Satrio Wibowo', specialty: 'Kesehatan Anak', experience: 8 },
+      { photo: KA2, name: 'Dr. Fadilah Mutaqin', specialty: 'Kesehatan Anak', experience: 10 },
+      { photo: KA3, name: 'Dr. M. Fahrul Udin', specialty: 'Kesehatan Anak', experience: 10 },
+      { photo: KA4, name: 'Dr. R. Soerjatmono', specialty: 'Kesehatan Anak', experience: 10 },
+      { photo: KA5, name: 'Dr. Ayunda Almiradani', specialty: 'Kesehatan Anak', experience: 5 },
     ],
   },
   {
