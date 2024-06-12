@@ -2,18 +2,37 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import swal from 'sweetalert2';
 import Modal from '../../components/Modal/Modal';
+import uploadImage from "../../utils/uploadImage";
 
 const DoctorProfile = ({ profile }) => (
     <div className="bg-white shadow-md rounded-lg p-6">
         <h3 className="text-2xl font-medium text-gray-700 mb-4">Profil Dokter</h3>
-        {Object.entries(profile).map(([key, value], index) => (
-            key !== 'password' && (
-                <div key={index} className="py-2">
-                    <p className="text-xl font-semibold text-gray-600">{key.charAt(0).toUpperCase() + key.slice(1)}</p>
-                    <p className="text-lg text-gray-600">{key === 'gender' ? (value === 'Laki-laki' ? 'Laki-laki' : 'Perempuan') : value}</p>
-                </div>
-            )
-        ))}
+        <div>
+            <div className="py-2">
+                <p className="text-xl font-semibold text-gray-600">Nama Lengkap</p>
+                <p className="text-lg text-gray-600">{profile.name}</p>
+            </div>
+            <div className="py-2">
+                <p className="text-xl font-semibold text-gray-600">Email</p>
+                <p className="text-lg text-gray-600">{profile.email}</p>
+            </div>
+            <div className="py-2">
+                <p className="text-xl font-semibold text-gray-600">Jenis Kelamin</p>
+                <p className="text-lg text-gray-600">{profile.gender}</p>
+            </div>
+            <div className="py-2">
+                <p className="text-xl font-semibold text-gray-600">Nomor Telepon</p>
+                <p className="text-lg text-gray-600">{profile.phone_number}</p>
+            </div>
+            <div className="py-2">
+                <p className="text-xl font-semibold text-gray-600">Spesialisasi</p>
+                <p className="text-lg text-gray-600">{profile.specialization}</p>
+            </div>
+            <div className="py-2">
+                <p className="text-xl font-semibold text-gray-600">Pengalaman</p>
+                <p className="text-lg text-gray-600">{profile.experience} Tahun</p>
+            </div>
+        </div>
     </div>
 );
 
@@ -35,6 +54,7 @@ const ProfilDokter = () => {
 
     const [userId, setUserId] = useState(null);
     const [email, setEmail] = useState('');
+    const [img, setImg] = useState();
     const [doctorId, setDoctorId] = useState(null);
 
     useEffect(() => {
@@ -89,17 +109,47 @@ const ProfilDokter = () => {
     };
 
     const handleSave = () => {
-        setIsModalOpen(true);
+        if (
+            formData.name === '' ||
+            formData.gender === '' ||
+            formData.password === '' ||
+            formData.confirm_password === '' ||
+            formData.phone_number === '' ||
+            formData.email === '' ||
+            formData.specialization === '' ||
+            formData.experience === ''
+        ) {
+            swal.fire({
+                title: 'Peringatan!',
+                text: 'Harap lengkapi semua kolom yang tersedia!',
+                icon: 'warning',
+            });
+            setIsFormValid(false);
+        } else {
+            setIsModalOpen(true);
+        }
+        
     };
 
     const handleCloseModal = () => {
         setIsModalOpen(false);
     };
 
+    const handleImgChange = (e) => {
+        setImg(e.target.files[0]);
+    };
+
     const handleConfirmModal = async () => {
         setIsModalOpen(false);
         try {
             const token = getToken();
+            const imgUrl = await uploadImage(img);
+            console.log(imgUrl);
+
+            const formDataToSend = {
+                ...formData,
+                imgUrl: imgUrl,
+            };
 
             const updatedData = {
                 user_id: userId,
@@ -111,11 +161,12 @@ const ProfilDokter = () => {
                 experience: parseInt(formData.experience),
                 email: formData.email,
                 password: formData.password,
-                confirm_password: formData.confirm_password
+                confirm_password: formData.confirm_password,
+                imgUrl: imgUrl,
             };
             console.log('Data yang diperbarui:', updatedData);
 
-            const response = await axios.patch('http://localhost:5000/api/v1/doctor/update', updatedData, {
+            const response = await axios.patch('http://localhost:5000/api/v1/doctor/update', updatedData, formDataToSend,{
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -266,12 +317,13 @@ const ProfilDokter = () => {
                                     >
                                         <option value="">Pilih Spesialis</option>
                                         <option value="Umum">Umum</option>
-                                        <option value="Gigi">Gigi</option>
+                                        <option value="Paru-Paru">Paru-Paru</option>
+                                        <option value="Lambung">Lambung</option>
+                                        <option value="Mata">Mata</option>
                                         <option value="Jantung">Jantung</option>
                                         <option value="THT">THT</option>
-                                        <option value="Paru-Paru">Paru-Paru</option>
-                                        <option value="Mata">Mata</option>
-                                        <option value="Kesehatan Anak">Kesehatan Anak</option>
+                                        <option value="Tulang">Tulang</option>
+                                        <option value="Gigi">Gigi</option>
                                     </select>
                                 </div>
                                 <div className="col-span-1">
@@ -291,6 +343,21 @@ const ProfilDokter = () => {
                                         <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                                             <span className="text-gray-500 sm:text-sm">tahun</span>
                                         </div>
+                                    </div>
+                                </div>
+                                <div className="col-span-2">
+                                    <label className="block mb-2 text-sm font-medium text-[color:var(--other1)]">
+                                        Foto Profil
+                                    </label>
+                                    <div className="relative">
+                                        <input
+                                        type="file"
+                                        id="img"
+                                        onChange={handleImgChange}
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
+                                        placeholder="Pengalaman"
+                                        required
+                                        />
                                     </div>
                                 </div>
                                 </div>
