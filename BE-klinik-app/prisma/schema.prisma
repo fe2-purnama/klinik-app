@@ -31,6 +31,7 @@ model doctor {
   specialization String?       @db.VarChar(50)
   phone_number   String?       @db.VarChar(20)
   experience     Int
+  imgUrl         String?       @db.VarChar(255)
   auth           auth          @relation(fields: [user_id], references: [user_id], onUpdate: Restrict, map: "FK_Doctor_User")
   reservation    reservation[]
   review         review[]
