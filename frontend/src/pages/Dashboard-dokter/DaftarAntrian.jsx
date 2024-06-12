@@ -151,7 +151,7 @@ const DaftarAntrian = () => {
         } catch (error) {
             console.error('Failed to show confirmation dialog:', error);
         }
-    };
+};
 
     const handleEditClick = (index) => {
         setEditingIndex(index);
