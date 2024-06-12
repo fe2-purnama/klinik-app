@@ -28,7 +28,7 @@ const App = () => {
         <Route path="/" element={<Header />}>
           <Route index element={<Home />} />
           <Route path="/list-dokter" element={<ListDokter />} />
-          <Route path="/detail-dokter" element={<DetailDokter />} />
+          <Route path="/detail-dokter/:userId" element={<DetailDokter />} />
           <Route
             path="/dashboard"
             element={<PrivateRoutePasien element={<DasboardPasien />} />}
@@ -41,7 +41,10 @@ const App = () => {
         <Route path="/Login" element={<Login />} />
         <Route path="/Registrasi" element={<Register />} />
 
-        <Route path="/admin" element={<PrivateRoute element={<AdminLayout />} />}>
+        <Route
+          path="/admin"
+          element={<PrivateRoute element={<AdminLayout />} />}
+        >
           <Route index element={<ManageAkunDokter />} />
           <Route path="add" element={<TambahAkunDokter />} />
           <Route path="edit/:user_id" element={<EditAkunDokter />} />
