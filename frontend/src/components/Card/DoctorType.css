@@ -1,5 +1,4 @@
-.doctor-card {
-    width: 220px;
-    height: 312px;
-    background-color: var(--secondary);
+.card img {
+    width: 210px;
+    height: 210px;
 }

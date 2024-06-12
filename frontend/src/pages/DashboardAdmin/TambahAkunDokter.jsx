@@ -311,6 +311,7 @@ const TambahAkunDokter = () => {
                 <option value="Jantung">Jantung</option>
                 <option value="THT">THT</option>
                 <option value="Paru-Paru">Paru-Paru</option>
+                <option value="Lambung">Lambung</option>
                 <option value="Tulang">Tulang</option>
                 <option value="Mata">Mata</option>
                 <option value="Cardiology">Cardiology</option>

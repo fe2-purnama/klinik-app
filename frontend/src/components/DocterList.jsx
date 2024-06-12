@@ -1,107 +1,87 @@
 /* eslint-disable no-unused-vars */
 // components/DoctorServices.jsx
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import Jantung1 from '../assets/dokter-jantung1.png';
-import KA1 from '../assets/Dokter/Kesehatan Anak/Satrio-removebg.png';
-import KA2 from '../assets/Dokter/Kesehatan Anak/Fadilah-removebg.png';
-import KA3 from '../assets/Dokter/Kesehatan Anak/Fahrul-removebg.png';
-import KA4 from '../assets/Dokter/Kesehatan Anak/Soerjatmono-removebg.png';
-import KA5 from '../assets/Dokter/Kesehatan Anak/Ayunda-removebg.png';
 import DoctorCard from '../components/Card/DocterType';
 import DoctorServiceBox from './Box/Box';
 
-const doctorData = [
-  {
-    id: 1,
-    title: 'Kesehatan Anak',
-    icon: 'fas fa-child',
-    doctors: [
-      { photo: KA1, name: 'Dr. Satrio Wibowo', specialty: 'Kesehatan Anak', experience: 8 },
-      { photo: KA2, name: 'Dr. Fadilah Mutaqin', specialty: 'Kesehatan Anak', experience: 10 },
-      { photo: KA3, name: 'Dr. M. Fahrul Udin', specialty: 'Kesehatan Anak', experience: 10 },
-      { photo: KA4, name: 'Dr. R. Soerjatmono', specialty: 'Kesehatan Anak', experience: 10 },
-      { photo: KA5, name: 'Dr. Ayunda Almiradani', specialty: 'Kesehatan Anak', experience: 5 },
-    ],
-  },
-  {
-    id: 2,
-    title: 'Paru-paru',
-    icon: 'fas fa-lungs',
-    doctors: [
-      { photo: Jantung1, name: 'Dr. Harley Davidson', specialty: 'Paru-paru', experience: 10 },
-      { photo: Jantung1, name: 'Dr. Harley Davidson', specialty: 'Paru-paru', experience: 8 },
-      { photo: Jantung1, name: 'Dr. Harley Davidson', specialty: 'Paru-paru', experience: 12 },
-      { photo: Jantung1, name: 'Dr. Harley Davidson', specialty: 'Paru-paru', experience: 15 },
-      { photo: Jantung1, name: 'Dr. Harley Davidson', specialty: 'Paru-paru', experience: 9 },
-      { photo: Jantung1, name: 'Dr. Harley Davidson', specialty: 'Paru-paru', experience: 7 },
-    ],
-  },
-  {
-    id: 3,
-    title: 'Lambung',
-    icon: 'fas fa-stomach',
-    doctors: [
-      { photo: Jantung1, name: 'Dr. Harley Davidson', specialty: 'Lambung', experience: 10 },
-      { photo: Jantung1, name: 'Dr. Harley Davidson', specialty: 'Lambung', experience: 8 },
-      { photo: Jantung1, name: 'Dr. Harley Davidson', specialty: 'Lambung', experience: 12 },
-      { photo: Jantung1, name: 'Dr. Harley Davidson', specialty: 'Lambung', experience: 15 },
-      { photo: Jantung1, name: 'Dr. Harley Davidson', specialty: 'Lambung', experience: 9 },
-      { photo: Jantung1, name: 'Dr. Harley Davidson', specialty: 'Lambung', experience: 7 },
-    ],
-  },
-  {
-    id: 4,
-    title: 'Mata',
-    icon: 'fas fa-eye',
-    doctors: [
-      { photo: Jantung1, name: 'Dr. Harley Davidson', specialty: 'Mata', experience: 10 },
-      { photo: Jantung1, name: 'Dr. Harley Davidson', specialty: 'Mata', experience: 8 },
-      { photo: Jantung1, name: 'Dr. Harley Davidson', specialty: 'Mata', experience: 12 },
-      { photo: Jantung1, name: 'Dr. Harley Davidson', specialty: 'Mata', experience: 15 },
-      { photo: Jantung1, name: 'Dr. Harley Davidson', specialty: 'Mata', experience: 9 },
-      { photo: Jantung1, name: 'Dr. Harley Davidson', specialty: 'Mata', experience: 7 },
-    ],
-  },
-  {
-    id: 5,
-    title: 'Jantung',
-    icon: 'fas fa-heartbeat',
-    doctors: [
-      { photo: Jantung1, name: 'Dr. Harley Davidson', specialty: 'Jantung', experience: 10 },
-      { photo: Jantung1, name: 'Dr. Harley Davidson', specialty: 'Jantung', experience: 8 },
-      { photo: Jantung1, name: 'Dr. Harley Davidson', specialty: 'Jantung', experience: 12 },
-      { photo: Jantung1, name: 'Dr. Harley Davidson', specialty: 'Jantung', experience: 15 },
-      { photo: Jantung1, name: 'Dr. Harley Davidson', specialty: 'Jantung', experience: 9 },
-      { photo: Jantung1, name: 'Dr. Harley Davidson', specialty: 'Jantung', experience: 7 },
-    ],
-  },
+const initialDoctorData = [
+  { id: 1, title: 'Umum', icon: 'fas fa-child' },
+  { id: 2, title: 'Paru-Paru', icon: 'fas fa-lungs' },
+  { id: 3, title: 'Lambung', icon: 'fas fa-stomach' },
+  { id: 4, title: 'Mata', icon: 'fas fa-eye' },
+  { id: 5, title: 'Jantung', icon: 'fas fa-heartbeat' },
 ];
 
+const truncateName = (name, maxLength = 20) => {
+  if (name.length <= maxLength) return name;
+  
+  const truncated = name.slice(0, maxLength - 3);
+  return `${truncated}...`;
+};
+
 const DoctorServices = () => {
-  const [activeService, setActiveService] = useState(doctorData[0].id);
+  const [doctorData, setDoctorData] = useState([]);
+  const [activeService, setActiveService] = useState('Umum');
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchDoctorData = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/v1/doctor/all');
+        setDoctorData(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching doctor data:', error);
+      }
+    };
+
+    fetchDoctorData();
+  }, []);
 
   const activeDoctors = doctorData
-    .find((service) => service.id === activeService)
-    .doctors.sort((a, b) => b.experience - a.experience)
+    .filter((doctor) => doctor.specialization === activeService)
+    .sort((a, b) => b.experience - a.experience)
+    .map((doctor) => ({
+      ...doctor,
+      name: truncateName(doctor.name),
+    }))
     .slice(0, 4);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="container">
       <div className="flex flex-row gap-1 overflow-x-auto justify-evenly lg:mx-36 xl:mx-40 2xl:mx-44">
-        {doctorData.map((service) => (
-          <DoctorServiceBox key={service.id} id={service.id} title={service.title} icon={service.icon} isActive={service.id === activeService} onClick={setActiveService} />
+        {initialDoctorData.map((service) => (
+          <DoctorServiceBox
+            key={service.id}
+            id={service.id}
+            title={service.title}
+            icon={service.icon}
+            isActive={service.title === activeService}
+            onClick={() => setActiveService(service.title)}
+          />
         ))}
         <Link to="/list-dokter">
           <div className="box flex flex-col cursor-pointer text-center transition-all duration-300 ease-in-out">
-            <i className={`fas fas fa-circle-chevron-right mb-2`}></i>
+            <i className="fas fa-circle-chevron-right mb-2"></i>
             <span className="text-center">Lebih Banyak</span>
           </div>
         </Link>
       </div>
-      <div className="doctor-list xl:mx-20 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-2 ">
+      <div className="doctor-list xl:mx-20 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-2">
         {activeDoctors.map((doctor, index) => (
-          <DoctorCard key={index} photo={doctor.photo} name={doctor.name} specialty={doctor.specialty} experience={doctor.experience} />
+          <DoctorCard
+            key={index}
+            photo={doctor.imgUrl}
+            name={doctor.name}
+            specialty={doctor.specialization}
+            experience={doctor.experience}
+          />
         ))}
       </div>
     </div>

@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from "react";
-import CardList from "../components/CardList";
-import ButtonGroup from "../components/ButtonGroup";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
+import ButtonGroup from "../components/ButtonGroup";
+import CardList from "../components/CardList";
 
 function ListDokter() {
   const [filter, setFilter] = useState("Semua");
@@ -48,9 +48,9 @@ function ListDokter() {
             />
             <ButtonGroup
               img="fa-lungs"
-              title="Paru-paru"
-              isSelected={filter === "Paru-paru"}
-              onClick={() => handleFilter("Paru-paru")}
+              title="Paru-Paru"
+              isSelected={filter === "Paru-Paru"}
+              onClick={() => handleFilter("Paru-Paru")}
             />
             <ButtonGroup
               img="fa-stomach"
@@ -68,7 +68,7 @@ function ListDokter() {
               img="fa-heartbeat"
               title="Jantung"
               isSelected={filter === "Jantung"}
-              onClick={() => handleFilter("jantung")}
+              onClick={() => handleFilter("Jantung")}
             />
             <ButtonGroup
               img="fa-ear"
