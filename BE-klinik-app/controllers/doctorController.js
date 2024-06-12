@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 
 const createDoctor = async (req, res) => {
 
-    const { doctor_id, name, gender, password, confirm_password, email, phone_number, experience, specialization, role = 'doctor' } = req.body;
+    const { doctor_id, name, gender, password, confirm_password, email, phone_number, experience, specialization, imgUrl, role = 'doctor' } = req.body;
 
     if (password !== confirm_password) {
         return res.status(400).json({ message: 'Passwords do not match' });
@@ -26,7 +26,8 @@ const createDoctor = async (req, res) => {
                         gender,
                         phone_number,
                         experience,
-                        specialization
+                        specialization,
+                        imgUrl
                     }
                 }
             },
@@ -51,7 +52,7 @@ const getDoctor = async (req, res) => {
 }
 
 const updateDoctor = async (req, res) => {
-    const { user_id, doctor_id, name, gender, phone_number, experience, specialization, email, password, confirm_password } = req.body;
+    const { user_id, doctor_id, name, gender, phone_number, experience, specialization, email, password, confirm_password, imgUrl } = req.body;
 
     if (password !== confirm_password) {
         return res.status(400).json({ message: 'Passwords do not match' });
@@ -73,6 +74,7 @@ const updateDoctor = async (req, res) => {
                 phone_number: phone_number,
                 specialization: specialization,
                 experience: experience,
+                imgUrl: imgUrl,
                 auth: {
                     update: {
                         email: email,
@@ -236,6 +238,7 @@ const getAllDoctor = async (req, res) => {
                 phone_number: true,
                 experience: true,
                 specialization: true,
+                imgUrl: true
             }
         });
         res.json(doctor);
