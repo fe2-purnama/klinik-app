@@ -1,0 +1,148 @@
+/* Hero Section */
+.hero {
+  background-color: var(--secondary);
+  height: 88vh;
+}
+
+.hero-content {
+  max-width: 700px;
+}
+
+.hero-content h1 {
+  font-size: 58px;
+}
+
+.hero-content p {
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.hero-content button {
+  background-color: var(--primary);
+  color: #fff;
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  width: 260px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* Tentang Kami */
+.box.box-tentang {
+  background-color: var(--secondary);
+}
+
+/* Hubungi Kami */
+.hubungi-konten {
+  background-color: var(--secondary);
+  margin: 50px 0px 120px 0px;
+  border-radius: 50px;
+}
+
+.hubungi img {
+  width: 380px;
+}
+
+.hubungi button {
+  background-color: var(--primary);
+}
+
+@media (max-width: 640px) {
+    .hero-content h1 {
+        font-size: 2rem;
+        margin-top: -50px;
+    }
+
+    .hero-content p {
+        font-size: 1.125rem;
+    }
+
+    .hero-content button {
+        font-size: 1.125rem;
+    }
+
+    .hero-image img {
+      width: 100%;
+    }
+
+    .hero button {
+      width: 100%;
+    }
+    .faqs .hero-image img {
+      width: 40%;
+    }
+}
+
+@media (min-width: 640px) {
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .hero-content p {
+        font-size: 1.125rem;
+    }
+
+    .hero-content button {
+        font-size: 1.125rem;
+    }
+
+    .hero-image img {
+      width: 100%;
+    }
+
+    .faqs .hero-image img {
+      width: 40%;
+    }
+}
+
+@media (min-width: 768px) {
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-content p {
+        font-size: 1.25rem;
+    }
+
+    .hero-content button {
+        font-size: 1.25rem;
+    }
+
+    .hero-image img {
+      max-width: 450px;
+    }
+
+    .faqs .hero-image img {
+      width: 60%;
+    }
+    .hubungi-konten {
+      height: 350px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .hero-content h1 {
+        font-size: 3rem;
+    }
+
+    .hero-content p {
+        font-size: 1.5rem;
+    }
+
+    .hero-image img {
+      max-width: 550px;
+    }
+
+    .faqs .hero-image img {
+      width: 80%;
+    }
+}
+
+@media (min-width: 1280px) {
+    .faqs .hero-image img {
+      width: 90%;
+    }
+}
