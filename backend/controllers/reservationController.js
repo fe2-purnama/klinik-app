@@ -1,4 +1,5 @@
 const { PrismaClient } = require('@prisma/client');
+const { sendEmail } = require('../utils/sendEmail');
 
 const prisma = new PrismaClient();
 
@@ -123,7 +124,22 @@ const updateStatusReservation = async (req, res) => {
                 status: status
             }
         });
+
+        const email = await prisma.auth.findUnique({
+            where: {
+                user_id: reservation.patient_id
+            },
+            select: {
+                email: true
+            }
+        });
+
+        const { email: userEmail } = email;
+
+        sendEmail(userEmail, status);
+
         res.status(200).json({ message: 'Reservation updated successfully' });
+
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
