@@ -118,6 +118,9 @@
     .faqs .hero-image img {
       width: 60%;
     }
+    .hubungi-konten {
+      height: 350px;
+    }
 }
 
 @media (min-width: 1024px) {

@@ -1,13 +1,14 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
+import swal from 'sweetalert2';
 import Dokterfaqs from '../../assets/dokter-faqs.png';
 import Dokter from '../../assets/dokter-hero.png';
 import Dokterhubungi from '../../assets/dokter-hubungi.png';
 import Doktertentang from '../../assets/dokter-tentang.png';
 import Accordion from '../../components/Accordion/Accordion';
+import DocterType from '../../components/DocterList';
 import Footer from '../../components/Footer/Footer';
 import ClinicServices from '../../components/ServiceList';
-import DocterType from '../../components/DocterList';
 import './Style.css';
 
 const Homepage = () => {
@@ -18,6 +19,56 @@ const Homepage = () => {
       box.classList.add('active');
     });
   });
+
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [type, setType] = useState('');
+  const [message, setMessage] = useState('');
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    if (!name || !phone || !type || !message) {
+      swal.fire({
+        icon: 'warning',
+        title: 'Data Belum Lengkap',
+        text: 'Harap isi semua kolom sebelum mengirim pesan!',
+      });
+      return;
+    }
+
+    swal.fire({
+      icon: 'question',
+      title: 'Konfirmasi Kirim Pesan',
+      text: 'Apakah Anda yakin ingin mengirim pesan ini?',
+      showCancelButton: true,
+      confirmButtonText: 'Kirim',
+      cancelButtonText: 'Batal',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const whatsappMessage = `Nama: ${name}%0A%0A` +
+                                `Nomor Telepon: ${phone}%0A%0A` +
+                                `Kategori: ${type}%0A%0A` +
+                                `Pesan: ${message}`;
+        const whatsappURL = `https://api.whatsapp.com/send?phone=+6282147083442&text=${whatsappMessage}`;
+        window.open(whatsappURL, '_blank');
+
+        setName('');
+        setPhone('');
+        setType('');
+        setMessage('');
+
+        swal.fire({
+          title: 'Pesan Terkirim!',
+          text: 'Berhasil mengirim pesan!',
+          icon: 'success',
+          timer: 2000,
+          showConfirmButton: false,
+        });
+      }
+    });
+  };
+
 
   const [openAccordionId, setOpenAccordionId] = useState(null);
   return (
@@ -187,31 +238,31 @@ const Homepage = () => {
               <p className="text-center">Kami selalu menerima pesan, saran, dan kritik yang anda berikan</p>
             </div>
 
-            <div className="hubungi-konten grid grid-cols-1 md:grid-cols-2">
+            <div className="hubungi-konten grid grid-cols-1 md:grid-cols-2 md:mt-20">
               <div className="col-span-1 flex items-end justify-center mt-5 md:mt-0 md:order-1">
                 <img src={Dokterhubungi} alt="Dokter" />
               </div>
 
               <div className="md:w-full mb-8 md:mb-0">
                 <div className="bg-white rounded-3xl border-solid border-2 border-gray-300 p-4 rounded-lg shadow-lg -mt-10 md:-mt-5 md:-mb-5 md:ms-10 relative z-2">
-                  <form>
+                  <form onSubmit={handleSubmit}>
                     <div className="mb-4">
                       <label htmlFor="name" className="block text-sm font-bold mb-1">
                         Nama Lengkap
                       </label>
-                      <input type="text" id="name" className="w-full px-3 py-1 rounded-lg border border-gray-300 text-sm" placeholder="Masukkan nama lengkap" />
+                      <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} className="w-full px-3 py-1 rounded-lg border border-gray-300 text-sm" placeholder="Masukkan nama lengkap" />
                     </div>
                     <div className="mb-4">
                       <label htmlFor="phone" className="block text-sm font-bold mb-1">
                         Nomor Telepon
                       </label>
-                      <input type="tel" id="phone" className="w-full px-3 py-1 rounded-lg border border-gray-300 text-sm" placeholder="Masukkan nomor telepon" />
+                      <input type="tel" id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} className="w-full px-3 py-1 rounded-lg border border-gray-300 text-sm" placeholder="Masukkan nomor telepon" />
                     </div>
                     <div className="mb-4">
                       <label htmlFor="type" className="block text-sm font-bold mb-1">
                         Jenis Pesan
                       </label>
-                      <select id="type" className="w-full px-3 py-1 rounded-lg border border-gray-300 text-sm">
+                      <select id="type" value={type} onChange={(e) => setType(e.target.value)} className="w-full px-3 py-1 rounded-lg border border-gray-300 text-sm">
                         <option value="">Pilih jenis pesan</option>
                         <option value="pesan">Pesan</option>
                         <option value="saran">Saran</option>
@@ -223,7 +274,7 @@ const Homepage = () => {
                       <label htmlFor="message" className="block text-sm font-bold mb-1">
                         Pesan
                       </label>
-                      <textarea id="message" className="w-full px-3 py-1 rounded-lg border border-gray-300 text-sm" rows="3" placeholder="Ketikkan pesan"></textarea>
+                      <textarea id="message" value={message} onChange={(e) => setMessage(e.target.value)} className="w-full px-3 py-1 rounded-lg border border-gray-300 text-sm" rows="3" placeholder="Ketikkan pesan"></textarea>
                     </div>
                     <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 text-sm">
                       Kirim Pesan
