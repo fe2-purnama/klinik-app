@@ -151,6 +151,7 @@ const getDoctorbyUserId = async (req, res) => {
                         phone_number: true,
                         experience: true,
                         specialization: true,
+                        imgUrl: true
                     }
                 }
             },
@@ -232,6 +233,7 @@ const getAllDoctor = async (req, res) => {
     try {
         const doctor = await prisma.doctor.findMany({
             select: {
+                user_id: true,
                 doctor_id: true,
                 name: true,
                 gender: true,

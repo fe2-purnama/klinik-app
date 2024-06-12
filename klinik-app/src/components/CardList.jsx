@@ -1,20 +1,24 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
-import React from 'react';
-import Profile1 from './../assets/profile1.png';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
 function CardList(props) {
-  const { img, title, onClick } = props;
+  const { img, name, specialization, userId } = props;
 
   return (
     <>
-      <div className="w-32 lg:w-48 h-auto rounded-lg overflow-hidden relative">
-        <img src={Profile1} className="rounded-lg w-full h-auto" />
+      <div className="rounded-lg overflow-hidden relative">
+        <img
+          src={img || "https://placehold.co/600x600?text=Foto+Dokter"}
+          className="rounded-lg aspect-square"
+          alt="Foto Dokter"
+        />
 
-        <p className="text-sm lg:text-lg py-3 ">Dr. Ahmad Priatama, Sp.A</p>
-        <p className="text-sm text-[--primary]">Spesialis Kesehatan Anak</p>
-        <Link to="/detail-dokter" className="after:absolute after:inset-0"></Link>
+        <p className="text-sm lg:text-lg py-3 ">{name}</p>
+        <p className="text-sm text-[--primary]">{specialization}</p>
+        <Link
+          to={`/detail-dokter/${userId}`}
+          className="after:absolute after:inset-0"
+        ></Link>
       </div>
     </>
   );
