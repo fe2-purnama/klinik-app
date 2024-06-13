@@ -9,7 +9,7 @@ function CardList(props) {
       <div className="rounded-lg overflow-hidden relative">
         <img
           src={img || "https://placehold.co/600x600?text=Foto+Dokter"}
-          className="rounded-lg aspect-square"
+          className="rounded-lg aspect-square object-cover"
           alt="Foto Dokter"
         />
 
