@@ -9,8 +9,7 @@
     {
       "src": "/src/assets/logo-app1.png",
       "type": "image/png",
-      "sizes": "192x192",
-      "purpose": "maskable"
+      "sizes": "192x192"
     },
     {
       "src": "/src/assets/logo-app2.png",
