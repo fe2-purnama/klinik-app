@@ -1,4 +1,4 @@
-const { PrismaClient } = require('@prisma/client');
+const { PrismaClient } = require('./../prisma/client');
 const prisma = new PrismaClient();
 
 const doctorMiddleware = async (req, res, next) => {
