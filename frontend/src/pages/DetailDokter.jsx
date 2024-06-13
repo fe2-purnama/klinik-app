@@ -37,6 +37,7 @@ function DetailDokter() {
           name={data?.name}
           specialization={data?.specialization}
           doctor_id={data?.doctor_id}
+          experience={data?.experience}
         />
         <FormReservasi
           name={data?.name}

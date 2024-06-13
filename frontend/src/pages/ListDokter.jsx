@@ -17,8 +17,6 @@ function ListDokter() {
         "http://localhost:5000/api/v1/doctor/all"
       );
       setData(response.data);
-      console.log(response.data);
-      console.log(response.data[0].doctor_id);
     } catch (error) {
       console.log(error);
     }
@@ -114,7 +112,7 @@ function ListDokter() {
                   name={data.name}
                   specialization={data.specialization}
                   img={data.imgUrl}
-                  doctor_id={data.doctor_id}
+                  userId={data.user_id}
                 />
               ))}
         </section>

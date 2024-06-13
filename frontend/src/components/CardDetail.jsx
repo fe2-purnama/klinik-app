@@ -2,7 +2,7 @@
 import React from "react";
 
 function CardDetail(props) {
-  const { imgUrl, name, specialization, doctor_id } = props;
+  const { imgUrl, name, specialization, doctor_id, experience } = props;
   return (
     <section>
       <h1 className="text-2xl font-semibold">Daftar Konsultasi</h1>
@@ -20,11 +20,13 @@ function CardDetail(props) {
           <div className="flex flex-row gap-4">
             <div className="flex flex-row items-center gap-2">
               <i className="fas fa-users-medical"></i>
-              <p className="text-sm text-slate-400">500+ pasien</p>
+              <p className="text-sm text-slate-400">200+ pasien</p>
             </div>
             <div className="flex flex-row gap-2 items-center">
               <i className="fas fa-laptop-medical"></i>
-              <p className="text-sm text-slate-400">500+ pasien</p>
+              <p className="text-sm text-slate-400">
+                {experience}+ tahun pengalaman
+              </p>
             </div>
           </div>
           <div className="flex flex-row items-start gap-5 py-4 overflow-x-auto">
