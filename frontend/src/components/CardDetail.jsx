@@ -7,7 +7,7 @@ function CardDetail(props) {
     <section>
       <h1 className="text-2xl font-semibold">Daftar Konsultasi</h1>
       <div className="flex flex-col lg:flex-row gap-8 w-full h-fit my-6">
-        <div className="aspect-square max-w-60 bg-blue-200 rounded-lg overflow-hidden self-center">
+        <div className="aspect-square max-w-60 bg-sky-300 rounded-lg overflow-hidden self-center">
           <img
             src={imgUrl || "https://placehold.co/600x600?text=Foto+Dokter"}
             className="object-center object-cover h-full"
