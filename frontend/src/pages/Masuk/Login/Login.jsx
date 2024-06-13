@@ -44,7 +44,7 @@ const Login = () => {
     <div className="grid grid-cols-1 lg:grid-cols-2 h-screen">
       <div className="kiri lg:h-screen flex flex-col justify-center items-center">
         <div className="logo flex items-center mt-8 lg:mt-28 mb-12">
-          <img src={Logo} alt="Klinik Prima" className="h-10" />
+          <img src={Logo} alt="Klinik Prima" className="h-10 lg:h-20" />
           <h1 className="text-3xl lg:text-5xl ml-2">
             <span className="text-[color:var(--primary)] font-bold">Klinik </span>
             <span className="text-[color:var(--other)] font-bold">Prima</span>
