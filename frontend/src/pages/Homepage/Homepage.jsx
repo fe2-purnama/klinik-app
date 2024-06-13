@@ -74,18 +74,17 @@ const Homepage = () => {
   return (
     <main>
       <section id="home" className="hero flex justify-center">
-        <div className="container mx-auto px-4 sm:px-8 md:px-16 grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="container mx-auto px-4 sm:px-8 md:px-16 grid grid-cols-1 md:grid-cols-2 gap-0">
           <div className="hero-image col-span-1 flex items-end justify-center md:order-1">
             <img src={Dokter} alt="Dokter" className="max-w-full" />
           </div>
-
           <div className="hero-content col-span-1 flex flex-col justify-center">
-            <h1 className="font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
+            <h1 className="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl md:mb-4 mb-2">
               <span className="text-black">Layanan </span>
               <span className="text-[color:var(--primary)]">Prima </span>
               <span className="text-black">untuk kesehatan anda</span>
             </h1>
-            <p className="text-lg sm:text-xl md:text-2xl">
+            <p className="text-sm sm:text-base md:text-xl">
               Kami selalu berkomitmen untuk memberikan pelayanan kesehatan yang terbaik dan berkualitas demi kesehatan yang bisa anda dapatkan.
             </p>
             <button className="px-4 py-2 bg-[color:var(--primary)] text-white rounded-md mt-4 text-lg sm:text-xl md:text-2xl">
@@ -95,12 +94,12 @@ const Homepage = () => {
         </div>
       </section>
 
-      <section id="layanan" className="layanan mt-20">
+      <section id="layanan" className="layanan mt-10 md:mt-20">
         <div className="sm:mx-8 md:mx-16">
           <div className="container">
             <div className="mb-5">
               <h1 className="text-center text-xl sm:text-2xl md:text-3xl font-bold">Layanan</h1>
-              <p className="text-center">Kami selalu memberikan layanan yang terbaik untuk anda</p>
+              <p className="text-sm md:text-base text-center">Kami selalu memberikan layanan yang terbaik untuk anda</p>
             </div>
 
             <div className="box-container">
@@ -110,11 +109,11 @@ const Homepage = () => {
         </div>
       </section>
 
-      <section id="dokter" className="dokter mt-20">
+      <section id="dokter" className="dokter mt-10 md:mt-20">
         <div className="sm:mx-8 md:mx-16">
           <div className="mb-5">
             <h1 className="text-center text-xl sm:text-2xl md:text-3xl font-bold">Dokter</h1>
-            <p className="text-center">Kami memiliki banyak dokter yang sudah berpengalaman di bidangnya</p>
+            <p className="text-sm md:text-base text-center">Kami memiliki banyak dokter yang sudah berpengalaman di bidangnya</p>
           </div>
 
           <div className="box-container">
@@ -123,28 +122,24 @@ const Homepage = () => {
         </div>
       </section>
 
-      <section id="tentang" className="tentang mt-20">
+      <section id="tentang" className="tentang mt-10 md:mt-20">
         <div className="sm:mx-8 md:mx-16">
           <div className="container">
             <div className="md:mb-10">
               <h1 className="text-center text-xl sm:text-2xl md:text-3xl font-bold">Tentang Kami</h1>
-              <p className="text-center">Kami selalu berkomitmen untuk menjadi klinik yang terbaik</p>
+              <p className="text-sm md:text-base text-center">Kami selalu berkomitmen untuk menjadi klinik yang terbaik</p>
             </div>
-
-          {/* <h2 className="text-md sm:text-xl md:text-2xl font-bold mb-5">Klinik <span className="text-[color:var(--primary)]">Prima</span> selalu berusaha menjadi yang terbaik</h2> */}
-
-            <div className="grid grid-cols-1 md:grid-cols-2">
-              <div className="hero-image col-span-1 flex items-end justify-center md:order-1 mb-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 mt-6 md:mt-0">
+              <div className="hero-image col-span-1 flex items-end justify-center md:order-1 mb-8 md:mb-4">
                 <img src={Doktertentang} alt="Dokter" />
               </div>
-
               <div className="tentang-content col-span-1 flex flex-col justify-center">
-                <div className="tentang-text mb-8">
+                <div className="tentang-text mb-10 md:mb-8 text-sm md:text-xl">
                   <p>
                     <b>
                       Klinik <span className="text-[color:var(--primary)]">Prima </span>
                     </b>
-                    didirikan pada tahun 2020 yang bertempat di <b>Namex</b> dan hingga kini masih eksis dengan konsep klinik <b>modern</b>.
+                    didirikan pada tahun 2020 yang bertempat di <b>Malang</b> dan hingga kini masih eksis dengan konsep klinik <b>modern</b>.
                   </p>
                   <br />
                   <p>
@@ -153,17 +148,17 @@ const Homepage = () => {
                 </div>
 
                 <div className="mx-auto grid grid-cols-3 gap-4">
-                  <div className="box box-tentang flex flex-col items-center justify-center">
+                  <div className="box-tentang flex flex-col items-center justify-center">
                     <span className="font-bold text-xl md:text-2xl xl:text-3xl">20+</span>
-                    <span className="text-center">Dokter berkualitas</span>
+                    <span className="text-center text-xs md:text-base">Dokter berkualitas</span>
                   </div>
-                  <div className="box box-tentang flex flex-col items-center justify-center">
+                  <div className="box-tentang flex flex-col items-center justify-center">
                     <span className="font-bold text-xl md:text-2xl xl:text-3xl">100+</span>
-                    <span className="text-center">Staff Medis</span>
+                    <span className="text-center text-xs md:text-base">Staff Medis</span>
                   </div>
-                  <div className="box box-tentang flex flex-col items-center justify-center">
+                  <div className="box-tentang flex flex-col items-center justify-center">
                     <span className="font-bold text-xl md:text-2xl xl:text-3xl">150+</span>
-                    <span className="text-center">Kapasitas Pasien</span>
+                    <span className="text-center text-xs md:text-base">Kapasitas Pasien</span>
                   </div>
                 </div>
               </div>
@@ -172,12 +167,12 @@ const Homepage = () => {
         </div>
       </section>
 
-      <section id="faqs" className="faqs mt-20">
+      <section id="faqs" className="faqs mt-10 md:mt-20">
         <div className="sm:mx-8 md:mx-16">
           <div className="container">
             <div className="mb-10">
               <h1 className="text-center text-xl sm:text-2xl md:text-3xl font-bold">FAQs</h1>
-              <p className="text-center">Kami selalu menjawab pertanyaan-pertanyaan yang sering muncul</p>
+              <p className="text-sm md:text-base text-center">Kami selalu menjawab pertanyaan-pertanyaan yang sering muncul</p>
             </div>
 
             <div className="flex flex-col md:flex-row xl:gap-12">
@@ -189,14 +184,14 @@ const Homepage = () => {
                 <div className="faqs-text space-y-4">
                   <Accordion
                     id={1}
-                    title="Bagaimana cara melakukan reservasi secara online?"
+                    title="Bagaimana cara melakukan reservasi?"
                     content="Anda dapat melakukan reservasi dokter melalui website kami dengan mengakses halaman reservasi, memilih dokter yang diinginkan, dan mengisi formulir reservasi sesuai dengan jadwal yang tersedia."
                     openAccordionId={openAccordionId}
                     setOpenAccordionId={setOpenAccordionId}
                   />
                   <Accordion
                     id={2}
-                    title="Apakah ada biaya tambahan untuk melakukan reservasi?"
+                    title="Apakah ada biaya tambahan saat reservasi?"
                     content="Tidak, reservasi dokter melalui website kami tidak dikenakan biaya tambahan. Anda hanya perlu membayar biaya konsultasi atau perawatan medis sesuai dengan tarif yang berlaku."
                     openAccordionId={openAccordionId}
                     setOpenAccordionId={setOpenAccordionId}
@@ -210,14 +205,14 @@ const Homepage = () => {
                   />
                   <Accordion
                     id={4}
-                    title="Bagaimana jika ingin berkomunikasi dengan dokter?"
+                    title="Bagaimana jika ingin komunikasi dengan dokter?"
                     content="Anda bisa menghubungi dokter lewat WhatsApp dengan menekan tombol Hubungi Dokter pada data reservasi anda"
                     openAccordionId={openAccordionId}
                     setOpenAccordionId={setOpenAccordionId}
                   />
                   <Accordion
                     id={5}
-                    title="Apakah reservasi ini tersedia untuk semua jenis layanan medis?"
+                    title="Apakah reservasi tersedia untuk semua layanan?"
                     content="Ya, Anda dapat melakukan reservasi untuk berbagai jenis layanan medis melalui website kami, termasuk konsultasi dokter umum, spesialis, pemeriksaan kesehatan, dan lain sebagainya."
                     openAccordionId={openAccordionId}
                     setOpenAccordionId={setOpenAccordionId}
@@ -230,12 +225,12 @@ const Homepage = () => {
         </div>
       </section>
 
-      <section id="hubungi" className="hubungi mt-20">
+      <section id="hubungi" className="hubungi mt-10 md:mt-20">
         <div className="sm:mx-8 md:mx-16">
           <div className="container">
             <div className="mb-10">
               <h1 className="text-center text-xl sm:text-2xl md:text-3xl font-bold">Hubungi Kami</h1>
-              <p className="text-center">Kami selalu menerima pesan, saran, dan kritik yang anda berikan</p>
+              <p className="text-sm md:text-base text-center">Kami selalu menerima pesan, saran, dan kritik yang anda berikan</p>
             </div>
 
             <div className="hubungi-konten grid grid-cols-1 md:grid-cols-2 md:mt-20">
@@ -246,19 +241,19 @@ const Homepage = () => {
               <div className="md:w-full mb-8 md:mb-0">
                 <div className="bg-white rounded-3xl border-solid border-2 border-gray-300 p-4 rounded-lg shadow-lg -mt-10 md:-mt-5 md:-mb-5 md:ms-10 relative z-2">
                   <form onSubmit={handleSubmit}>
-                    <div className="mb-4">
+                    <div className="mb-2 md:mb-4">
                       <label htmlFor="name" className="block text-sm font-bold mb-1">
                         Nama Lengkap
                       </label>
                       <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} className="w-full px-3 py-1 rounded-lg border border-gray-300 text-sm" placeholder="Masukkan nama lengkap" />
                     </div>
-                    <div className="mb-4">
+                    <div className="mb-2 md:mb-4">
                       <label htmlFor="phone" className="block text-sm font-bold mb-1">
                         Nomor Telepon
                       </label>
                       <input type="tel" id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} className="w-full px-3 py-1 rounded-lg border border-gray-300 text-sm" placeholder="Masukkan nomor telepon" />
                     </div>
-                    <div className="mb-4">
+                    <div className="mb-2 md:mb-4">
                       <label htmlFor="type" className="block text-sm font-bold mb-1">
                         Jenis Pesan
                       </label>
@@ -270,7 +265,7 @@ const Homepage = () => {
                         <option value="permintaan">Permintaan</option>
                       </select>
                     </div>
-                    <div className="mb-4">
+                    <div className="mb-2 md:mb-4">
                       <label htmlFor="message" className="block text-sm font-bold mb-1">
                         Pesan
                       </label>

@@ -68,8 +68,8 @@ const DoctorServices = () => {
         ))}
         <Link to="/list-dokter">
           <div className="box flex flex-col cursor-pointer text-center transition-all duration-300 ease-in-out">
-            <i className="fas fa-circle-chevron-right mb-2"></i>
-            <span className="text-center">Lebih Banyak</span>
+            <i className="fas fa-circle-chevron-right mb-2 text-2xl md:text-5xl"></i>
+            <span className="text-center text-[10px] sm:text-xs md:text-sm lg:text-base">Lebih Banyak</span>
           </div>
         </Link>
       </div>

@@ -4,20 +4,6 @@
   height: 88vh;
 }
 
-.hero-content {
-  max-width: 700px;
-}
-
-.hero-content h1 {
-  font-size: 58px;
-}
-
-.hero-content p {
-  font-size: 20px;
-  font-weight: 500;
-  margin-bottom: 1rem;
-}
-
 .hero-content button {
   background-color: var(--primary);
   color: #fff;
@@ -31,8 +17,10 @@
 }
 
 /* Tentang Kami */
-.box.box-tentang {
+.box-tentang {
+  border-radius: 20px;
   background-color: var(--secondary);
+  color: var(--primary);
 }
 
 /* Hubungi Kami */
@@ -51,46 +39,49 @@
 }
 
 @media (max-width: 640px) {
-    .hero-content h1 {
-        font-size: 2rem;
-        margin-top: -50px;
-    }
-
-    .hero-content p {
-        font-size: 1.125rem;
-    }
-
     .hero-content button {
         font-size: 1.125rem;
     }
 
     .hero-image img {
-      width: 100%;
+      width: 60%
     }
 
     .hero button {
       width: 100%;
     }
+
+    .tentang img {
+      width: 280px;
+    }
+
+    .box-tentang {
+      width: 90px;
+      height: 90px;
+    }
+
     .faqs .hero-image img {
-      width: 40%;
+      width: 50%;
+    }
+
+    .hubungi img {
+      width: 250px;
     }
 }
 
 @media (min-width: 640px) {
-    .hero-content h1 {
-        font-size: 2rem;
-    }
-
-    .hero-content p {
-        font-size: 1.125rem;
-    }
 
     .hero-content button {
         font-size: 1.125rem;
     }
 
     .hero-image img {
-      width: 100%;
+      width: 60%;
+    }
+
+    .box-tentang {
+      width: 100px;
+      height: 100px;
     }
 
     .faqs .hero-image img {
@@ -99,13 +90,6 @@
 }
 
 @media (min-width: 768px) {
-    .hero-content h1 {
-        font-size: 2.5rem;
-    }
-
-    .hero-content p {
-        font-size: 1.25rem;
-    }
 
     .hero-content button {
         font-size: 1.25rem;
@@ -124,16 +108,17 @@
 }
 
 @media (min-width: 1024px) {
-    .hero-content h1 {
-        font-size: 3rem;
-    }
-
-    .hero-content p {
-        font-size: 1.5rem;
-    }
-
     .hero-image img {
       max-width: 550px;
+    }
+
+    .tentang img {
+      width: 100%;
+    }
+
+    .box-tentang {
+      width: 120px;
+      height: 120px;
     }
 
     .faqs .hero-image img {

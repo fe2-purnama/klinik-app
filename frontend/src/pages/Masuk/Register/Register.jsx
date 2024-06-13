@@ -84,8 +84,8 @@ const Register = () => {
             <span className="text-[color:var(--other)] font-bold">Prima</span>
           </h1>
         </div>
-        <div>
-          <img src={Dokter} alt="Dokter Image" className="" />
+        <div className="flex justify-center">
+          <img src={Dokter} alt="Dokter Image" className="w-1/2 sm:w-1/2 md:w-full mx-auto" />
         </div>
       </div>
       <div className="kanan lg:h-screen p-4 lg:p-8">

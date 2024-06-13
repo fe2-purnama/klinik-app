@@ -44,14 +44,14 @@ const Login = () => {
     <div className="grid grid-cols-1 lg:grid-cols-2 h-screen">
       <div className="kiri lg:h-screen flex flex-col justify-center items-center">
         <div className="logo flex items-center mt-8 lg:mt-28 mb-12">
-          <img src={Logo} alt="Klinik Prima" className="h-20" />
+          <img src={Logo} alt="Klinik Prima" className="h-10" />
           <h1 className="text-3xl lg:text-5xl ml-2">
             <span className="text-[color:var(--primary)] font-bold">Klinik </span>
             <span className="text-[color:var(--other)] font-bold">Prima</span>
           </h1>
         </div>
-        <div>
-          <img src={Dokter} alt="Dokter Image" className="" />
+        <div className="flex justify-center">
+          <img src={Dokter} alt="Dokter Image" className="w-1/2 sm:w-1/2 md:w-full mx-auto" />
         </div>
       </div>
       <div className="kanan lg:h-screen flex justify-center p-4 lg:p-8">
