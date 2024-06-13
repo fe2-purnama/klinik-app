@@ -13,13 +13,11 @@ function DetailDokter() {
 
   const getDetailDokter = async () => {
     try {
-      console.log(userId);
       const response = await axios.get(
         `http://localhost:5000/api/v1/doctor/detail/${userId.userId}`
       );
 
       setData(response.data.doctor[0]);
-      console.log(response.data.doctor[0]);
     } catch (err) {
       console.log(err);
     }
@@ -37,6 +35,7 @@ function DetailDokter() {
           name={data?.name}
           specialization={data?.specialization}
           doctor_id={data?.doctor_id}
+          experience={data?.experience}
         />
         <FormReservasi
           name={data?.name}

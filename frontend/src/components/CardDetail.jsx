@@ -1,15 +1,17 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import ProfilePic from "./../assets/dokter-jantung1.png";
 
 function CardDetail(props) {
-  const { imgUrl, name, specialization, doctor_id } = props;
+  const { imgUrl, name, specialization, doctor_id, experience } = props;
   return (
     <section>
       <h1 className="text-2xl font-semibold">Daftar Konsultasi</h1>
       <div className="flex flex-col lg:flex-row gap-8 w-full h-fit my-6">
-        <div className="aspect-square max-w-60 bg-blue-200 rounded-lg overflow-hidden self-center">
-          <img src={imgUrl} className="object-center object-cover h-full" />
+        <div className="aspect-square max-w-60 bg-sky-300 rounded-lg overflow-hidden self-center">
+          <img
+            src={imgUrl || "https://placehold.co/600x600?text=Foto+Dokter"}
+            className="object-center object-cover h-full"
+          />
         </div>
         <div className="flex flex-col gap-3">
           <h1 className="text-lg md:text-2xl font-semibold">{name}</h1>
@@ -18,11 +20,13 @@ function CardDetail(props) {
           <div className="flex flex-row gap-4">
             <div className="flex flex-row items-center gap-2">
               <i className="fas fa-users-medical"></i>
-              <p className="text-sm text-slate-400">500+ pasien</p>
+              <p className="text-sm text-slate-400">200+ pasien</p>
             </div>
             <div className="flex flex-row gap-2 items-center">
               <i className="fas fa-laptop-medical"></i>
-              <p className="text-sm text-slate-400">500+ pasien</p>
+              <p className="text-sm text-slate-400">
+                {experience}+ tahun pengalaman
+              </p>
             </div>
           </div>
           <div className="flex flex-row items-start gap-5 py-4 overflow-x-auto">

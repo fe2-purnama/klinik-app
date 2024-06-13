@@ -7,6 +7,7 @@ function FormReservasi(props) {
   const { doctorId, name, specialization } = props;
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
+  const token = localStorage.getItem("token");
   const [formData, setFormData] = useState({
     doctor_id: "",
     doctor_name: "",
@@ -193,7 +194,9 @@ function FormReservasi(props) {
         </div>
         <button
           type="submit"
-          className="bg-sky-500 hover:bg-sky-600 text-white font-bold py-2 px-4 rounded h-fit w-full place-self-end"
+          className={`bg-sky-500 hover:bg-sky-600 text-white font-bold py-2 px-4 rounded h-fit w-full place-self-end ${
+            token ? "cursor-pointer" : "cursor-not-allowed bg-sky-300"
+          }`}
         >
           Reservasi Sekarang
         </button>
