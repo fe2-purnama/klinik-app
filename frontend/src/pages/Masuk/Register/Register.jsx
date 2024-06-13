@@ -1,24 +1,24 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
-import "./Register.css";
-import { Link } from "react-router-dom";
-import Logo from "../../../assets/logo.png";
-import Dokter from "../../../assets/dokter-hero.png";
-import { Alert } from "flowbite-react";
-import Axios from "axios";
+import React, { useState } from 'react';
+import './Register.css';
+import { Link } from 'react-router-dom';
+import Logo from '../../../assets/logo.png';
+import Dokter from '../../../assets/dokter-hero.png';
+import { Alert } from 'flowbite-react';
+import Axios from 'axios';
 
 const Register = () => {
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-    phone_number: "",
+    name: '',
+    email: '',
+    password: '',
+    phone_number: '',
   });
-  const [confirmPassword, setconfirmPassword] = useState("");
-  const [passwordError, setPasswordError] = useState("");
+  const [confirmPassword, setconfirmPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [responseMessage, setResponseMessage] = useState("");
-  const [responseError, setResponseError] = useState("");
+  const [responseMessage, setResponseMessage] = useState('');
+  const [responseError, setResponseError] = useState('');
 
   const handleChange = (e) => {
     setFormData((prevFormData) => ({
@@ -34,9 +34,9 @@ const Register = () => {
     }));
 
     if (confirmPassword && newPassword !== confirmPassword) {
-      setPasswordError("Passwords do not match");
+      setPasswordError('Passwords do not match');
     } else {
-      setPasswordError("");
+      setPasswordError('');
     }
   };
 
@@ -45,9 +45,9 @@ const Register = () => {
     setconfirmPassword(newConfirmPassword);
 
     if (formData.password !== newConfirmPassword) {
-      setPasswordError("Passwords do not match");
+      setPasswordError('Passwords do not match');
     } else {
-      setPasswordError("");
+      setPasswordError('');
     }
   };
 
@@ -60,10 +60,7 @@ const Register = () => {
 
     try {
       setLoading(true);
-      const response = await Axios.post(
-        "http://localhost:5000/api/v1/register",
-        formData
-      );
+      const response = await Axios.post('http://localhost:5000/api/v1/register', formData);
       setResponseMessage(response.data.message);
     } catch (error) {
       setResponseError(error.response.data.error);
@@ -76,11 +73,9 @@ const Register = () => {
     <div className="grid grid-cols-1 lg:grid-cols-2 h-screen">
       <div className="kiri lg:h-screen flex flex-col justify-center items-center">
         <div className="logo flex items-center mt-8 lg:mt-28 mb-12">
-          <img src={Logo} alt="Klinik Prima" className="h-20" />
+          <img src={Logo} alt="Klinik Prima" className="h-10 lg:h-20" />
           <h1 className="text-3xl lg:text-5xl ml-2">
-            <span className="text-[color:var(--primary)] font-bold">
-              Klinik
-            </span>
+            <span className="text-[color:var(--primary)] font-bold">Klinik </span>
             <span className="text-[color:var(--other)] font-bold">Prima</span>
           </h1>
         </div>
@@ -92,26 +87,17 @@ const Register = () => {
         <div className="form">
           <form onSubmit={handleSubmit} className="max-w-lg mx-auto lg:mt-4">
             <div className="teks mb-5">
-              <h1 className="text-[color:var(--other1)] font-bold text-3xl lg:text-4xl">
-                Selamat Datang!
-              </h1>
-              <p className="text-[color:var(--other1)]">
-                Silahkan daftar terlebih dahulu!
-              </p>
+              <h1 className="text-[color:var(--other1)] font-bold text-3xl lg:text-4xl">Selamat Datang!</h1>
+              <p className="text-[color:var(--other1)]">Silahkan daftar terlebih dahulu!</p>
 
               {responseMessage && (
-                <Alert
-                  color="success"
-                  onDismiss={() => setResponseMessage(null)}
-                >
+                <Alert color="success" onDismiss={() => setResponseMessage(null)}>
                   <span className="font-medium">{responseMessage}</span>
                 </Alert>
               )}
             </div>
             <div className="mb-5">
-              <label className="block mb-2 text-sm font-medium text-[color:var(--other1)]">
-                Nama Lengkap
-              </label>
+              <label className="block mb-2 text-sm font-medium text-[color:var(--other1)]">Nama Lengkap</label>
               <input
                 onChange={handleChange}
                 type="text"
@@ -122,9 +108,7 @@ const Register = () => {
               />
             </div>
             <div className="mb-5">
-              <label className="block mb-2 text-sm font-medium text-[color:var(--other1)]">
-                No HP
-              </label>
+              <label className="block mb-2 text-sm font-medium text-[color:var(--other1)]">No HP</label>
               <input
                 onChange={handleChange}
                 type="number"
@@ -135,9 +119,7 @@ const Register = () => {
               />
             </div>
             <div className="mb-5">
-              <label className="block mb-2 text-sm font-medium text-[color:var(--other1)]">
-                Email
-              </label>
+              <label className="block mb-2 text-sm font-medium text-[color:var(--other1)]">Email</label>
               <input
                 onChange={handleChange}
                 type="email"
@@ -149,9 +131,7 @@ const Register = () => {
               <p className="text-sm text-red-500">{responseError}</p>
             </div>
             <div className="mb-5">
-              <label className="block mb-2 text-sm font-medium text-[color:var(--other1)]">
-                Password
-              </label>
+              <label className="block mb-2 text-sm font-medium text-[color:var(--other1)]">Password</label>
               <input
                 onChange={handlePasswordChange}
                 type="password"
@@ -162,9 +142,7 @@ const Register = () => {
               />
             </div>
             <div className="mb-5">
-              <label className="block mb-2 text-sm font-medium text-[color:var(--other1)]">
-                Confirm Password
-              </label>
+              <label className="block mb-2 text-sm font-medium text-[color:var(--other1)]">Confirm Password</label>
               <input
                 type="password"
                 name="confirmPassword"
@@ -174,9 +152,7 @@ const Register = () => {
                 placeholder="Confirm Password"
                 required
               />
-              {passwordError && (
-                <p className="text-sm text-red-600 mt-1">{passwordError}</p>
-              )}
+              {passwordError && <p className="text-sm text-red-600 mt-1">{passwordError}</p>}
             </div>
             <div className="mb-8">
               <button
@@ -189,16 +165,14 @@ const Register = () => {
             </div>
             <div className="mb-10">
               <p className="text-xs text-[color:var(--other1)]">
-                Sudah punya akun? Silahkan{" "}
+                Sudah punya akun? Silahkan{' '}
                 <Link className="font-bold" to="/Login">
                   Masuk di sini
                 </Link>
               </p>
             </div>
           </form>
-          <p className="text-sm font-bold text-[color:var(--other2)] flex justify-center items-center">
-            Klinik Prima 2024. All rights reserved
-          </p>
+          <p className="text-sm font-bold text-[color:var(--other2)] flex justify-center items-center">Klinik Prima 2024. All rights reserved</p>
         </div>
       </div>
     </div>
