@@ -1,19 +1,19 @@
-// Tambahkan impor useState dan Modal
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, LogOut, LayoutDashboard, Text, UserCircle2 } from 'lucide-react';
+import { LogOut, LayoutDashboard, Text, UserCircle2, X } from 'lucide-react';
 import Brand from '../../assets/brand.png';
 import DoctorHeader from './HeaderDokter';
 import DaftarAntrian from '../../pages/Dashboard-dokter/DaftarAntrian';
 import ReviewDokter from '../../pages/Dashboard-dokter/ReviewDokter';
-import Modal from '../Modal/Modal'; // Impor Modal
+import Modal from '../Modal/Modal';
 import ProfilDokter from '../../pages/Dashboard-dokter/ProfilDokter';
 import axios from 'axios';
 
 const SidebarContext = createContext();
 
 export default function DoctorSidebar() {
-    const [expanded, setExpanded] = useState(true);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth > 640);
+    const [isOverlayOpen, setIsOverlayOpen] = useState(false);
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -22,6 +22,13 @@ export default function DoctorSidebar() {
 
     useEffect(() => {
         fetchDoctorName();
+        const handleResize = () => {
+            setIsSidebarOpen(window.innerWidth > 640);
+        };
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
     }, []);
 
     const fetchDoctorName = async () => {
@@ -38,6 +45,11 @@ export default function DoctorSidebar() {
         } catch (error) {
             console.error('Failed to fetch doctor name:', error);
         }
+    };
+
+    const toggleSidebar = () => {
+        setIsSidebarOpen(!isSidebarOpen);
+        setIsOverlayOpen(!isOverlayOpen);
     };
 
     const handleLogout = () => {
@@ -68,35 +80,67 @@ export default function DoctorSidebar() {
 
     return (
         <>
-            <div className="flex h-screen bg-gray-200">
+            <div className="h-screen bg-gray-200">
                 <div className="flex flex-1">
+                    {isSidebarOpen && window.innerWidth <= 640 && (
+                        <div
+                            className="fixed inset-0 bg-black opacity-50 z-10"
+                            onClick={toggleSidebar}
+                        ></div>
+                    )}
+
                     {/* Sidebar */}
-                    <aside className="h-screen">
+                    <aside
+                        className={`h-screen fixed z-20 transition-transform ${
+                            isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+                        } sm:translate-x-0 sm:relative`}
+                    >
                         <nav className="h-full flex flex-col bg-white border-r shadow-sm">
                             <div className="p-4 pb-2 flex justify-between items-center">
-                                <img src={Brand} className={`overflow-hidden transition-all ${expanded ? "w-30" : "w-0"}`} alt="" />
-                                <button onClick={() => setExpanded((curr) => !curr)} className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100">
-                                    <Menu />
+                                <img
+                                    src={Brand}
+                                    className={`overflow-hidden transition-all ${isSidebarOpen ? 'w-44' : 'w-0'}`}
+                                    alt=""
+                                />
+                                <button
+                                    onClick={toggleSidebar}
+                                    className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100 sm:hidden"
+                                >
+                                    <X />
                                 </button>
                             </div>
 
-                            <SidebarContext.Provider value={{ expanded }}>
+                            <SidebarContext.Provider value={{ isSidebarOpen }}>
                                 <ul className="flex-1 px-3">
-                                    <SidebarItem icon={<LayoutDashboard size={20} />} text="Daftar Antrian" to="/dashboard-dokter" active={location.pathname === '/dashboard-dokter'} />
-                                    <SidebarItem icon={<Text size={20} />} text="Review" to="/dashboard-dokter/review-dokter" active={location.pathname === '/dashboard-dokter/review-dokter'} />
-                                    <SidebarItem icon={<UserCircle2 size={20} />} text="Profil" to="/dashboard-dokter/profil-dokter" active={location.pathname === '/dashboard-dokter/profil-dokter'} />
+                                    <SidebarItem
+                                        icon={<LayoutDashboard size={20} />}
+                                        text="Daftar Antrian"
+                                        to="/dashboard-dokter"
+                                        active={location.pathname === '/dashboard-dokter'}
+                                    />
+                                    <SidebarItem
+                                        icon={<Text size={20} />}
+                                        text="Review"
+                                        to="/dashboard-dokter/review-dokter"
+                                        active={location.pathname === '/dashboard-dokter/review-dokter'}
+                                    />
+                                    <SidebarItem
+                                        icon={<UserCircle2 size={20} />}
+                                        text="Profil"
+                                        to="/dashboard-dokter/profil-dokter"
+                                        active={location.pathname === '/dashboard-dokter/profil-dokter'}
+                                    />
                                 </ul>
                                 <div className={'flex-2 px-3'}>
                                     <SidebarItem icon={<LogOut size={20} />} text="Log Out" onClick={handleLogout} />
                                 </div>
                             </SidebarContext.Provider>
-
                         </nav>
                     </aside>
 
                     {/* Header */}
                     <div className="flex flex-col flex-1 overflow-hidden">
-                        <DoctorHeader doctorName={doctorName} />
+                        <DoctorHeader doctorName={doctorName} setIsSidebarOpen={setIsSidebarOpen} isSidebarOpen={isSidebarOpen} />
                         {/* Konten */}
                         {renderContent()}
                     </div>
@@ -117,15 +161,19 @@ export default function DoctorSidebar() {
     );
 }
 
-function SidebarItem({ icon, text, active, to, onClick}) {
-    const { expanded } = useContext(SidebarContext);
+function SidebarItem({ icon, text, active, to, onClick }) {
+    const { isSidebarOpen } = useContext(SidebarContext);
 
     return (
-        <li onClick={onClick} className={`relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors group
-            ${active ? "bg-[color:var(--tertiary)] from-indigo-200 to-indigo-100 text-indigo-800" : "hover:bg-indigo-50 text-gray-600"}`}>
+        <li
+            onClick={onClick}
+            className={`relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors group ${
+                active ? 'bg-[color:var(--tertiary)] from-indigo-200 to-indigo-100 text-indigo-800' : 'hover:bg-indigo-50 text-gray-600'
+            }`}
+        >
             <Link to={to} className="flex items-center w-full">
                 {icon}
-                <span className={`overflow-hidden transition-all ${expanded ? "w-30 ml-3" : "w-0"}`}>{text}</span>
+                <span className={`overflow-hidden transition-all ${isSidebarOpen ? 'w-30 ml-3' : 'w-0'}`}>{text}</span>
             </Link>
         </li>
     );

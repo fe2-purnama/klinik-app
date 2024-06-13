@@ -14,8 +14,8 @@ const services = [
     description: (
       <div className='flex flex-col md:flex-row justify py-6 xl:px-20'>
         <div className='mb-4'>
-          <h1 className="md:text-xl xl:text-2xl font-bold mb-4">Kami memberikan layanan reservasi konsultasi dokter secara Online</h1>
-          <ol className="list-decimal pl-6 text-base">
+          <h1 className="text-sm md:text-xl xl:text-2xl font-bold mb-2">Kami memberikan layanan reservasi konsultasi dokter secara Online</h1>
+          <ol className="list-decimal pl-6 text-xs md:text-base">
             <li>Masukkan akun</li>
             <li>Pilih menu konsultasi dokter</li>
             <li>Pilih kategori dokter</li>
@@ -36,8 +36,8 @@ const services = [
     description: (
       <div className='flex flex-col md:flex-row justify py-6 xl:px-20'>
         <div className='mb-4'>
-          <h1 className="md:text-xl xl:text-2xl font-bold mb-4">Kami memberikan layanan pemeriksaan kesehatan sesuai permintaan</h1>
-          <ol className="list-decimal pl-6 text-base">
+          <h1 className="text-sm md:text-xl xl:text-2xl font-bold mb-2">Kami memberikan layanan pemeriksaan kesehatan sesuai permintaan</h1>
+          <ol className="list-decimal pl-6 text-xs md:text-base">
             <li>Datang ke klinik sesuai jadwal reservasi dokter anda</li>
             <li>Terangkan keluhan anda</li>
             <li>Minta untuk pemeriksaan kesehatan</li>
@@ -55,8 +55,8 @@ const services = [
     description: (
       <div className='flex flex-col md:flex-row justify py-6 xl:px-20'>
         <div className='mb-4'>
-          <h1 className="md:text-xl xl:text-2xl font-bold mb-4">Kami memberikan layanan resep obat yang direkomendasikan oleh Dokter</h1>
-          <ol className="list-decimal pl-6 text-base">
+          <h1 className="text-sm md:text-xl xl:text-2xl font-bold mb-2">Kami memberikan layanan resep obat yang direkomendasikan oleh Dokter</h1>
+          <ol className="list-decimal pl-6 text-xs md:text-base">
             <li>Datang ke klinik sesuai jadwal klinik atau reservasi anda</li>
             <li>Terangkan keluhan anda pada Dokter kami</li>
             <li>Ambil resep obat dari Dokter kami</li>
@@ -76,8 +76,8 @@ const services = [
     description: (
       <div className='flex flex-col md:flex-row justify py-6 xl:px-20'>
         <div className='mb-4'>
-          <h1 className="md:text-xl xl:text-2xl font-bold mb-4">Kami memberikan layanan ambulance yang siap datang di tempat anda</h1>
-          <ol className="list-decimal pl-6 text-base">
+          <h1 className="text-sm md:text-xl xl:text-2xl font-bold mb-2">Kami memberikan layanan ambulance yang siap datang di tempat anda</h1>
+          <ol className="list-decimal pl-6 text-xs md:text-base">
             <li>
               Masuk ke halaman <b>Homepage</b>
             </li>
@@ -105,8 +105,8 @@ const services = [
     description: (
       <div className='flex flex-col md:flex-row justify py-6 xl:px-20'>
         <div className='mb-4'>
-          <h1 className="md:text-xl xl:text-2xl font-bold mb-4">Kami memberikan layanan Laboratorium untuk pemeriksaan lanjut</h1>
-          <ol className="list-decimal pl-6 text-base">
+          <h1 className="text-sm md:text-xl xl:text-2xl font-bold mb-2">Kami memberikan layanan Laboratorium untuk pemeriksaan lanjut</h1>
+          <ol className="list-decimal pl-6 text-xs md:text-base">
             <li>
               Datang ke klinik sesuai <b>jadwal</b> klinik
             </li>

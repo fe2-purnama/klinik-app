@@ -56,10 +56,10 @@ const Header = () => {
                 <li className={activeSection === 'home' ? 'active' : ''}>
                 {isHome ? (
                     <AnchorLink className="anchor-link" offset={80} href="#home">
-                    Home
+                    Beranda
                     </AnchorLink>
                 ) : (
-                    <Link to="/">Home</Link>
+                    <Link to="/">Beranda</Link>
                 )}
                 </li>
                 <li className={activeSection === 'layanan' ? 'active' : ''}>
@@ -113,34 +113,34 @@ const Header = () => {
                 <li className={`w-56 py-2 px-6 mx-3 rounded-xl ${activeSection === 'home' ? 'bg-[color:var(--primary)] text-white' : 'hover:bg-[color:var(--tertiary)] transition-colors duration-200'}`}>
                 {isHome ? (
                     <AnchorLink className="anchor-link block w-full h-full" offset={80} href="#home">
-                    Home
+                    Beranda
                     </AnchorLink>
                 ) : (
                     <Link className="block w-full h-full" to="/">Home</Link>
                 )}
                 </li>
                 <li className={`w-56 py-2 px-6 mx-3 rounded-xl ${activeSection === 'layanan' ? 'bg-[color:var(--primary)] text-white' : 'hover:bg-[color:var(--tertiary)] transition-colors duration-200'}`}>
-                    <AnchorLink className="anchor-link block w-full h-full" offset={120} href="#layanan">
+                    <AnchorLink className="anchor-link block w-full h-full" offset={50} href="#layanan">
                         Layanan
                     </AnchorLink>
                 </li>
                 <li className={`w-56 py-2 px-6 mx-3 rounded-xl ${activeSection === 'dokter' ? 'bg-[color:var(--primary)] text-white' : 'hover:bg-[color:var(--tertiary)] transition-colors duration-200'}`}>
-                    <AnchorLink className="anchor-link block w-full h-full" offset={120} href="#dokter">
+                    <AnchorLink className="anchor-link block w-full h-full" offset={100} href="#dokter">
                         Dokter
                     </AnchorLink>
                 </li>
                 <li className={`w-56 py-2 px-6 mx-3 rounded-xl ${activeSection === 'tentang' ? 'bg-[color:var(--primary)] text-white' : 'hover:bg-[color:var(--tertiary)] transition-colors duration-200'}`}>
-                    <AnchorLink className="anchor-link block w-full h-full" offset={120} href="#tentang">
+                    <AnchorLink className="anchor-link block w-full h-full" offset={100} href="#tentang">
                         Tentang
                     </AnchorLink>
                 </li>
                 <li className={`w-56 py-2 px-6 mx-3 rounded-xl ${activeSection === 'faqs' ? 'bg-[color:var(--primary)] text-white' : 'hover:bg-[color:var(--tertiary)] transition-colors duration-200'}`}>
-                    <AnchorLink className="anchor-link block w-full h-full" offset={120} href="#faqs">
+                    <AnchorLink className="anchor-link block w-full h-full" offset={100} href="#faqs">
                         FAQs
                     </AnchorLink>
                 </li>
                 <li className={`w-56 py-2 px-6 mx-3 rounded-xl ${activeSection === 'hubungi' ? 'bg-[color:var(--primary)] text-white' : 'hover:bg-[color:var(--tertiary)] transition-colors duration-200'}`}>
-                    <AnchorLink className="anchor-link block w-full h-full" offset={120} href="#hubungi">
+                    <AnchorLink className="anchor-link block w-full h-full" offset={100} href="#hubungi">
                         Hubungi
                     </AnchorLink>
                 </li>

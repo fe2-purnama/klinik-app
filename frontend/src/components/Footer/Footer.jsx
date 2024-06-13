@@ -13,7 +13,7 @@ const Footer = () => {
 
     return (
         <footer className="pt-8 pb-2">
-            <div className="mx-16">
+            <div className="mx-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="flex flex-col justify-center">
                         <div className="logo flex items-center">
@@ -45,7 +45,7 @@ const Footer = () => {
                             <h3 className="text-lg font-bold mb-2">Kontak</h3>
                             <p className="text-gray-600 mb-2">klinikprima@gmail.com</p>
                             <p className="text-gray-600 mb-2">(+62) 824-1114-0002</p>
-                            <p className="text-gray-600">Jln. in aja dulu No. 1 Namex</p>
+                            <p className="text-gray-600">Jln. in aja dulu No. 1 Malang</p>
                         </div>
                     </div>
                     

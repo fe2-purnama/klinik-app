@@ -13,26 +13,26 @@ const TableRow = ({ item, index, isEditing, onEditClick, onStatusChange }) => {
 
     return (
         <tr className="relative">
-            <td className="px-2 py-4 text-sm leading-5 text-gray-900 whitespace-nowrap border-b border-gray-200 md:px-6">
+            <td className="px-2 py-4 text-[10px] md:text-sm leading-5 text-gray-900 whitespace-nowrap border-b border-gray-200 md:px-4">
                 {index}
             </td>
-            <td className="px-2 py-4 text-sm leading-5 text-gray-900 whitespace-nowrap border-b border-gray-200 md:px-6">
+            <td className="px-2 py-4 text-[10px] md:text-sm leading-5 text-gray-900 whitespace-nowrap border-b border-gray-200 md:px-4">
                 {item.reservation_id}
             </td>
-            <td className="px-2 py-4 text-sm leading-5 text-gray-900 whitespace-nowrap border-b border-gray-200 md:px-6">
+            <td className="px-2 py-4 text-[10px] md:text-sm leading-5 text-gray-900 whitespace-nowrap border-b border-gray-200 md:px-4">
                 {new Date(item.reservation_date).toLocaleDateString()}
             </td>
-            <td className="px-2 py-4 text-sm leading-5 text-gray-900 whitespace-nowrap border-b border-gray-200 md:px-6">
+            <td className="px-2 py-4 text-[10px] md:text-sm leading-5 text-gray-900 whitespace-nowrap border-b border-gray-200 md:px-4">
                 {item.patient_name}
             </td>
-            <td className="px-2 py-4 whitespace-no-wrap border-b border-gray-200 md:px-6">
-                <span className={`inline-flex px-4 py-1 text-xs font-semibold leading-5 rounded-full ${statusColors[item.status]}`}>{item.status}</span>
+            <td className="px-2 py-4 whitespace-no-wrap border-b border-gray-200 md:px-4">
+                <span className={`inline-flex px-4 py-1 text-[10px] md:text-sm font-semibold leading-5 rounded-full ${statusColors[item.status]}`}>{item.status}</span>
             </td>
-            <td className="px-2 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap border-b border-gray-200 md:px-6">
+            <td className="px-2 py-4 text-[10px] md:text-sm leading-5 text-gray-900 whitespace-no-wrap border-b border-gray-200 md:px-4">
                 {item.complaint}
-            </td>
-            <td className="px-2 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200 md:px-6 relative">
-                <button onClick={onEditClick} className="text-indigo-600 hover:text-indigo-900">Edit</button>
+            </td>   
+            <td className="px-2 py-4 text-[10px] md:text-sm leading-5 text-gray-900 whitespace-no-wrap border-b border-gray-200 md:px-4">
+                <button onClick={onEditClick} className="text-indigo-600  hover:text-indigo-900">Edit</button>
                 {isEditing && (
                     <div className="aksi fixed right-8 z-50 w-48 py-2 mt-2 bg-white border border-gray-300 rounded-lg shadow-lg">
                         <button onClick={() => onStatusChange(item.reservation_id, 'Proses')} className="block w-full px-4 py-2 text-left text-blue-700 hover:bg-gray-100">Proses</button>
@@ -163,9 +163,9 @@ const DaftarAntrian = () => {
 
     const headers = [
         "No.",
-        "No. Reservasi",
+        "Reservasi",
         "Tanggal",
-        "Nama Pasien",
+        "Pasien",
         "Status",
         "Keluhan",
         "Aksi",
@@ -175,8 +175,8 @@ const DaftarAntrian = () => {
 
     return (
         <div className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
-            <div className="container px-6 py-8 mx-auto">
-                <h2 className='text-3xl font-medium text-gray-700'>Daftar Antrian</h2>
+            <div className="container px-3 sm:px-4 md:px-6 py-8 mx-auto">
+                <h2 className='text-2xl md:text-3xl font-medium text-gray-700'>Daftar Antrian</h2>
                 <div className="mt-6">
                     <span>Cari </span>
                     <input type="text" placeholder="Cari Nama Pasien" value={searchTerm} onChange={handleSearch} className="px-3 py-1 border border-gray-300 rounded-md focus:ring-[color:var(--primary)]"/>
