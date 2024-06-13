@@ -1,0 +1,97 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./client"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model admin {
+  user_id Int    @id
+  name    String @db.VarChar(100)
+  auth    auth   @relation(fields: [user_id], references: [user_id], onUpdate: Restrict, map: "FK_Admin_User")
+}
+
+model auth {
+  user_id  Int       @id @default(autoincrement())
+  email    String    @unique(map: "email") @db.VarChar(100)
+  password String    @db.VarChar(255)
+  role     auth_role
+  admin    admin?
+  doctor   doctor[]
+  patient  patient?
+}
+
+model doctor {
+  user_id        Int
+  doctor_id      String        @id @unique(map: "doctor_id") @db.VarChar(20)
+  name           String        @db.VarChar(100)
+  gender         String?       @db.VarChar(20)
+  specialization String?       @db.VarChar(50)
+  phone_number   String?       @db.VarChar(20)
+  experience     Int
+  imgUrl         String?       @db.VarChar(255)
+  auth           auth          @relation(fields: [user_id], references: [user_id], onUpdate: Restrict, map: "FK_Doctor_User")
+  reservation    reservation[]
+  review         review[]
+
+  @@index([user_id], map: "FK_Doctor_User")
+}
+
+model patient {
+  user_id      Int           @id @default(autoincrement())
+  name         String        @db.VarChar(100)
+  phone_number String?       @db.VarChar(20)
+  auth         auth          @relation(fields: [user_id], references: [user_id], onUpdate: Restrict, map: "FK_Patient_User")
+  reservation  reservation[]
+}
+
+model reservation {
+  reservation_id   String             @id @db.VarChar(20)
+  patient_id       Int
+  doctor_id        String             @db.VarChar(20)
+  doctor_name      String             @db.VarChar(50)
+  specialization   String             @db.VarChar(50)
+  patient_name     String             @db.VarChar(50)
+  nik              String             @db.VarChar(20)
+  ttl              String             @db.VarChar(50)
+  gender           String             @db.VarChar(50)
+  phone_number     String             @db.VarChar(20)
+  address          String             @db.VarChar(255)
+  reservation_date DateTime           @db.DateTime(0)
+  complaint        String?            @db.Text
+  status           reservation_status
+  patient          patient            @relation(fields: [patient_id], references: [user_id], onUpdate: Restrict, map: "FK_Reservation_Patient")
+  doctor           doctor             @relation(fields: [doctor_id], references: [doctor_id], onUpdate: Restrict, map: "reservation_ibfk_1")
+  review           review[]
+
+  @@index([patient_id], map: "FK_Reservation_Patient")
+  @@index([doctor_id], map: "doctor_id")
+}
+
+model review {
+  review_id      Int         @id @default(autoincrement())
+  reservation_id String      @db.VarChar(20)
+  doctor_id      String      @db.VarChar(20)
+  review         String?     @db.Text
+  doctor         doctor      @relation(fields: [doctor_id], references: [doctor_id], onUpdate: Restrict, map: "review_ibfk_1")
+  reservation    reservation @relation(fields: [reservation_id], references: [reservation_id], onUpdate: Restrict, map: "review_ibfk_2")
+
+  @@index([doctor_id], map: "doctor_id")
+  @@index([reservation_id], map: "reservation_id")
+}
+
+enum auth_role {
+  patient
+  doctor
+  admin
+}
+
+enum reservation_status {
+  Menunggu
+  Batal
+  Proses
+  Selesai
+}
