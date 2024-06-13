@@ -26,7 +26,7 @@ export default function Component() {
   const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem("token");
-    navigate("/login");
+    navigate("/Login");
   };
 
   return (
