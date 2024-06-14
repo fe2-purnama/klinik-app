@@ -181,7 +181,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "D:\\Asfari\\MBKM 2\\Final Project 2\\klinik-app\\backend\\prisma\\client",
+      "value": "D:\\PROJEK AKHIR MSIB\\klinik-app\\backend\\prisma\\client",
       "fromEnvVar": null
     },
     "config": {
@@ -198,7 +198,7 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../.env",
+    "rootEnvPath": null,
     "schemaEnvPath": "../../.env"
   },
   "relativePath": "..",
@@ -208,7 +208,7 @@ const config = {
     "db"
   ],
   "activeProvider": "mysql",
-  "postinstall": false,
+  "postinstall": true,
   "inlineDatasources": {
     "db": {
       "url": {

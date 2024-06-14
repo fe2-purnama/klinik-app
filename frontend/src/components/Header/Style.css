@@ -1,72 +1,95 @@
 /* Navbar */
 nav {
-    padding: 1rem 0;
-    background-color: var(--secondary);
-    z-index: 10;
+  padding: 1rem 0;
+  background-color: var(--secondary);
+  z-index: 10;
 }
 
 .nav-links {
-    list-style: none;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .nav-links li {
-    color: var(--other);
+  color: var(--other);
+  margin: 0 10px;
 }
 
 .nav-links li:hover,
 .nav-links li.active {
-    color: var(--primary);
+  color: var(--primary);
 }
 
 .logo h1 {
-    font-weight: 600;
+  font-weight: 600;
 }
 
 .btn-login {
-    background-color: var(--primary);
-    color: white;
-    padding: 0.8rem 2rem;
-    text-align: center;
-    border: 1px solid var(--primary);
-    border-radius: 15px;
+  background-color: var(--primary);
+  color: white;
+  padding: 0.8rem 2rem;
+  text-align: center;
+  border: 1px solid var(--primary);
+  border-radius: 15px;
 }
 
 .btn-login:hover {
-    background-color: var(--secondary);
-    color: var(--primary);
-    transition-property: color, background-color, fill, stroke;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 200ms;
+  background-color: var(--secondary);
+  color: var(--primary);
+  transition-property: color, background-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+.btn-logout {
+  background-color: var(--primary);
+  color: white;
+  padding: 0.8rem 2rem;
+  text-align: center;
+  border: 1px solid var(--primary);
+  border-radius: 15px;
+}
+
+.btn-logout:hover {
+  background-color: var(--secondary);
+  color: var(--primary);
+  transition-property: color, background-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
 }
 
 .sidebar {
-    z-index: 10000;
+  z-index: 10000;
 }
 
 @media (min-width: 640px) {
-
 }
 
 @media (min-width: 768px) {
-    .nav-links li {
-        margin-left: 1.6rem;
-        font-weight: 500;
-        font-size: 16px;
-    }
+  .nav-links li {
+    margin-left: 1.6rem;
+    font-weight: 500;
+    font-size: 16px;
+  }
 }
 
 @media (min-width: 1024px) {
-    .nav-links li {
-        margin-left: 1.6rem;
-        font-weight: 500;
-        font-size: 18px;
-    }
+  .nav-links li {
+    margin-left: 1.6rem;
+    font-weight: 500;
+    font-size: 18px;
+  }
 }
 
 @media (min-width: 1280px) {
-    .nav-links li {
-        margin-left: 2rem;
-        font-weight: 500;
-        font-size: 20px;
-    }
+  .nav-links li {
+    margin-left: 2rem;
+    font-weight: 500;
+    font-size: 20px;
+  }
 }
