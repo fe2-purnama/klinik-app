@@ -6,12 +6,10 @@
 
 .hero-content button {
   background-color: var(--primary);
-  color: #fff;
   padding: 0.8rem 2rem;
-  border: none;
   border-radius: 15px;
   cursor: pointer;
-  width: 260px;
+  width: 270px;
   font-size: 20px;
   font-weight: 600;
 }
@@ -44,7 +42,7 @@
     }
 
     .hero-image img {
-      width: 60%
+      width: 90%
     }
 
     .hero button {
@@ -96,7 +94,7 @@
     }
 
     .hero-image img {
-      max-width: 450px;
+      width: 100%
     }
 
     .faqs .hero-image img {
@@ -108,9 +106,6 @@
 }
 
 @media (min-width: 1024px) {
-    .hero-image img {
-      max-width: 550px;
-    }
 
     .tentang img {
       width: 100%;
@@ -130,4 +125,5 @@
     .faqs .hero-image img {
       width: 90%;
     }
+
 }
