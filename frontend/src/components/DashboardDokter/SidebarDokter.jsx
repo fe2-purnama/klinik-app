@@ -80,68 +80,70 @@ export default function DoctorSidebar() {
 
     return (
         <>
-            <div className="h-screen bg-gray-200">
-                <div className="flex flex-1">
-                    {isSidebarOpen && window.innerWidth <= 640 && (
-                        <div
-                            className="fixed inset-0 bg-black opacity-50 z-10"
-                            onClick={toggleSidebar}
-                        ></div>
-                    )}
+            <div className="h-screen flex bg-gray-200">
+                {/* Sidebar */}
+                <aside
+                    className={`fixed h-full z-40 transition-transform ${
+                        isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+                    } sm:translate-x-0 sm:relative w-64`}
+                >
+                    <nav className="h-full flex flex-col bg-white border-r shadow-sm">
+                        <div className="p-4 pb-2 flex justify-between items-center">
+                            <img
+                                src={Brand}
+                                className={`overflow-hidden transition-all ${isSidebarOpen ? 'w-44' : 'w-0'}`}
+                                alt=""
+                            />
+                            <button
+                                onClick={toggleSidebar}
+                                className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100 sm:hidden"
+                            >
+                                <X />
+                            </button>
+                        </div>
 
-                    {/* Sidebar */}
-                    <aside
-                        className={`h-screen fixed z-20 transition-transform ${
-                            isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-                        } sm:translate-x-0 sm:relative`}
-                    >
-                        <nav className="h-full flex flex-col bg-white border-r shadow-sm">
-                            <div className="p-4 pb-2 flex justify-between items-center">
-                                <img
-                                    src={Brand}
-                                    className={`overflow-hidden transition-all ${isSidebarOpen ? 'w-44' : 'w-0'}`}
-                                    alt=""
+                        <SidebarContext.Provider value={{ isSidebarOpen }}>
+                            <ul className="flex-1 px-3">
+                                <SidebarItem
+                                    icon={<LayoutDashboard size={20} />}
+                                    text="Daftar Antrian"
+                                    to="/dashboard-dokter"
+                                    active={location.pathname === '/dashboard-dokter'}
                                 />
-                                <button
-                                    onClick={toggleSidebar}
-                                    className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100 sm:hidden"
-                                >
-                                    <X />
-                                </button>
+                                <SidebarItem
+                                    icon={<Text size={20} />}
+                                    text="Review"
+                                    to="/dashboard-dokter/review-dokter"
+                                    active={location.pathname === '/dashboard-dokter/review-dokter'}
+                                />
+                                <SidebarItem
+                                    icon={<UserCircle2 size={20} />}
+                                    text="Profil"
+                                    to="/dashboard-dokter/profil-dokter"
+                                    active={location.pathname === '/dashboard-dokter/profil-dokter'}
+                                />
+                            </ul>
+                            <div className={'flex-2 px-3'}>
+                                <SidebarItem icon={<LogOut size={20} />} text="Log Out" onClick={handleLogout} />
                             </div>
+                        </SidebarContext.Provider>
+                    </nav>
+                </aside>
 
-                            <SidebarContext.Provider value={{ isSidebarOpen }}>
-                                <ul className="flex-1 px-3">
-                                    <SidebarItem
-                                        icon={<LayoutDashboard size={20} />}
-                                        text="Daftar Antrian"
-                                        to="/dashboard-dokter"
-                                        active={location.pathname === '/dashboard-dokter'}
-                                    />
-                                    <SidebarItem
-                                        icon={<Text size={20} />}
-                                        text="Review"
-                                        to="/dashboard-dokter/review-dokter"
-                                        active={location.pathname === '/dashboard-dokter/review-dokter'}
-                                    />
-                                    <SidebarItem
-                                        icon={<UserCircle2 size={20} />}
-                                        text="Profil"
-                                        to="/dashboard-dokter/profil-dokter"
-                                        active={location.pathname === '/dashboard-dokter/profil-dokter'}
-                                    />
-                                </ul>
-                                <div className={'flex-2 px-3'}>
-                                    <SidebarItem icon={<LogOut size={20} />} text="Log Out" onClick={handleLogout} />
-                                </div>
-                            </SidebarContext.Provider>
-                        </nav>
-                    </aside>
+                {/* Overlay */}
+                {isSidebarOpen && window.innerWidth <= 640 && (
+                    <div
+                        className="fixed inset-0 bg-black opacity-50 z-30"
+                        onClick={toggleSidebar}
+                    ></div>
+                )}
 
+                {/* Main content area */}
+                <div className="flex flex-col flex-1 overflow-hidden">
                     {/* Header */}
-                    <div className="flex flex-col flex-1 overflow-hidden">
-                        <DoctorHeader doctorName={doctorName} setIsSidebarOpen={setIsSidebarOpen} isSidebarOpen={isSidebarOpen} />
-                        {/* Konten */}
+                    <DoctorHeader doctorName={doctorName} setIsSidebarOpen={setIsSidebarOpen} isSidebarOpen={isSidebarOpen} />
+                    {/* Content */}
+                    <div className="overflow-auto flex-1 p-4">
                         {renderContent()}
                     </div>
                 </div>

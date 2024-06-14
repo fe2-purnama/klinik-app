@@ -3,7 +3,7 @@ import { Menu } from 'lucide-react';
 
 const DoctorHeader = ({ doctorName, setIsSidebarOpen, isSidebarOpen }) => {
     return (
-        <div className="w-full flex items-center px-2 py-2 bg-white border-b-4 border-[color:var(--primary)]">
+        <div className="w-full flex items-center px-2 py-2 bg-white border-b-4 border-[color:var(--primary)] sticky top-0 z-30">
             <button
                 onClick={() => setIsSidebarOpen(!isSidebarOpen)}
                 className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100 sm:hidden"

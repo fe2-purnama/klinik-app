@@ -8,7 +8,7 @@ const Footer = () => {
             <div className="mx-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="flex flex-col justify-center">
-                        <div className="logo justify-center mx-auto flex items-center">
+                        <div className="logo mx-auto md:mx-0 flex items-center">
                             <img src={Logo} alt="Klinik Prima" className="h-12" />
                             <h1 className="sm:text:sm md:text-lg lg:text-xl xl:text-2xl font-bold ml-2">
                                 <span className="text-[color:var(--primary)]">Klinik </span>

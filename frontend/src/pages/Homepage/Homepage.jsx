@@ -287,9 +287,9 @@ const Homepage = () => {
                 image={Anggota6}
                 name="Anugrah Jizdan Medika "
                 position="Backend"
-                email="mailto:kemalabdulaziz0@gmail.com"
-                instagram="https://www.instagram.com/kemalabdulaziz_"
-                github="https://github.com/kemalabdulaziz"
+                email="mailto:jidan20032@gmail.com"
+                instagram="https://www.instagram.com/anugrahjiz_"
+                github="https://github.com/Jizdan"
               />
             </div>
           </div>
