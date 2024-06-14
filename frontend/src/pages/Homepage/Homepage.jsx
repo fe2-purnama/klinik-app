@@ -1,11 +1,19 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
+import AnchorLink from 'react-anchor-link-smooth-scroll';
 import swal from 'sweetalert2';
 import Dokterfaqs from '../../assets/dokter-faqs.png';
 import Dokter from '../../assets/dokter-hero.png';
 import Dokterhubungi from '../../assets/dokter-hubungi.png';
 import Doktertentang from '../../assets/dokter-tentang.png';
+import Anggota1 from '../../assets/tim/asfari.jpg';
+import Anggota2 from '../../assets/tim/rizqi.jpeg';
+import Anggota3 from '../../assets/tim/iqbal.jpg';
+import Anggota4 from '../../assets/tim/rian.png';
+import Anggota5 from '../../assets/tim/kemal.jpg';
+import Anggota6 from '../../assets/tim/jizdan.png';
 import Accordion from '../../components/Accordion/Accordion';
+import ProfileCard from '../../components/Card/ProfileCard';
 import DocterType from '../../components/DocterList';
 import Footer from '../../components/Footer/Footer';
 import ClinicServices from '../../components/ServiceList';
@@ -76,7 +84,7 @@ const Homepage = () => {
       <section id="home" className="hero flex justify-center">
         <div className="container mx-auto px-4 sm:px-8 md:px-16 grid grid-cols-1 md:grid-cols-2 gap-0">
           <div className="hero-image col-span-1 flex items-end justify-center md:order-1">
-            <img src={Dokter} alt="Dokter" className="max-w-full" />
+            <img src={Dokter} alt="Dokter" className="w-ful" />
           </div>
           <div className="hero-content col-span-1 flex flex-col justify-center">
             <h1 className="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl md:mb-4 mb-2">
@@ -87,8 +95,10 @@ const Homepage = () => {
             <p className="text-sm sm:text-base md:text-xl">
               Kami selalu berkomitmen untuk memberikan pelayanan kesehatan yang terbaik dan berkualitas demi kesehatan yang bisa anda dapatkan.
             </p>
-            <button className="px-4 py-2 bg-[color:var(--primary)] text-white rounded-md mt-4 text-lg sm:text-xl md:text-2xl">
-              Temui Dokter Anda
+            <button className="px-4 py-2 bg-[color:var(--primary)]  text-white rounded-md mt-4 text-lg sm:text-xl md:text-2xl transform transition-all duration-300 hover:bg-[color:var(--secondary)] hover:text-[color:var(--primary)] hover:border-[color:var(--primary)] hover:border-2 hover:scale-105">
+              <AnchorLink className="anchor-link block w-full h-full" offset={100} href="#dokter">
+                Temui Dokter Anda
+              </AnchorLink>
             </button>
           </div>
         </div>
@@ -225,6 +235,67 @@ const Homepage = () => {
         </div>
       </section>
 
+      <section id="tim" className="tim mt-10 md:mt-20">
+        <div className="sm:mx-8 md:mx-16">
+          <div className="container">
+            <div className="mb-10">
+              <h1 className="text-center text-xl sm:text-2xl md:text-3xl font-bold">Tim Kami</h1>
+              <p className="text-sm md:text-base text-center">Kami selalu memberikan pemeliharaan untuk website Klinik Prima</p>
+            </div>
+
+            <div className="mr-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-x-2 gap-y-2 md:gap-x-10 lg:gap-x-32">
+              <ProfileCard image={Anggota1}
+                name="M. Asfari Alkaromi"
+                position="Ketua / Fronted"
+                email="mailto:asfarialkaromi7902@gmail.com"
+                instagram="https://www.instagram.com/asfari.7/"
+                github="https://github.com/asfari7"
+              />
+              <ProfileCard
+                image={Anggota2}
+                name="Rizqi Zamzami J"
+                position="Frontend"
+                email="mailto:rizqizamzamij@gmail.com"
+                instagram="https://www.instagram.com/rizam896/"
+                github="https://github.com/rizqizamzamijamil"
+              />
+              <ProfileCard
+                image={Anggota3}
+                name="Moh. Iqbal Fatoni"
+                position="Frontend"
+                email="mailto:mohiqbalfatoni10@gmail.com"
+                instagram="https://www.instagram.com/iqbaal_ftn"
+                github="https://github.com/iqbalfatoni10"
+              />
+              <ProfileCard
+                image={Anggota4}
+                name="Rian Purnomo"
+                position="Backend"
+                email="mailto:kemalabdulaziz0@gmail.com"
+                instagram="https://www.instagram.com/kemalabdulaziz_"
+                github="https://github.com/kemalabdulaziz"
+              />
+              <ProfileCard
+                image={Anggota5}
+                name="Kemal Abdul Aziz"
+                position="Backend"
+                email="mailto:kemalabdulaziz0@gmail.com"
+                instagram="https://www.instagram.com/kemalabdulaziz_"
+                github="https://github.com/kemalabdulaziz"
+              />
+              <ProfileCard
+                image={Anggota6}
+                name="Anugrah Jizdan Medika "
+                position="Backend"
+                email="mailto:kemalabdulaziz0@gmail.com"
+                instagram="https://www.instagram.com/kemalabdulaziz_"
+                github="https://github.com/kemalabdulaziz"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section id="hubungi" className="hubungi mt-10 md:mt-20">
         <div className="sm:mx-8 md:mx-16">
           <div className="container">
@@ -282,7 +353,8 @@ const Homepage = () => {
         </div>
       </section>
 
-
+      
+      
       <Footer />
     </main>
   );

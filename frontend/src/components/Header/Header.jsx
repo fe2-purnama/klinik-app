@@ -19,7 +19,7 @@ const Header = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'layanan', 'dokter', 'tentang', 'faqs', 'hubungi'];
+      const sections = ['home', 'layanan', 'dokter', 'tentang', 'faqs', 'hubungi', 'tim'];
       const halfWindowHeight = window.innerHeight / 2;
 
       for (let section of sections) {
@@ -103,6 +103,11 @@ const Header = () => {
                 FAQs
               </AnchorLink>
             </li>
+            <li className={activeSection === 'tim' ? 'active' : ''}>
+              <AnchorLink className="anchor-link" offset={120} href="#tim">
+                Tim Kami
+              </AnchorLink>
+            </li>
             <li className={activeSection === 'hubungi' ? 'active' : ''}>
               <AnchorLink className="anchor-link" offset={120} href="#hubungi">
                 Hubungi
@@ -149,7 +154,7 @@ const Header = () => {
             )}
           </li>
           <li className={`w-56 py-2 px-6 mx-3 rounded-xl ${activeSection === 'layanan' ? 'bg-[color:var(--primary)] text-white' : 'hover:bg-[color:var(--tertiary)] transition-colors duration-200'}`}>
-            <AnchorLink className="anchor-link block w-full h-full" offset={50} href="#layanan">
+            <AnchorLink className="anchor-link block w-full h-full" offset={100} href="#layanan">
               Layanan
             </AnchorLink>
           </li>
@@ -166,6 +171,11 @@ const Header = () => {
           <li className={`w-56 py-2 px-6 mx-3 rounded-xl ${activeSection === 'faqs' ? 'bg-[color:var(--primary)] text-white' : 'hover:bg-[color:var(--tertiary)] transition-colors duration-200'}`}>
             <AnchorLink className="anchor-link block w-full h-full" offset={100} href="#faqs">
               FAQs
+            </AnchorLink>
+          </li>
+          <li className={`w-56 py-2 px-6 mx-3 rounded-xl ${activeSection === 'tim' ? 'bg-[color:var(--primary)] text-white' : 'hover:bg-[color:var(--tertiary)] transition-colors duration-200'}`}>
+            <AnchorLink className="anchor-link block w-full h-full" offset={100} href="#tim">
+              Tim Kami
             </AnchorLink>
           </li>
           <li className={`w-56 py-2 px-6 mx-3 rounded-xl ${activeSection === 'hubungi' ? 'bg-[color:var(--primary)] text-white' : 'hover:bg-[color:var(--tertiary)] transition-colors duration-200'}`}>
