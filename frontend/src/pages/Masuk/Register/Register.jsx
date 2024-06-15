@@ -4,7 +4,7 @@ import "./Register.css";
 import { Link } from "react-router-dom";
 import Logo from "../../../assets/logo.png";
 import Dokter from "../../../assets/dokter-hero.png";
-import { Alert } from "flowbite-react";
+import { Alert, Button } from "flowbite-react";
 import Axios from "axios";
 
 const Register = () => {
@@ -183,13 +183,17 @@ const Register = () => {
               )}
             </div>
             <div className="mb-8">
-              <button
-                disabled={passwordError}
-                type="submit"
-                className="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center disabled:cursor-not-allowed"
-              >
-                Daftar
-              </button>
+              {loading ? (
+                <Button isProcessing>Loading...</Button>
+              ) : (
+                <button
+                  disabled={passwordError}
+                  type="submit"
+                  className="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center disabled:cursor-not-allowed"
+                >
+                  Daftar
+                </button>
+              )}
             </div>
             <div className="mb-10">
               <p className="text-xs text-[color:var(--other1)]">
