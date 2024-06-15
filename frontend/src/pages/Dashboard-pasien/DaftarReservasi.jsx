@@ -47,14 +47,16 @@ function DaftarReservasi() {
 
   return (
     <div>
-      <h1 className="text-2xl font-semibold mb-5">Daftar Reservasi Anda</h1>
+      <h1 className="text-md md:text-2xl font-semibold mb-5">
+        Daftar Reservasi Anda
+      </h1>
       <div className="my-4">
         <span>Cari reservasi</span>
         <input
           type="text"
           placeholder="id reservasi"
           onChange={handleFilter}
-          className="bg-gray-50 mx-4 w-40 rounded-lg border-1 focus:border-sky-500 focus:ring-sky-500"
+          className="bg-gray-50 md:mx-4 w-40 rounded-lg border-1 focus:border-sky-500 focus:ring-sky-500"
         />
       </div>
       {loading ? (

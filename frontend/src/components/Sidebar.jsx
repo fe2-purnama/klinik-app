@@ -31,9 +31,13 @@ export default function Component() {
 
   return (
     <>
-      <aside className="h-full px-3 py-4 bg-white">
-        <ul className="flex flex-col justify-between h-full space-y-2 font-medium w-44">
+      <aside className="fixed lg:relative h-full px-3 py-4 bg-white border-e-2">
+        <ul className="flex flex-col md:justify-between h-full space-y-2 font-medium w-44">
           <ul className="flex flex-col gap-2">
+            <CustomLink to="/">
+              <i className="fal fa-home fa-lg"></i>
+              <p className="text-sm text-nowrap px-2">Beranda</p>
+            </CustomLink>
             <CustomLink to="/dashboard">
               <i className="fal fa-sort-numeric-down fa-lg"></i>
               <p className="text-sm text-nowrap px-2">Reservasi Anda</p>
@@ -50,10 +54,10 @@ export default function Component() {
           <li>
             <button
               onClick={() => setOpenModal(true)}
-              className="flex w-full items-center py-2 px-4 text-gray-900 rounded-lg hover:bg-blue-100"
+              className="flex w-full items-center py-2 px-4 text-gray-900 rounded-lg hover:bg-blue-100 mt-40"
             >
               <img src={Logout} className="w-6 h-6" alt="Logout" />
-              <span className="flex-1 whitespace-nowrap">Logout</span>
+              <span className="px-2">Logout</span>
             </button>
           </li>
         </ul>

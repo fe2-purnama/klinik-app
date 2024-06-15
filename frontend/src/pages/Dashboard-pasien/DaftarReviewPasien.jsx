@@ -49,7 +49,9 @@ function DaftarReviewPasien() {
 
   return (
     <div>
-      <h1 className="text-2xl font-semibold mb-5">Daftar Reservasi Anda</h1>
+      <h1 className="text-md md:text-2xl font-semibold mb-5">
+        Daftar Review Anda
+      </h1>
       {loading ? (
         <div>
           <span className="text-lg">Loading...</span>

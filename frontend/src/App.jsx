@@ -28,17 +28,18 @@ const App = () => {
           <Route index element={<Home />} />
           <Route path="/list-dokter" element={<ListDokter />} />
           <Route path="/detail-dokter/:userId" element={<DetailDokter />} />
-          <Route
-            path="/dashboard"
-            element={<PrivateRoute element={<DasboardPasien />} requiredRole="patient"/>}
-          >
-            <Route index element={<DaftarReservasi />} />
-            <Route path="review" element={<DaftarReviewPasien />} />
-            <Route path="profile-pasien" element={<ProfilePasien />} />
-          </Route>
         </Route>
         <Route path="/Login" element={<Login />} />
         <Route path="/Registrasi" element={<Register />} />
+
+        <Route
+          path="/dashboard"
+          element={<PrivateRoutePasien element={<DasboardPasien />} />}
+        >
+          <Route index element={<DaftarReservasi />} />
+          <Route path="review" element={<DaftarReviewPasien />} />
+          <Route path="profile-pasien" element={<ProfilePasien />} />
+        </Route>
 
         <Route
           path="/admin"
