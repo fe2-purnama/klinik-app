@@ -39,7 +39,7 @@ function FormReservasi(props) {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/v1/reservation/create",
+        "https://api-msib-6-klinik-app-04.educalab.id/api/v1/reservation/create",
         formData,
         {
           headers: {

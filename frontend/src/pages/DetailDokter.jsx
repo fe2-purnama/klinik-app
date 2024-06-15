@@ -14,7 +14,7 @@ function DetailDokter() {
   const getDetailDokter = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/v1/doctor/detail/${userId.userId}`
+        `https://api-msib-6-klinik-app-04.educalab.id/api/v1/doctor/detail/${userId.userId}`
       );
 
       setData(response.data.doctor[0]);

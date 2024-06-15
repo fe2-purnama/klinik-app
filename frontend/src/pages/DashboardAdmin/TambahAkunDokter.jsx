@@ -115,7 +115,7 @@ const TambahAkunDokter = () => {
 
         axios
           .post(
-            "http://localhost:5000/api/v1/doctor/register",
+            "https://api-msib-6-klinik-app-04.educalab.id/api/v1/doctor/register",
             JSON.stringify(formDataToSend),
             {
               headers: {

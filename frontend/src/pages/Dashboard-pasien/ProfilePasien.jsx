@@ -48,11 +48,14 @@ function ProfilePasien() {
 
   const getUser = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/v1/me", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(
+        "https://api-msib-6-klinik-app-04.educalab.id/api/v1/me",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       setFormData((prevFormData) => ({
         ...prevFormData,
@@ -70,7 +73,7 @@ function ProfilePasien() {
 
     try {
       const response = await axios.patch(
-        "http://localhost:5000/api/v1/update",
+        "https://api-msib-6-klinik-app-04.educalab.id/api/v1/update",
         formData,
         {
           headers: {

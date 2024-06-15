@@ -18,7 +18,7 @@ function ListDokter() {
   const getDoctors = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/v1/doctor/all"
+        "https://api-msib-6-klinik-app-04.educalab.id/api/v1/doctor/all"
       );
       setData(response.data);
     } catch (error) {

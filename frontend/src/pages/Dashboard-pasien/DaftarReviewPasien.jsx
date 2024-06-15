@@ -26,7 +26,7 @@ function DaftarReviewPasien() {
     try {
       setLoading(true);
       const response = await axios.get(
-        "http://localhost:5000/api/v1/reservation/review",
+        "https://api-msib-6-klinik-app-04.educalab.id/api/v1/reservation/review",
         {
           headers: {
             Authorization: `Bearer ${token}`,

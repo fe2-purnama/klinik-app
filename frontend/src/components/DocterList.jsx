@@ -1,39 +1,41 @@
 /* eslint-disable no-unused-vars */
 // components/DoctorServices.jsx
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import DoctorCard from '../components/Card/DocterType';
-import DoctorServiceBox from './Box/Box';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import DoctorCard from "../components/Card/DocterType";
+import DoctorServiceBox from "./Box/Box";
 
 const initialDoctorData = [
-  { id: 1, title: 'Umum', icon: 'fas fa-child' },
-  { id: 2, title: 'Paru-Paru', icon: 'fas fa-lungs' },
-  { id: 3, title: 'Lambung', icon: 'fas fa-stomach' },
-  { id: 4, title: 'Mata', icon: 'fas fa-eye' },
-  { id: 5, title: 'Jantung', icon: 'fas fa-heartbeat' },
+  { id: 1, title: "Umum", icon: "fas fa-child" },
+  { id: 2, title: "Paru-Paru", icon: "fas fa-lungs" },
+  { id: 3, title: "Lambung", icon: "fas fa-stomach" },
+  { id: 4, title: "Mata", icon: "fas fa-eye" },
+  { id: 5, title: "Jantung", icon: "fas fa-heartbeat" },
 ];
 
 const truncateName = (name, maxLength = 20) => {
   if (name.length <= maxLength) return name;
-  
+
   const truncated = name.slice(0, maxLength - 3);
   return `${truncated}...`;
 };
 
 const DoctorServices = () => {
   const [doctorData, setDoctorData] = useState([]);
-  const [activeService, setActiveService] = useState('Umum');
+  const [activeService, setActiveService] = useState("Umum");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchDoctorData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/v1/doctor/all');
+        const response = await axios.get(
+          "https://api-msib-6-klinik-app-04.educalab.id/api/v1/doctor/all"
+        );
         setDoctorData(response.data);
         setLoading(false);
       } catch (error) {
-        console.error('Error fetching doctor data:', error);
+        console.error("Error fetching doctor data:", error);
       }
     };
 
@@ -69,7 +71,9 @@ const DoctorServices = () => {
         <Link to="/list-dokter">
           <div className="box flex flex-col cursor-pointer text-center transition-all duration-300 ease-in-out">
             <i className="fas fa-circle-chevron-right mb-2 text-2xl md:text-5xl"></i>
-            <span className="text-center text-[10px] sm:text-xs md:text-sm lg:text-base">Lebih Banyak</span>
+            <span className="text-center text-[10px] sm:text-xs md:text-sm lg:text-base">
+              Lebih Banyak
+            </span>
           </div>
         </Link>
       </div>

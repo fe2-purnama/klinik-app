@@ -49,7 +49,7 @@ export default function Component(props) {
   const handleDelete = async () => {
     try {
       const response = await axios.patch(
-        `http://localhost:5000/api/v1/reservation/update`,
+        `https://api-msib-6-klinik-app-04.educalab.id/api/v1/reservation/update`,
         {
           reservation_id: `${selectedId}`,
           status: "Batal",
@@ -80,7 +80,7 @@ export default function Component(props) {
   const handleCreateReview = async () => {
     try {
       const response = await axios.post(
-        `http://localhost:5000/api/v1/create/review`,
+        `https://api-msib-6-klinik-app-04.educalab.id/api/v1/create/review`,
         {
           reservation_id: `${selectedId}`,
           doctor_id: `${selectedDoctorId}`,
