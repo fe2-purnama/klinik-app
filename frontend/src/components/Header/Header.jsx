@@ -93,32 +93,32 @@ const Header = () => {
             </li>
             <li className={activeSection === "layanan" ? "active" : ""}>
               <AnchorLink className="anchor-link" offset={120} href="#layanan">
-                Layanan
+                <Link to="/">Layanan</Link>
               </AnchorLink>
             </li>
             <li className={activeSection === "dokter" ? "active" : ""}>
               <AnchorLink className="anchor-link" offset={120} href="#dokter">
-                Dokter
+                <Link to="/">Dokter</Link>
               </AnchorLink>
             </li>
             <li className={activeSection === "tentang" ? "active" : ""}>
               <AnchorLink className="anchor-link" offset={120} href="#tentang">
-                Tentang
+                <Link to="/"></Link>Tentang
               </AnchorLink>
             </li>
             <li className={activeSection === "faqs" ? "active" : ""}>
               <AnchorLink className="anchor-link" offset={120} href="#faqs">
-                FAQs
+                <Link to="/"></Link>
               </AnchorLink>
             </li>
             <li className={activeSection === "tim" ? "active" : ""}>
               <AnchorLink className="anchor-link" offset={120} href="#tim">
-                Tim Kami
+                <Link to="/">Tim Kami</Link>
               </AnchorLink>
             </li>
             <li className={activeSection === "hubungi" ? "active" : ""}>
               <AnchorLink className="anchor-link" offset={120} href="#hubungi">
-                Hubungi
+                <Link to="/">Hubungi</Link>
               </AnchorLink>
             </li>
             <li>
@@ -215,7 +215,7 @@ const Header = () => {
               offset={100}
               href="#layanan"
             >
-              Layanan
+              <Link to="/">Layanan</Link>
             </AnchorLink>
           </li>
           <li
@@ -230,7 +230,7 @@ const Header = () => {
               offset={100}
               href="#dokter"
             >
-              Dokter
+              <Link to="/">Dokter</Link>
             </AnchorLink>
           </li>
           <li
@@ -245,7 +245,7 @@ const Header = () => {
               offset={100}
               href="#tentang"
             >
-              Tentang
+              <Link to="/">Tentang</Link>
             </AnchorLink>
           </li>
           <li
@@ -260,7 +260,7 @@ const Header = () => {
               offset={100}
               href="#faqs"
             >
-              FAQs
+              <Link to="/">FAQs</Link>
             </AnchorLink>
           </li>
           <li
@@ -275,7 +275,7 @@ const Header = () => {
               offset={100}
               href="#tim"
             >
-              Tim Kami
+              <Link to="/">Tim Kami</Link>
             </AnchorLink>
           </li>
           <li
@@ -290,7 +290,7 @@ const Header = () => {
               offset={100}
               href="#hubungi"
             >
-              Hubungi
+              <Link to="/">Hubungi</Link>
             </AnchorLink>
           </li>
 
