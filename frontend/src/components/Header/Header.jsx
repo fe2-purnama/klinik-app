@@ -298,13 +298,13 @@ const Header = () => {
             <ul>
               <hr />
               <li className="w-56 py-3 px-6 mx-3 rounded-xl">
-                <Link className="block w-fll h-full">Reservasi anda</Link>
+                <Link to="/dashboard">Reservasi anda</Link>
               </li>
               <li className="w-56 py-3 px-6 mx-3 rounded-xl">
-                <Link>Daftar review</Link>
+                <Link to="/dashboard/review">Daftar review</Link>
               </li>
               <li className="w-56 py-3 px-6 mx-3 rounded-xl">
-                <Link>Profile</Link>
+                <Link to="/dashboard/profile-pasien">Profile</Link>
               </li>
             </ul>
           )}
