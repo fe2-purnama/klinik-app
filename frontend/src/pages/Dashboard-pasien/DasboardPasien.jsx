@@ -25,11 +25,13 @@ function DasboardPasien() {
       </div>
       <section className="flex flex-row h-full">
         <div
-          className={`translate-x-0 ${isShow ? "block" : "hidden lg:block"}`}
+          className={`transition-all z-10 ${
+            isShow ? "block" : "hidden lg:block"
+          }`}
         >
           <Sidebar />
         </div>
-        <div className="overflow-x-auto px-4 md:px-10 w-full -z-10">
+        <div className="overflow-x-auto px-4 md:px-10 w-full z-0">
           <Outlet />
         </div>
       </section>
