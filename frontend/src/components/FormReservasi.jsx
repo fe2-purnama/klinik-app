@@ -70,7 +70,7 @@ function FormReservasi(props) {
             name="patient_name"
             onChange={handleChange}
             required
-            className="border-2 border-slate-200 rounded-md p-2"
+            className="border-2 border-slate-200 rounded-md p-2 focus:border-sky-400 focus:ring-sky-400"
           />
         </div>
         <div className="flex flex-col">
@@ -82,7 +82,7 @@ function FormReservasi(props) {
             name="address"
             onChange={handleChange}
             required
-            className="border-2 border-slate-200 rounded-md p-2"
+            className="border-2 border-slate-200 rounded-md p-2  focus:border-sky-400 focus:ring-sky-400"
           />
         </div>
         <div className="flex flex-col">
@@ -94,7 +94,7 @@ function FormReservasi(props) {
             name="nik"
             onChange={handleChange}
             required
-            className="border-2 border-slate-200 rounded-md p-2"
+            className="border-2 border-slate-200 rounded-md p-2  focus:border-sky-400 focus:ring-sky-400"
           />
         </div>
         <div className="flex flex-col">
@@ -105,7 +105,7 @@ function FormReservasi(props) {
             name="reservation_date"
             onChange={handleChange}
             required
-            className="border-2 border-slate-200 rounded-md p-2"
+            className="border-2 border-slate-200 rounded-md p-2  focus:border-sky-400 focus:ring-sky-400"
             min={new Date().toISOString().split("T")[0]}
           />
         </div>
@@ -118,7 +118,7 @@ function FormReservasi(props) {
             name="ttl"
             onChange={handleChange}
             required
-            className="border-2 border-slate-200 rounded-md p-2"
+            className="border-2 border-slate-200 rounded-md p-2  focus:border-sky-400 focus:ring-sky-400"
           />
         </div>
         <div
@@ -143,7 +143,7 @@ function FormReservasi(props) {
               transition
               ease-in-out
               m-0
-              focus:text-gray-700 focus:bg-white focus:border-sky-200 focus:outline-none"
+              focus:text-gray-700 focus:bg-white focus:border-sky-400 focus:outline-none"
             id="exampleFormControlInput1"
             placeholder="Masukkan Keluhan"
             name="complaint"
@@ -169,7 +169,7 @@ function FormReservasi(props) {
               transition
               ease-in-out
               m-0
-              focus:text-gray-700 focus:bg-white focus:border-sky-200 focus:outline-none"
+              focus:text-gray-700 focus:bg-white focus:border-sky-400 focus:outline-none"
             id="exampleFormControlInput1"
             placeholder="Masukkan Nama Dokter"
             name="gender"
@@ -189,7 +189,7 @@ function FormReservasi(props) {
             name="phone_number"
             onChange={handleChange}
             required
-            className="border-2 border-slate-200 rounded-md p-2"
+            className="border-2 border-slate-200 rounded-md p-2 focus:border-sky-400 focus:ring-sky-400"
           />
         </div>
         <button
