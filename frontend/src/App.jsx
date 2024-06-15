@@ -34,7 +34,7 @@ const App = () => {
 
         <Route
           path="/dashboard"
-          element={<PrivateRoutePasien element={<DasboardPasien />} />}
+          element={<PrivateRoute element={<DasboardPasien />} />}
         >
           <Route index element={<DaftarReservasi />} />
           <Route path="review" element={<DaftarReviewPasien />} />
@@ -43,7 +43,9 @@ const App = () => {
 
         <Route
           path="/admin"
-          element={<PrivateRoute element={<AdminLayout />} requiredRole="admin"/>}
+          element={
+            <PrivateRoute element={<AdminLayout />} requiredRole="admin" />
+          }
         >
           <Route index element={<ManageAkunDokter />} />
           <Route path="add" element={<TambahAkunDokter />} />
@@ -52,7 +54,9 @@ const App = () => {
 
         <Route
           path="/dashboard-dokter"
-          element={<PrivateRoute element={<DokterSidebar />} requiredRole="doctor"/>}
+          element={
+            <PrivateRoute element={<DokterSidebar />} requiredRole="doctor" />
+          }
         >
           <Route index element={<DaftarAntrian />} />
           <Route path="review-dokter" element={<ReviewDokter />} />

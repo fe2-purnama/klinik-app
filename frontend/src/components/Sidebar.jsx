@@ -32,7 +32,7 @@ export default function Component() {
   return (
     <>
       <aside className="fixed lg:relative h-full px-3 py-4 bg-white border-e-2">
-        <ul className="flex flex-col md:justify-between h-full space-y-2 font-medium w-44">
+        <ul className="flex flex-col justify-between h-full space-y-2 font-medium w-44">
           <ul className="flex flex-col gap-2">
             <CustomLink to="/">
               <i className="fal fa-home fa-lg"></i>
