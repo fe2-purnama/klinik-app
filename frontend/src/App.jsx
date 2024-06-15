@@ -16,7 +16,6 @@ import DaftarAntrian from "./pages/Dashboard-dokter/DaftarAntrian";
 import ReviewDokter from "./pages/Dashboard-dokter/ReviewDokter";
 import ProfilDokter from "./pages/Dashboard-dokter/ProfilDokter";
 import "./App.css";
-import PrivateRoutePasien from "./pages/Dashboard-pasien/PrivateRoutePasien";
 import ProfilePasien from "./pages/Dashboard-pasien/ProfilePasien";
 import DaftarReservasi from "./pages/Dashboard-pasien/DaftarReservasi";
 import DaftarReviewPasien from "./pages/Dashboard-pasien/DaftarReviewPasien";
@@ -44,14 +43,17 @@ const App = () => {
 
         <Route
           path="/admin"
-          element={<PrivateRoute element={<AdminLayout />} />}
+          element={<PrivateRoute element={<AdminLayout />} requiredRole="admin"/>}
         >
           <Route index element={<ManageAkunDokter />} />
           <Route path="add" element={<TambahAkunDokter />} />
           <Route path="edit/:user_id" element={<EditAkunDokter />} />
         </Route>
 
-        <Route path="/dashboard-dokter" element={<DokterSidebar />}>
+        <Route
+          path="/dashboard-dokter"
+          element={<PrivateRoute element={<DokterSidebar />} requiredRole="doctor"/>}
+        >
           <Route index element={<DaftarAntrian />} />
           <Route path="review-dokter" element={<ReviewDokter />} />
           <Route path="profil-dokter" element={<ProfilDokter />} />

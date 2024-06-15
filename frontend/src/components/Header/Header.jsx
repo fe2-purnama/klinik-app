@@ -199,7 +199,7 @@ const Header = () => {
               </AnchorLink>
             ) : (
               <Link className="block w-full h-full" to="/">
-                Home
+                Beranda
               </Link>
             )}
           </li>
