@@ -119,7 +119,7 @@ export default function Component(props) {
             <span className="sr-only">Edit</span>
           </TableHeadCell>
         </TableHead>
-        <TableBody className="divide-y">
+        <TableBody className="divide-y ">
           {sortedData.map((data, index) => (
             <TableRow key={index}>
               <TableCell className="whitespace-nowrap font-medium text-gray-900">
