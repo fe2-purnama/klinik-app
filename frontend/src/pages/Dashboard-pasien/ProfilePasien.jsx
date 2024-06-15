@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Alert } from "flowbite-react";
+import { Button } from "flowbite-react";
 
 function ProfilePasien() {
   const [formData, setFormData] = useState({
@@ -74,6 +75,7 @@ function ProfilePasien() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       const response = await axios.patch(
@@ -89,6 +91,8 @@ function ProfilePasien() {
       setResponseMessage(response.data.message);
     } catch (error) {
       setResponseError(error.response.data.error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -221,15 +225,19 @@ function ProfilePasien() {
           </div>
         </div>
 
-        <button
-          type="submit"
-          onClick={handleSubmit}
-          className={`text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky-600 dark:hover:bg-sky-700 dark:focus:ring-sky-800 ${
-            passwordError ? "opacity-50 cursor-not-allowed" : ""
-          }`}
-        >
-          Simpan
-        </button>
+        {loading ? (
+          <Button isProcessing>Loading...</Button>
+        ) : (
+          <button
+            type="submit"
+            onClick={handleSubmit}
+            className={`text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky-600 dark:hover:bg-sky-700 dark:focus:ring-sky-800 ${
+              passwordError ? "opacity-50 cursor-not-allowed" : ""
+            }`}
+          >
+            Simpan
+          </button>
+        )}
       </form>
     </section>
   );
