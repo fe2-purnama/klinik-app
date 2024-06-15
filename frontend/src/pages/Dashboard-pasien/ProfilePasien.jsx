@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Alert } from "flowbite-react";
 
 function ProfilePasien() {
   const [formData, setFormData] = useState({
@@ -11,6 +12,9 @@ function ProfilePasien() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const token = localStorage.getItem("token");
+  const [responseMessage, setResponseMessage] = useState("");
+  const [responseError, setResponseError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData((prevFormData) => ({
@@ -82,11 +86,10 @@ function ProfilePasien() {
         }
       );
 
-      console.log(response.data.message);
+      setResponseMessage(response.data.message);
     } catch (error) {
-      console.log(error);
+      setResponseError(error.response.data.error);
     }
-    console.log(formData);
   };
 
   useEffect(() => {
@@ -96,6 +99,26 @@ function ProfilePasien() {
   return (
     <section className="w-full p-2">
       <h1 className="text-2xl font-medium ">Profile Akun</h1>
+      {responseMessage && (
+        <Alert
+          color="success"
+          onDismiss={() => {
+            setResponseMessage("");
+          }}
+        >
+          {responseMessage}
+        </Alert>
+      )}
+      {responseError && (
+        <Alert
+          color={"failure"}
+          onDismiss={() => {
+            setResponseError("");
+          }}
+        >
+          Masukkan password anda
+        </Alert>
+      )}
       <form className="bg-white rounded-lg mt-6" onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 lg:gap-10">
           <div>
