@@ -17,11 +17,11 @@ function sendEmail(to, status) {
         const mailOptions = {
             from: {
                 name: "Klinik Prima",
-                address: process.env.EMAIL
+                address: "no-reply-email@klinik-prima.com",
             },
             to,
             subject: "Reservasi Klinik Prima",
-            text: `status reservasi anda ${status} di Klinik Prima sudah dikonfirmasi, silahkan cek email anda secara berkala`,
+            text: `status reservasi anda adalah ${status} di Klinik Prima, silahkan cek email anda secara berkala untuk mengetahui status reservasi anda`,
         };
         transporter.sendMail(mailOptions);
         console.log("Email sent successfully");
