@@ -223,7 +223,7 @@ const ProfilDokter = () => {
 
   return (
     <div className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
-      <div className="container px-6 py-8 mx-auto">
+      <div className="container px-3 sm:px-4 md:px-6 py-8 mx-auto">
         <h2 className="text-2xl md:text-3xl font-medium text-gray-700">
           Profil
         </h2>

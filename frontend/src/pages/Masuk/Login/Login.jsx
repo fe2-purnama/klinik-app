@@ -25,6 +25,7 @@ const Login = () => {
       const { token, role } = response.data;
 
       localStorage.setItem("token", token);
+      localStorage.setItem("role", role);
 
       if (role === "doctor") {
         navigate("/dashboard-dokter");
@@ -74,7 +75,7 @@ const Login = () => {
                 Silahkan masuk terlebih dahulu!
               </p>
             </div>
-            {error && ( // Tampilkan Alert jika terdapat pesan error
+            {error && (
               <Alert color="failure" onDismiss={() => setError("")}>
                 <span className="font-medium">{error}</span>
               </Alert>
