@@ -34,7 +34,9 @@ const App = () => {
 
         <Route
           path="/dashboard"
-          element={<PrivateRoute element={<DasboardPasien />} />}
+          element={
+            <PrivateRoute element={<DasboardPasien />} requiredRole="patient" />
+          }
         >
           <Route index element={<DaftarReservasi />} />
           <Route path="review" element={<DaftarReviewPasien />} />
