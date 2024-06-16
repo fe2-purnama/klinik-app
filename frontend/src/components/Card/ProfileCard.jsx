@@ -9,13 +9,13 @@ const ProfileCard = ({ image, name, position, email, instagram, github }) => {
                 <p className="text-[10px] md:text-sm">{position}</p>
             </div>
             <div className="flex items-center justify-center p-3 space-x-3 border-t-2">
-                <a rel="noopener noreferrer" href={email} title="Email" target='blank_' className="dark:text-gray-50 hover:dark:text-violet-600">
+                <a rel="noopener noreferrer" href={"mailto:" + email} title={email} target='blank_' className="dark:text-gray-50 hover:dark:text-violet-600">
                     <i className="hover:scale-150 transform transition-all duration-200 text-lg md:text-xl fa-solid fa-envelope"></i>
                 </a>
-                <a rel="noopener noreferrer" href={instagram} title="Instagram" target='blank_' className="dark:text-gray-50 hover:dark:text-violet-600">
+                <a rel="noopener noreferrer" href={"https://www.instagram.com/" + instagram} title={instagram} target='blank_' className="dark:text-gray-50 hover:dark:text-violet-600">
                     <i className="hover:scale-150 transform transition-all duration-200 text-lg md:text-xl fa-brands fa-instagram"></i>
                 </a>
-                <a rel="noopener noreferrer" href={github} title="GitHub" target='blank_' className="dark:text-gray-50 hover:dark:text-violet-600">
+                <a rel="noopener noreferrer" href={"https://github.com/" + github} title={github} target='blank_' className="dark:text-gray-50 hover:dark:text-violet-600">
                     <i className="hover:scale-150 transform transition-all duration-200 text-lg md:text-xl fa-brands fa-github"></i>
                 </a>
             </div>

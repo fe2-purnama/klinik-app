@@ -7,11 +7,11 @@ import Dokter from '../../assets/dokter-hero.png';
 import Dokterhubungi from '../../assets/dokter-hubungi.png';
 import Doktertentang from '../../assets/dokter-tentang.png';
 import Anggota1 from '../../assets/tim/asfari.jpg';
-import Anggota2 from '../../assets/tim/rizqi.jpeg';
 import Anggota3 from '../../assets/tim/iqbal.jpg';
-import Anggota4 from '../../assets/tim/rian.png';
-import Anggota5 from '../../assets/tim/kemal.jpg';
 import Anggota6 from '../../assets/tim/jizdan.png';
+import Anggota5 from '../../assets/tim/kemal.jpg';
+import Anggota4 from '../../assets/tim/rian.png';
+import Anggota2 from '../../assets/tim/rizqi.jpeg';
 import Accordion from '../../components/Accordion/Accordion';
 import ProfileCard from '../../components/Card/ProfileCard';
 import DocterType from '../../components/DocterList';
@@ -76,7 +76,6 @@ const Homepage = () => {
       }
     });
   };
-
 
   const [openAccordionId, setOpenAccordionId] = useState(null);
   return (
@@ -246,50 +245,50 @@ const Homepage = () => {
             <div className="mr-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-x-2 gap-y-2 md:gap-x-10 lg:gap-x-32">
               <ProfileCard image={Anggota1}
                 name="M. Asfari Alkaromi"
-                position="Ketua / Fronted"
-                email="mailto:asfarialkaromi7902@gmail.com"
-                instagram="https://www.instagram.com/asfari.7/"
-                github="https://github.com/asfari7"
+                position="Ketua / Frontend"
+                email="asfarialkaromi7902@gmail.com"
+                instagram="asfari.7"
+                github="asfari7"
               />
               <ProfileCard
                 image={Anggota2}
                 name="Rizqi Zamzami J"
                 position="Frontend"
-                email="mailto:rizqizamzamij@gmail.com"
-                instagram="https://www.instagram.com/rizam896/"
-                github="https://github.com/rizqizamzamijamil"
+                email="rizqizamzamij@gmail.com"
+                instagram="rizam896"
+                github="rizqizamzamijamil"
               />
               <ProfileCard
                 image={Anggota3}
                 name="Moh. Iqbal Fatoni"
                 position="Frontend"
-                email="mailto:mohiqbalfatoni10@gmail.com"
-                instagram="https://www.instagram.com/iqbaal_ftn"
-                github="https://github.com/iqbalfatoni10"
+                email="mohiqbalfatoni10@gmail.com"
+                instagram="iqbaal_ftn"
+                github="iqbalfatoni10"
               />
               <ProfileCard
                 image={Anggota4}
                 name="Rian Purnomo"
                 position="Backend"
-                email="mailto:kemalabdulaziz0@gmail.com"
-                instagram="https://www.instagram.com/kemalabdulaziz_"
-                github="https://github.com/kemalabdulaziz"
+                email="rianpurnomo1005@gmail.com"
+                instagram="rian_amo"
+                github="rianpur"
               />
               <ProfileCard
                 image={Anggota5}
                 name="Kemal Abdul Aziz"
                 position="Backend"
-                email="mailto:kemalabdulaziz0@gmail.com"
-                instagram="https://www.instagram.com/kemalabdulaziz_"
-                github="https://github.com/kemalabdulaziz"
+                email="kemalabdulaziz0@gmail.com"
+                instagram="kemalabdulaziz_"
+                github="kemalabdulaziz"
               />
               <ProfileCard
                 image={Anggota6}
-                name="Anugrah Jizdan Medika "
+                name="Anugrah Jizdan M."
                 position="Backend"
-                email="mailto:jidan20032@gmail.com"
-                instagram="https://www.instagram.com/anugrahjiz_"
-                github="https://github.com/Jizdan"
+                email="jidan20032@gmail.com"
+                instagram="anugrahjiz_"
+                github="Jizdan"
               />
             </div>
           </div>

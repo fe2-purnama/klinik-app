@@ -113,7 +113,7 @@ const Header = () => {
             </li>
             <li className={activeSection === "tim" ? "active" : ""}>
               <AnchorLink className="anchor-link" offset={120} href="#tim">
-                Tim Kami
+                Tim
               </AnchorLink>
             </li>
             <li className={activeSection === "hubungi" ? "active" : ""}>
@@ -275,7 +275,7 @@ const Header = () => {
               offset={100}
               href="#tim"
             >
-              Tim Kami
+              Tim
             </AnchorLink>
           </li>
           <li

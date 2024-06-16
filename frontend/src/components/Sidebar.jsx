@@ -48,7 +48,7 @@ export default function Component() {
             </CustomLink>
             <CustomLink to="/dashboard/profile-pasien">
               <i className="fal fa-user fa-lg"></i>
-              <p className="text-sm text-nowrap px-2">Profile</p>
+              <p className="text-sm text-nowrap px-2">Profil</p>
             </CustomLink>
           </ul>
           <li>
