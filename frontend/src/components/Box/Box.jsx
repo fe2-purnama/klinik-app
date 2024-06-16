@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-// components/ClinicServiceBox.jsx
+// components/Box.jsx
 import React from 'react';
 import './Box.css';
 
-const ClinicServiceBox = ({ id, title, icon, isActive, onClick }) => {
+const Box = ({ id, title, icon, isActive, onClick }) => {
   return (
     <div className={`box flex flex-col cursor-pointer text-center transition-all duration-300 ease-in-out ${isActive ? 'active' : ''}`} onClick={() => onClick(id)}>
       <i className={`text-center fas ${icon} mb-2 text-2xl md:text-5xl`}></i>
@@ -13,4 +13,4 @@ const ClinicServiceBox = ({ id, title, icon, isActive, onClick }) => {
   );
 };
 
-export default ClinicServiceBox;
+export default Box;

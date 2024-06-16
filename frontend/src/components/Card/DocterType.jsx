@@ -9,7 +9,7 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 const DoctorCard = ({ photo, name, specialty, experience }) => {
   return (
     <div className="card w-full mx-auto sm:w-40 md:w-48 lg:w-56 rounded-lg shadow-lg flex flex-col mt-5 bg-secondary transition-all">
-      <div className="flex justify-center">
+      <div className="flex justify-center mx-auto">
         <LazyLoadImage src={photo} alt={name} className="object-cover rounded-t-lg" effect="blur" wrapperClassName="w-full" />
       </div>
       <div className="bg-white mb-2 px-4 py-2 flex flex-col flex-grow">

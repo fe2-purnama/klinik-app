@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import DoctorCard from "../components/Card/DocterType";
 import DoctorServiceBox from "./Box/Box";
+import "../components/Box/Box.css";
 
 const initialDoctorData = [
   { id: 1, title: "Umum", icon: "fas fa-child" },
@@ -68,14 +69,13 @@ const DoctorServices = () => {
             onClick={() => setActiveService(service.title)}
           />
         ))}
-        <Link to="/list-dokter">
-          <div className="box flex flex-col cursor-pointer text-center transition-all duration-300 ease-in-out">
+        
+          <Link to="/list-dokter" className="box flex flex-col cursor-pointer text-center transition-all duration-300 ease-in-out">
             <i className="fas fa-circle-chevron-right mb-2 text-2xl md:text-5xl"></i>
             <span className="text-center text-[10px] sm:text-xs md:text-sm lg:text-base">
               Lebih Banyak
             </span>
-          </div>
-        </Link>
+          </Link>
       </div>
       <div className="doctor-list xl:mx-20 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-2">
         {activeDoctors.map((doctor, index) => (

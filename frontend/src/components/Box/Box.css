@@ -24,7 +24,8 @@
 }
 
 .box:hover {
-    background-color: var(--tertiary);
+    background-color: var(--primary);
+    color: #fff;
 }
 
 @media (max-width: 640px) {
