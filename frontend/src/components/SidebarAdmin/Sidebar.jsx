@@ -34,7 +34,7 @@ const Sidebar = (props) => {
   return (
     <>
       <aside className={`fixed inset-y-0 left-0 z-20 w-64 bg-white border-r-2 lg:relative lg:w-auto lg:flex lg:border-none transition-transform duration-300 ${isShow ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}>
-        <ul className="flex flex-col justify-between h-full space-y-2 font-medium">
+        <ul className="flex flex-col justify-between h-full space-y-2 font-medium border-r shadow-sm">
           <li>
             <div className="logo flex items-center mb-8 p-4">
               <img src={Logo} alt="Klinik Prima" className="h-12" />
