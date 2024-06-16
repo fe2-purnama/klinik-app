@@ -9,7 +9,7 @@ function CardList(props) {
   return (
     <>
       <div className="rounded-lg overflow-hidden relative">
-        <LazyLoadImage src={img || 'https://placehold.co/600x600?text=Foto+Dokter'} className="rounded-lg aspect-square object-cover bg-sky-300 w-full" alt="Foto Dokter" effect="blur" />
+        <LazyLoadImage src={img || 'https://placehold.co/600x600?text=Foto+Dokter'} className="rounded-lg aspect-square object-cover bg-sky-300 w-full" alt="Foto Dokter" effect="blur" wrapperClassName="w-full" />
 
         <p className="text-sm lg:text-lg py-3 ">{name}</p>
         <p className="text-sm text-[--primary]">{specialization}</p>
