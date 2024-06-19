@@ -36,6 +36,7 @@ function DaftarReviewPasien() {
       );
 
       setData(response.data[0].patient.reservation);
+      console.log(response.data[0].patient.reservation);
     } catch (error) {
       console.log(error);
     } finally {
@@ -79,7 +80,7 @@ function DaftarReviewPasien() {
                       <TableCell>{data.reservation_id}</TableCell>
                       <TableCell>{formatDate(data.reservation_date)}</TableCell>
                       <TableCell>{data.patient_name}</TableCell>
-                      <TableCell>{data.patient_name}</TableCell>
+                      <TableCell>{data.doctor_name}</TableCell>
                       <TableCell>{data.complaint}</TableCell>
                       <TableCell>{data.review[0].review}</TableCell>
                     </TableRow>

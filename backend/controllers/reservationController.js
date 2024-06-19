@@ -178,6 +178,7 @@ const getPatientReview = async (req, res) => {
                                 reservation_id: true,
                                 reservation_date: true,
                                 patient_name: true,
+                                doctor_name: true,
                                 complaint: true,
                                 review: {
                                     select: {
