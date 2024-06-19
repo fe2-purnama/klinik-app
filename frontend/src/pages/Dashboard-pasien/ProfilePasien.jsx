@@ -90,7 +90,7 @@ function ProfilePasien() {
 
       setResponseMessage(response.data.message);
     } catch (error) {
-      setResponseError(error.response.data.error);
+      setResponseError(error);
     } finally {
       setLoading(false);
     }
@@ -120,7 +120,8 @@ function ProfilePasien() {
             setResponseError("");
           }}
         >
-          Masukkan password anda
+          Masukkan password anda atau ubah profile yang berbeda dari profile
+          sebelumnya
         </Alert>
       )}
       <form className="bg-white rounded-lg mt-6" onSubmit={handleSubmit}>
